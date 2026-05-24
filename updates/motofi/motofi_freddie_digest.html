@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motofi MVP Digest</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15202b;
+      --muted: #5d6773;
+      --line: #d8dde3;
+      --paper: #f7f5ef;
+      --white: #ffffff;
+      --teal: #0e7c66;
+      --amber: #b36a00;
+      --navy: #13293d;
+      --rust: #9a4a2e;
+      --soft-teal: #dbeee9;
+      --soft-amber: #f4ead9;
+      --soft-rust: #f1e0da;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .hero {
+      min-height: 74svh;
+      display: grid;
+      place-items: center;
+      padding: 56px 24px 44px;
+      background:
+        linear-gradient(90deg, rgba(19, 41, 61, .92), rgba(19, 41, 61, .72)),
+        url("freddie_marketplace_model_options.png") center / cover;
+      color: #fff;
+    }
+
+    .hero-inner {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 56px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #8ed5c4;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+      font-size: clamp(42px, 7vw, 84px);
+      line-height: .95;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+      margin: 22px 0 0;
+      color: rgba(255,255,255,.83);
+      font-size: 18px;
+    }
+
+    .verdict {
+      border-left: 5px solid #19b69b;
+      padding: 18px 0 18px 22px;
+      font-size: 22px;
+      font-weight: 750;
+      max-width: 430px;
+    }
+
+    .verdict span {
+      display: block;
+      margin-top: 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      color: rgba(255,255,255,.78);
+      font-weight: 500;
+    }
+
+    main {
+      overflow: clip;
+    }
+
+    section {
+      padding: 72px 24px;
+    }
+
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--navy);
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 660px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .decision {
+      padding: 26px 26px 28px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .decision + .decision {
+      padding-left: 26px;
+    }
+
+    .decision:last-child {
+      border-right: 0;
+      padding-right: 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 9px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .tag.good { background: var(--soft-teal); color: var(--teal); }
+    .tag.warn { background: var(--soft-amber); color: var(--amber); }
+    .tag.stop { background: var(--soft-rust); color: var(--rust); }
+
+    h3 {
+      margin: 18px 0 8px;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .decision p,
+    .plain-list p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    .image-panel {
+      background: #101820;
+      padding: 18px;
+      border-radius: 6px;
+      box-shadow: 0 18px 40px rgba(19, 41, 61, .14);
+    }
+
+    .image-panel.light {
+      background: var(--navy);
+    }
+
+    .plain-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .plain-row {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 28px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .plain-row strong {
+      color: var(--navy);
+    }
+
+    .flow {
+      background: #fff;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step {
+      counter-increment: step;
+      padding: 24px 22px;
+      min-height: 180px;
+      border-right: 1px solid var(--line);
+    }
+
+    .step:last-child { border-right: 0; }
+
+    .step::before {
+      content: counter(step, decimal-leading-zero);
+      display: block;
+      margin-bottom: 26px;
+      color: var(--teal);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .quote {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .quote .wrap {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    blockquote {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 48px);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .quote p {
+      margin: 0;
+      color: rgba(255,255,255,.76);
+      font-size: 18px;
+    }
+
+    .decision-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      padding: 16px 14px;
+      font-size: 15px;
+    }
+
+    th {
+      color: var(--navy);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      background: #edf1f3;
+    }
+
+    td:first-child {
+      width: 170px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .final {
+      padding-bottom: 96px;
+    }
+
+    .final-line {
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1;
+      max-width: 900px;
+      margin: 0;
+      color: var(--navy);
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .links {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .links a {
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 2px solid var(--teal);
+      font-weight: 750;
+      padding-bottom: 2px;
+    }
+
+    @media (max-width: 860px) {
+      .hero-inner,
+      .section-head,
+      .split,
+      .quote .wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 82svh;
+        place-items: end start;
+      }
+
+      .verdict {
+        max-width: none;
+      }
+
+      .decision-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .decision,
+      .decision + .decision,
+      .step {
+        padding-left: 0;
+        padding-right: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .decision:last-child,
+      .step:last-child {
+        border-bottom: 0;
+      }
+
+      .plain-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      th, td {
+        font-size: 14px;
+        padding: 13px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Motofi MVP digest</p>
+          <h1>Pick the marketplace before building the marketplace.</h1>
+          <p class="hero-copy">The current MVP is still dealer-led, but the latest chat makes the broker-buyer model a real strategic lane.</p>
+        </div>
+        <div class="verdict">
+          My call: build Model A first.
+          <span>Keep Model B visible in the strategy, pricing, and data model. Do not smuggle it into the MVP as extra fields and matching logic.</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>What changed</h2>
+          <p>The new conversation confirms brokers sometimes bring buyers themselves. That makes Model B more than theoretical, but it also changes the product from deal bidding to buyer-to-inventory matching.</p>
+        </div>
+        <div class="decision-grid">
+          <div class="decision">
+            <span class="tag good">Build now</span>
+            <h3>Model A</h3>
+            <p>Dealers post finance needs. Brokers bid. Dealer accepts one. Fastest cold start and cleanest MVP.</p>
+          </div>
+          <div class="decision">
+            <span class="tag warn">Design for later</span>
+            <h3>Model B</h3>
+            <p>Brokers bring pre-qualified buyers. Dealers expose inventory/options. Stronger strategy, heavier product.</p>
+          </div>
+          <div class="decision">
+            <span class="tag stop">Not day one</span>
+            <h3>Model C</h3>
+            <p>Both flows run together. Best network effects, but too much chicken-and-egg for the first usable version.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow">
+      <div class="wrap split">
+        <div>
+          <div class="section-head" style="display:block;margin-bottom:24px">
+            <h2>Why Model A still wins MVP</h2>
+            <p style="margin-top:16px">Model A proves the exchange with less data, less compliance exposure, and fewer moving parts.</p>
+          </div>
+          <div class="plain-list">
+            <div class="plain-row"><strong>Cold start</strong><p>One dealer can post one listing. Brokers can respond without the platform already having inventory depth.</p></div>
+            <div class="plain-row"><strong>Data burden</strong><p>No buyer profile or credit pre-qualification is needed to test the core marketplace.</p></div>
+            <div class="plain-row"><strong>Business story</strong><p>Conquest framing still works: dealers get finance support on deals they may not close anyway.</p></div>
+            <div class="plain-row"><strong>Scope control</strong><p>Bid, accept, contact release, and audit logic are enough for a real pilot.</p></div>
+          </div>
+        </div>
+        <div class="image-panel">
+          <img src="freddie_marketplace_model_options.png" alt="Freddie's comparison of Model A, Model B, and Model C marketplace options" />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>The listing-cap nuance</h2>
+          <p>Fal was right to connect caps with dealer behaviour, and sheep was right that Model B wants dealers to post as many options as possible. Both are true in different models.</p>
+        </div>
+        <table class="decision-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Listing policy</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Model A</td>
+              <td>Cap live finance requests, or use a low pilot limit.</td>
+              <td>Caps force award/cancel hygiene and reduce stale listings or contact farming.</td>
+            </tr>
+            <tr>
+              <td>Model B</td>
+              <td>Allow more inventory/options, probably by account tier.</td>
+              <td>Brokers with buyers need breadth. A hard cap fights the model.</td>
+            </tr>
+            <tr>
+              <td>Model C</td>
+              <td>Use account tiers, quality scoring, and unlock budgets.</td>
+              <td>Both sides need scale, but contact access and low-quality inventory need controls.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="quote">
+      <div class="wrap">
+        <blockquote>Do not treat listing limits as a product constant.</blockquote>
+        <p>They are a business lever. For Model A, limits create urgency and clean outcomes. For Model B, limits should become packaging: Starter, Professional, Network Partner.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div class="image-panel light">
+          <img src="freddie_broker_subscription_tiers.png" alt="Freddie's broker subscription tier sketch with Starter, Professional, and Network Partner pricing" />
+        </div>
+        <div>
+          <div class="section-head" style="display:block;margin-bottom:24px">
+            <h2>Account tiers are useful, but not all launch scope</h2>
+            <p style="margin-top:16px">The tier image gives a pricing story. It should not force AI pre-qual, APIs, dashboards, or white-label portals into the MVP.</p>
+          </div>
+          <div class="plain-list">
+            <div class="plain-row"><strong>Starter</strong><p>Platform access, lender panel, compliance templates. Reasonable pilot packaging.</p></div>
+            <div class="plain-row"><strong>Professional</strong><p>White-label portal, AI pre-qual, Akahu/Veille/PPSR APIs. Strong v2, heavy MVP.</p></div>
+            <div class="plain-row"><strong>Network Partner</strong><p>Multi-seat licence, account manager, dashboards. Enterprise packaging after usage exists.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Build sequence</h2>
+          <p>A digestible MVP path that preserves the option to move toward Model B without paying for it up front.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><strong>Model A pilot</strong><span>Dealer posts finance deal, broker bids, dealer accepts, contacts unlock.</span></div>
+          <div class="step"><strong>Policy layer</strong><span>Add caps, unlock budgets, and account-tier limits as configurable rules.</span></div>
+          <div class="step"><strong>Model B probe</strong><span>Test broker-brought buyer flow manually or with a thin intake form.</span></div>
+          <div class="step"><strong>Combined network</strong><span>Only merge both sides once there is proof of repeat liquidity.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap">
+        <p class="final-line">The next decision is not UI. It is whether Motofi starts as a dealer-posted deal board or a broker-driven buyer network.</p>
+        <div class="links">
+          <a href="motofi_mvp_plan.md">MVP plan</a>
+          <a href="motofi_idea_capture.md">Idea capture</a>
+          <a href="freddie_marketplace_model_options.png">Model diagram</a>
+          <a href="freddie_broker_subscription_tiers.png">Tier sketch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

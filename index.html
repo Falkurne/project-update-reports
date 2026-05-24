@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project update reports</title>
+  <style>
+    :root {
+      --bg: #f2f5f4;
+      --paper: #ffffff;
+      --ink: #14201c;
+      --muted: #5a6a64;
+      --line: #d8e3de;
+      --accent: #08785d;
+      --accent-soft: #e8f3ef;
+      --radius: 12px;
+      --shadow: 0 16px 40px rgba(7, 20, 28, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Inter, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 70% 45% at 100% 0%, rgba(8, 120, 93, 0.08), transparent 55%),
+        var(--bg);
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+
+    header.hero {
+      background: linear-gradient(145deg, #07141c 0%, #0f2a36 55%, #08785d 120%);
+      color: #fff;
+      border-radius: calc(var(--radius) + 2px);
+      padding: 2rem 1.75rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.75rem;
+    }
+
+    header.hero .label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 0.6rem;
+    }
+
+    header.hero h1 {
+      margin: 0 0 0.45rem;
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    header.hero p {
+      margin: 0;
+      max-width: 38rem;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .controls {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .control-row label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      min-width: 4.5rem;
+    }
+
+    .search-wrap {
+      flex: 1 1 220px;
+    }
+
+  input[type="search"],
+  select {
+      width: 100%;
+      font: inherit;
+      font-size: 0.95rem;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    select { width: auto; min-width: 11rem; }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .chip {
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+    .chip.is-active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .stats strong { color: var(--ink); }
+
+    .update-list {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .update-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 4px 18px rgba(7, 20, 28, 0.03);
+      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+
+    .update-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(7, 20, 28, 0.06);
+    }
+
+    .update-card-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      margin-bottom: 0.55rem;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .badge-project {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .badge-category {
+      background: #f4f0ea;
+      color: #7a4e12;
+    }
+
+    .update-card time {
+      margin-left: auto;
+      font-size: 0.82rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .update-card h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .update-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .update-card .meta {
+      margin-top: 0.65rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .empty {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      background: var(--paper);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    .project-panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+
+    .project-card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    .project-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .project-card .count {
+      margin-top: 0.55rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <span class="label">Internal reports</span>
+      <h1>Project update reports</h1>
+      <p>HTML progress updates grouped by project. Filter, sort, and open printable reports for stakeholders.</p>
+    </header>
+
+    <section class="project-panel" id="project-panel" aria-label="Projects"></section>
+
+    <div class="controls">
+      <div class="control-row">
+        <label for="search">Search</label>
+        <div class="search-wrap">
+          <input type="search" id="search" placeholder="Search title, summary, or tags" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="control-row">
+        <label>Project</label>
+        <div class="chip-group" id="project-filters" role="group" aria-label="Filter by project"></div>
+      </div>
+
+      <div class="control-row">
+        <label>Category</label>
+        <div class="chip-group" id="category-filters" role="group" aria-label="Filter by category"></div>
+      </div>
+
+      <div class="control-row">
+        <label for="sort">Sort</label>
+        <select id="sort" aria-label="Sort updates">
+          <option value="date-desc">Date (newest first)</option>
+          <option value="date-asc">Date (oldest first)</option>
+          <option value="title-asc">Title (A to Z)</option>
+          <option value="title-desc">Title (Z to A)</option>
+          <option value="project-asc">Project (A to Z)</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="stats" id="stats" aria-live="polite"></p>
+
+    <div class="update-list" id="update-list"></div>
+
+    <footer>Hosted as a static site. Add new reports under <code>updates/</code> and register them in <code>data/updates.json</code>.</footer>
+  </div>
+
+  <script>
+    const state = {
+      projectId: "all",
+      categoryId: "all",
+      sort: "date-desc",
+      search: ""
+    };
+
+    let projects = [];
+    let categories = [];
+    let updates = [];
+
+    function formatDate(iso) {
+      return new Date(iso + "T12:00:00").toLocaleDateString("en-NZ", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function projectById(id) {
+      return projects.find((item) => item.id === id);
+    }
+
+    function categoryById(id) {
+      return categories.find((item) => item.id === id);
+    }
+
+    function renderProjectPanel() {
+      const panel = document.getElementById("project-panel");
+      panel.innerHTML = projects.map((project) => {
+        const count = updates.filter((item) => item.projectId === project.id).length;
+        return `
+          <article class="project-card" style="border-top: 3px solid ${project.color}">
+            <h3>${project.name}</h3>
+            <p>${project.description}</p>
+            <p class="count">${count} report${count === 1 ? "" : "s"}</p>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderChips(containerId, items, activeId, allLabel) {
+      const container = document.getElementById(containerId);
+      const chips = [
+        { id: "all", label: allLabel },
+        ...items.map((item) => ({ id: item.id, label: item.label || item.shortName || item.name }))
+      ];
+
+      container.innerHTML = chips.map((chip) => `
+        <button type="button" class="chip${chip.id === activeId ? " is-active" : ""}" data-id="${chip.id}">
+          ${chip.label}
+        </button>
+      `).join("");
+
+      container.querySelectorAll(".chip").forEach((button) => {
+        button.addEventListener("click", () => {
+          const key = containerId === "project-filters" ? "projectId" : "categoryId";
+          state[key] = button.dataset.id;
+          renderChips(containerId, items, state[key], allLabel);
+          renderUpdates();
+        });
+      });
+    }
+
+    function filteredUpdates() {
+      const query = state.search.trim().toLowerCase();
+
+      return updates
+        .filter((item) => state.projectId === "all" || item.projectId === state.projectId)
+        .filter((item) => state.categoryId === "all" || item.category === state.categoryId)
+        .filter((item) => {
+          if (!query) return true;
+          const haystack = [
+            item.title,
+            item.summary,
+            item.audience,
+            ...(item.tags || [])
+          ].join(" ").toLowerCase();
+          return haystack.includes(query);
+        });
+    }
+
+    function sortUpdates(list) {
+      const sorted = [...list];
+
+      sorted.sort((a, b) => {
+        const projectA = projectById(a.projectId)?.name || "";
+        const projectB = projectById(b.projectId)?.name || "";
+
+        switch (state.sort) {
+          case "date-asc":
+            return a.date.localeCompare(b.date);
+          case "title-asc":
+            return a.title.localeCompare(b.title);
+          case "title-desc":
+            return b.title.localeCompare(a.title);
+          case "project-asc":
+            return projectA.localeCompare(projectB) || b.date.localeCompare(a.date);
+          case "date-desc":
+          default:
+            return b.date.localeCompare(a.date);
+        }
+      });
+
+      return sorted;
+    }
+
+    function renderUpdates() {
+      const list = sortUpdates(filteredUpdates());
+      const container = document.getElementById("update-list");
+      const stats = document.getElementById("stats");
+
+      stats.innerHTML = `Showing <strong>${list.length}</strong> of <strong>${updates.length}</strong> reports`;
+
+      if (!list.length) {
+        container.innerHTML = `<p class="empty">No reports match your filters. Try another project, category, or search term.</p>`;
+        return;
+      }
+
+      container.innerHTML = list.map((item) => {
+        const project = projectById(item.projectId);
+        const category = categoryById(item.category);
+
+        return `
+          <a class="update-card" href="${item.path}">
+            <div class="update-card-head">
+              <span class="badge badge-project">${project?.shortName || project?.name || item.projectId}</span>
+              <span class="badge badge-category">${category?.label || item.category}</span>
+              <time datetime="${item.date}">${formatDate(item.date)}</time>
+            </div>
+            <h2>${item.title}</h2>
+            <p>${item.summary}</p>
+            <p class="meta">For: ${item.audience}</p>
+          </a>
+        `;
+      }).join("");
+    }
+
+    async function init() {
+      const [projectsRes, updatesRes] = await Promise.all([
+        fetch("/data/projects.json"),
+        fetch("/data/updates.json")
+      ]);
+
+      const projectsData = await projectsRes.json();
+      const updatesData = await updatesRes.json();
+
+      projects = projectsData.projects;
+      categories = projectsData.categories;
+      updates = updatesData.updates;
+
+      renderProjectPanel();
+      renderChips("project-filters", projects, state.projectId, "All projects");
+      renderChips("category-filters", categories, state.categoryId, "All categories");
+
+      document.getElementById("sort").addEventListener("change", (event) => {
+        state.sort = event.target.value;
+        renderUpdates();
+      });
+
+      document.getElementById("search").addEventListener("input", (event) => {
+        state.search = event.target.value;
+        renderUpdates();
+      });
+
+      renderUpdates();
+    }
+
+    init().catch(() => {
+      document.getElementById("update-list").innerHTML =
+        `<p class="empty">Could not load report catalog. Serve this folder with a local server or deploy to Vercel.</p>`;
+    });
+  </script>
+</body>
+</html>

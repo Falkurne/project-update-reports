@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motofi MVP Working Plan</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #5f6a74;
+      --paper: #f7f5ef;
+      --white: #ffffff;
+      --navy: #10283b;
+      --teal: #0e7c66;
+      --teal-soft: #dbeee9;
+      --amber: #a86500;
+      --amber-soft: #f4ead9;
+      --line: #d9dee3;
+      --line-dark: rgba(255,255,255,.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    main { overflow: clip; }
+
+    .wrap {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 52px 0 46px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(16,40,59,.99), rgba(16,40,59,.91)),
+        radial-gradient(circle at 86% 14%, rgba(14,124,102,.28), transparent 34%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 56px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #91ddce;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 18px 0 0;
+      color: rgba(255,255,255,.8);
+      font-size: 19px;
+    }
+
+    .callout {
+      border-left: 5px solid #19b69b;
+      padding: 18px 0 18px 24px;
+      font-size: 23px;
+      font-weight: 830;
+    }
+
+    .callout span {
+      display: block;
+      margin-top: 10px;
+      max-width: 500px;
+      color: rgba(255,255,255,.76);
+      font-size: 15.5px;
+      font-weight: 520;
+    }
+
+    section {
+      padding: 54px 0;
+    }
+
+    section.white { background: var(--white); }
+    section.navy { background: var(--navy); color: #fff; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 52px;
+      align-items: start;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(30px, 4.2vw, 48px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .navy h2 { color: #fff; }
+
+    .section-head p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .navy .section-head p { color: rgba(255,255,255,.72); }
+
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .item {
+      padding: 23px 24px 25px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .item + .item { padding-left: 24px; }
+    .item:last-child { border-right: 0; padding-right: 0; }
+
+    .navy .grid-3,
+    .navy .grid-4,
+    .navy .item {
+      border-color: var(--line-dark);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    .tag.warn {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    h3 {
+      margin: 15px 0 8px;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .navy h3 { color: #fff; }
+
+    p { margin: 0; }
+
+    .item p,
+    .flow-step p,
+    td {
+      color: var(--muted);
+    }
+
+    .navy .item p {
+      color: rgba(255,255,255,.72);
+    }
+
+    .decision-list {
+      border-top: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .decision-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 1fr;
+      gap: 30px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line-dark);
+      align-items: start;
+    }
+
+    .decision-row:last-child { border-bottom: 0; }
+
+    .decision-row h3 {
+      margin: 12px 0 0;
+      font-size: 19px;
+    }
+
+    .decision-row p {
+      color: rgba(255,255,255,.76);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 136px;
+      padding: 16px 14px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      width: 14px;
+      height: 14px;
+      border-top: 2px solid var(--teal);
+      border-right: 2px solid var(--teal);
+      transform: translateY(-50%) rotate(45deg);
+      background: var(--paper);
+      z-index: 2;
+    }
+
+    .flow-step small {
+      display: block;
+      margin-bottom: 16px;
+      color: var(--teal);
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .flow-step strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--navy);
+      font-size: 16px;
+      line-height: 1.12;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      padding: 14px 13px;
+      font-size: 14.5px;
+    }
+
+    th {
+      background: #edf1f3;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    td:first-child {
+      width: 130px;
+      color: var(--navy);
+      font-weight: 850;
+    }
+
+    .pick {
+      color: #858f99;
+      font-style: italic;
+    }
+
+    .note {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-left: 5px solid var(--teal);
+      background: rgba(255,255,255,.72);
+      color: var(--muted);
+    }
+
+    .final-line {
+      max-width: 940px;
+      color: var(--navy);
+      font-size: clamp(31px, 5vw, 56px);
+      font-weight: 850;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    @media print {
+      .hero { padding: 32px 0; }
+      section { padding: 30px 0; }
+      body { background: #fff; }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3,
+      .grid-4,
+      .flow,
+      .decision-row {
+        grid-template-columns: 1fr;
+      }
+
+      .item,
+      .item + .item {
+        padding-left: 0;
+        padding-right: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .item:last-child { border-bottom: 0; }
+
+      .flow-step:not(:last-child)::after {
+        top: auto;
+        right: 50%;
+        bottom: -8px;
+        transform: translateX(50%) rotate(135deg);
+      }
+    }
+
+    @media (max-width: 540px) {
+      .wrap { width: min(100% - 32px, 1160px); }
+      section { padding: 48px 0; }
+      .hero { padding: 40px 0; }
+      th, td { padding: 12px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Motofi MVP working plan</p>
+          <h1>Plan overview and decisions.</h1>
+          <p class="hero-copy">The MVP is a dealer-led finance marketplace with number-plate lookup and payments included from day one.</p>
+        </div>
+        <div class="callout">
+          Recommendations accepted.
+          <span>The MVP choices and build defaults are now locked. Only the exact broker/dealer subscription amounts still need to be filled in.</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Plan overview</h2>
+          <p>Start with Model A: dealers post finance opportunities, brokers bid, the dealer accepts one broker, and the deal is completed off-platform.</p>
+        </div>
+        <div class="grid-4">
+          <div class="item">
+            <span class="tag">Model</span>
+            <h3>Dealer-led first</h3>
+            <p>Model B stays a strategic lane, but the first build should prove one clean dealer-broker match.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Vehicle data</span>
+            <h3>CarJam day one</h3>
+            <p>Dealer enters a plate; Motofi pulls vehicle details to reduce listing friction.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Commercial</span>
+            <h3>Stripe day one</h3>
+            <p>Broker and dealer subscriptions are included from the start; exact prices can be added once agreed.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Role</span>
+            <h3>Intro layer only</h3>
+            <p>Motofi compares offers and unlocks contacts; brokers still complete final finance work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>MVP flow</h2>
+          <p>The business logic should be explainable in one line: plate lookup, listing, bid, accept, contact.</p>
+        </div>
+        <div class="flow" aria-label="Motofi MVP flow diagram">
+          <div class="flow-step">
+            <small>1</small>
+            <strong>Accounts set up</strong>
+            <p>Dealer and broker roles are approved; Stripe supports both subscription types.</p>
+          </div>
+          <div class="flow-step">
+            <small>2</small>
+            <strong>Plate lookup</strong>
+            <p>CarJam fills vehicle details from number plate.</p>
+          </div>
+          <div class="flow-step">
+            <small>3</small>
+            <strong>Dealer posts</strong>
+            <p>Vehicle facts, buyer context, location, deadline.</p>
+          </div>
+          <div class="flow-step">
+            <small>4</small>
+            <strong>Brokers bid</strong>
+            <p>Rate, term, short conditions.</p>
+          </div>
+          <div class="flow-step">
+            <small>5</small>
+            <strong>Dealer compares</strong>
+            <p>Simple ranked list, no noisy auction board.</p>
+          </div>
+          <div class="flow-step">
+            <small>6</small>
+            <strong>Dealer accepts</strong>
+            <p>One broker wins. Listing closes.</p>
+          </div>
+          <div class="flow-step">
+            <small>7</small>
+            <strong>Contacts unlock</strong>
+            <p>Dealer and broker complete off-platform.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="navy">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Decisions made</h2>
+          <p>These are locked for the first MVP unless Freddie or Mike deliberately change direction.</p>
+        </div>
+        <div class="decision-list">
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Dealer-led intro layer</h3>
+            </div>
+            <p>Model A comes first: dealers post opportunities, brokers bid, dealers pick one broker.</p>
+            <p>Motofi is not the lender. Brokers complete the final finance work off-platform.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>CarJam lookup and fallback</h3>
+            </div>
+            <p>Number-plate lookup is day-one scope because it makes listing creation easier.</p>
+            <p>If lookup fails or needs correction, allow dealer manual override and support-only override.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>CarJam stored fields</h3>
+            </div>
+            <p>Store all CarJam vehicle fields except valuation.</p>
+            <p>Odometer should be manual entry only, not pulled as a trusted lookup value.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Stripe subscriptions</h3>
+            </div>
+            <p>Stripe is included from day one for both broker and dealer subscriptions.</p>
+            <p>Require Stripe payment before the paid action goes live.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Buyer finance context</h3>
+            </div>
+            <p>Vehicle-only listing data is not enough for the MVP.</p>
+            <p>Listings should include buyer income or credit band so brokers can make a useful bid.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Semi-sealed bids</h3>
+            </div>
+            <p>Dealers see submitted bids in a clean comparison list.</p>
+            <p>Brokers do not see competitor rates. No open rate board for the first MVP.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Broker visible</h3>
+            </div>
+            <p>Dealers see broker and company identity before accepting.</p>
+            <p>This gives the dealer enough trust context to choose without needing early contact unlock.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Contact after accept</h3>
+            </div>
+            <p>Contact details unlock only after the dealer accepts one broker.</p>
+            <p>No pre-accept reveal, unlock budget, or open contact marketplace in the MVP.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Subscription structure</h3>
+            </div>
+            <p>Create separate monthly subscription plans for brokers and dealers.</p>
+            <p>Exact dollar amounts are TBD, so Stripe price IDs should be configurable rather than hard-coded.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Paid action gates</h3>
+            </div>
+            <p>Require active Stripe payment before the action that creates value goes live.</p>
+            <p>Dealer posting and broker bidding/listing access should be gated by subscription status.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Buyer field format</h3>
+            </div>
+            <p>Use income band and credit band, with optional notes for extra context.</p>
+            <p>Avoid exact income capture and full finance application fields in the MVP.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Bid validation</h3>
+            </div>
+            <p>Use loose MVP validation with required rate, term, and conditions.</p>
+            <p>Tighten min/max rate and term rules later once pilot bid patterns are known.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Only TBD</h2>
+          <p>The product direction is no longer blocked. Pricing amounts can be filled in once Freddie and Mike are ready.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Status</th>
+                <th>MVP handling</th>
+                <th>Who decides</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Subscription dollar amounts</td>
+                <td>Not ready yet</td>
+                <td>Build separate broker and dealer subscription support with configurable Stripe price IDs.</td>
+                <td>Freddie / Mike</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><strong>Confirmed build defaults:</strong> separate broker/dealer subscriptions, subscription gates on dealer posting and broker bidding/access, income band plus credit band with optional notes, and loose bid validation with required rate, term, and conditions.</div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Start plan</h2>
+          <p>Build only what is needed to create one clean dealer-broker match with CarJam and Stripe included.</p>
+        </div>
+        <div class="grid-4">
+          <div class="item">
+            <span class="tag">1</span>
+            <h3>Onboarding</h3>
+            <p>Dealer/broker accounts, approval, configurable Stripe prices, and subscription status checks.</p>
+          </div>
+          <div class="item">
+            <span class="tag">2</span>
+            <h3>Listing creation</h3>
+            <p>Plate lookup via CarJam, manual/support fallback, vehicle facts, buyer income or credit band.</p>
+          </div>
+          <div class="item">
+            <span class="tag">3</span>
+            <h3>Bidding</h3>
+            <p>Brokers submit structured bids. Dealer sees a clean comparison list.</p>
+          </div>
+          <div class="item">
+            <span class="tag">4</span>
+            <h3>Award</h3>
+            <p>Dealer accepts one broker, listing closes, contacts unlock.</p>
+          </div>
+        </div>
+        <p class="final-line" style="margin-top:42px">Next step: build the pilot flow with Stripe prices configurable until Freddie and Mike set the amounts.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motofi Decision Brief For Freddie</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18231f;
+      --muted: #65716d;
+      --paper: #f6f7f4;
+      --white: #ffffff;
+      --forest: #143d34;
+      --blue: #28567a;
+      --teal: #117d68;
+      --teal-soft: #dcefe8;
+      --amber: #a96000;
+      --amber-soft: #faecd5;
+      --rose-soft: #f4e4df;
+      --line: #d9dfdc;
+      --line-dark: rgba(255,255,255,.2);
+      --shadow: 0 18px 42px rgba(24,35,31,.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    main {
+      overflow: clip;
+    }
+
+    .wrap {
+      width: calc(100% - 40px);
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      background:
+        linear-gradient(118deg, rgba(20,61,52,.98), rgba(20,61,52,.9) 56%, rgba(40,86,122,.92)),
+        linear-gradient(90deg, rgba(255,255,255,.08), transparent);
+    }
+
+    .hero-inner {
+      padding: 56px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(280px, .72fr);
+      gap: 44px;
+      align-items: end;
+    }
+
+    .hero-grid > * {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #a7e1d5;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 830px;
+      font-size: 72px;
+      line-height: .98;
+      letter-spacing: 0;
+      overflow-wrap: break-word;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-top: 22px;
+      color: rgba(255,255,255,.82);
+      font-size: 20px;
+      overflow-wrap: break-word;
+    }
+
+    .hero-meta {
+      min-width: 0;
+      display: grid;
+      gap: 13px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 16px;
+      padding-bottom: 13px;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    .meta-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meta-row span {
+      color: rgba(255,255,255,.62);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .meta-row strong {
+      color: #fff;
+      font-size: 15px;
+      line-height: 1.35;
+      overflow-wrap: break-word;
+    }
+
+    .hero-next {
+      margin-top: 46px;
+      border-top: 1px solid rgba(255,255,255,.18);
+      padding-top: 18px;
+      color: rgba(255,255,255,.74);
+      font-size: 14px;
+      overflow-wrap: break-word;
+    }
+
+    section {
+      padding: 56px 0;
+    }
+
+    section.white {
+      background: var(--white);
+    }
+
+    section.forest {
+      background: var(--forest);
+      color: #fff;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: var(--forest);
+      font-size: 42px;
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .forest h2 {
+      color: #fff;
+    }
+
+    .section-head p {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .forest .section-head p {
+      color: rgba(255,255,255,.76);
+    }
+
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .item {
+      min-width: 0;
+      padding: 24px 24px 26px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .item + .item {
+      padding-left: 24px;
+    }
+
+    .item:last-child {
+      padding-right: 0;
+      border-right: 0;
+    }
+
+    .forest .grid-3,
+    .forest .grid-4,
+    .forest .item,
+    .forest .decision-row,
+    .forest .phase,
+    .forest .rule-row {
+      border-color: var(--line-dark);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 4px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tag.blue {
+      background: #dfeaf2;
+      color: var(--blue);
+    }
+
+    .tag.warn {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .tag.rose {
+      background: var(--rose-soft);
+      color: #8c4536;
+    }
+
+    h3 {
+      margin-top: 14px;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .forest h3 {
+      color: #fff;
+    }
+
+    .item p,
+    td,
+    .phase p,
+    .rule-row p,
+    .decision-row p,
+    .source-card p {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .forest .item p,
+    .forest .phase p,
+    .forest .rule-row p,
+    .forest .decision-row p {
+      color: rgba(255,255,255,.76);
+    }
+
+    .decision-list,
+    .rule-list,
+    .timeline {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .forest .decision-list,
+    .forest .rule-list,
+    .forest .timeline {
+      border-color: var(--line-dark);
+    }
+
+    .decision-row {
+      display: grid;
+      grid-template-columns: 230px 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .decision-row:last-child {
+      border-bottom: 0;
+    }
+
+    .decision-row h3 {
+      margin-top: 10px;
+      font-size: 19px;
+    }
+
+    .rule-row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 34px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .rule-row:last-child {
+      border-bottom: 0;
+    }
+
+    .rule-row strong {
+      color: var(--forest);
+      font-size: 17px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      padding: 14px 13px;
+      font-size: 14.5px;
+    }
+
+    th {
+      background: #ebf0ee;
+      color: var(--forest);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      width: 170px;
+      color: var(--forest);
+      font-weight: 850;
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: 140px 260px 1fr;
+      gap: 28px;
+      align-items: start;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .phase:last-child {
+      border-bottom: 0;
+    }
+
+    .phase h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .phase strong {
+      color: var(--forest);
+    }
+
+    .asset-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .source-card {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .source-card img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: #f4f6f3;
+      border: 1px solid var(--line);
+    }
+
+    .source-card h3 {
+      margin-top: 16px;
+      font-size: 20px;
+    }
+
+    .final-line {
+      max-width: 960px;
+      color: var(--forest);
+      font-size: 48px;
+      font-weight: 850;
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .links a {
+      color: var(--forest);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 11px;
+      background: var(--white);
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .links a:hover,
+    .links a:focus-visible {
+      border-color: var(--teal);
+      outline: none;
+    }
+
+    .note {
+      margin-top: 26px;
+      padding: 16px 18px;
+      border-left: 5px solid var(--teal);
+      background: rgba(255,255,255,.76);
+      color: var(--muted);
+    }
+
+    .note strong {
+      color: var(--forest);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        padding: 32px 0;
+      }
+
+      section {
+        padding: 30px 0;
+      }
+
+      .source-card img {
+        height: 190px;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid,
+      .section-head,
+      .decision-row,
+      .rule-row,
+      .phase,
+      .asset-strip {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      h2 {
+        font-size: 34px;
+      }
+
+      .final-line {
+        font-size: 34px;
+      }
+
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .item,
+      .item + .item {
+        padding-left: 0;
+        padding-right: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .item:last-child {
+        border-bottom: 0;
+      }
+
+      .source-card img {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: calc(100% - 32px);
+      }
+
+      .hero-inner {
+        padding: 42px 0 34px;
+      }
+
+      h1 {
+        max-width: 340px;
+        font-size: 32px;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      .hero-copy,
+      .hero-meta,
+      .hero-next {
+        max-width: 340px;
+      }
+
+      .hero-copy,
+      .section-head p {
+        font-size: 15.5px;
+      }
+
+      .hero-grid {
+        gap: 28px;
+      }
+
+      .hero-meta {
+        padding: 18px;
+      }
+
+      .meta-row strong {
+        font-size: 14px;
+      }
+
+      .meta-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      section {
+        padding: 44px 0;
+      }
+
+      .final-line {
+        font-size: 30px;
+      }
+
+      th,
+      td {
+        padding: 12px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Motofi decision brief</p>
+            <h1>Everything decided, and what happens next.</h1>
+            <p class="hero-copy">Prepared for Freddie on 22 May 2026. This is the current decision recap for Motofi's MVP, including the stack, operating rules, and build sequence.</p>
+          </div>
+          <aside class="hero-meta" aria-label="Brief metadata">
+            <div class="meta-row">
+              <span>Audience</span>
+              <strong>Freddie, with Mike and build team context included.</strong>
+            </div>
+            <div class="meta-row">
+              <span>Status</span>
+              <strong>MVP direction is settled enough to start implementation.</strong>
+            </div>
+            <div class="meta-row">
+              <span>Open item</span>
+              <strong>Exact broker and dealer subscription amounts.</strong>
+            </div>
+            <div class="meta-row">
+              <span>Next move</span>
+              <strong>Scaffold the app, wire auth/backend, and build the pilot path.</strong>
+            </div>
+          </aside>
+        </div>
+        <p class="hero-next">One sentence version: build Model A first - dealer posts, brokers bid, dealer accepts one broker, contacts unlock - with CarJam, Stripe, Clerk, Convex, Vercel, Resend, and Pipedrive in the first launch stack.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Current Position</h2>
+          <p>Motofi has moved from exploration into build setup. The MVP should prove a clean dealer-to-broker marketplace match, not every future marketplace model at once.</p>
+        </div>
+        <div class="grid-4">
+          <div class="item">
+            <span class="tag">Model</span>
+            <h3>Model A first</h3>
+            <p>Dealers post finance opportunities. Brokers bid. Dealers choose one broker.</p>
+          </div>
+          <div class="item">
+            <span class="tag blue">Role</span>
+            <h3>Intro layer</h3>
+            <p>Motofi compares conditional offers and unlocks contact. It does not lend or issue final credit decisions.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Scope</span>
+            <h3>One pilot loop</h3>
+            <p>The first release must support account setup, listing creation, bidding, award, and contact unlock.</p>
+          </div>
+          <div class="item">
+            <span class="tag warn">TBD</span>
+            <h3>Pricing amounts</h3>
+            <p>Stripe support is in scope. The exact monthly prices for broker and dealer plans remain open.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="forest">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Decisions Made</h2>
+          <p>These are the working defaults for the MVP. If any of these change, it should be an explicit product decision because each one affects the build shape.</p>
+        </div>
+        <div class="decision-list">
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Dealer-led MVP</h3>
+            </div>
+            <p>Start with Model A: dealers publish vehicle finance opportunities and brokers submit structured bids.</p>
+            <p>Model B and Model C stay visible as future strategy, but they do not enter the first build.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>CarJam day one</h3>
+            </div>
+            <p>Number-plate lookup is included because it reduces dealer listing friction and improves data quality.</p>
+            <p>Store returned vehicle fields except valuation. Odometer remains manual entry only.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Manual fallback</h3>
+            </div>
+            <p>If lookup fails, dealers can continue with manual entry so posting is not blocked.</p>
+            <p>Support users get an override path for corrections and audit trail visibility.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Buyer context included</h3>
+            </div>
+            <p>Vehicle-only listings are too thin for useful broker bids.</p>
+            <p>Use buyer income band, credit band, optional notes, location, and deadline. Avoid a full finance application.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Semi-sealed bidding</h3>
+            </div>
+            <p>Dealers can see bid details. Brokers do not see competitor rates or an open leaderboard.</p>
+            <p>This keeps bidding cleaner and avoids a race-to-the-bottom display in the first release.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Broker identity visible</h3>
+            </div>
+            <p>Dealers see broker name and company before accepting.</p>
+            <p>That gives trust context without revealing phone/email before the dealer commits.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Accept then unlock</h3>
+            </div>
+            <p>Contact details unlock only after the dealer accepts one broker.</p>
+            <p>No pre-accept contact reveal, unlock budget, or open contact marketplace in the MVP.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Stripe subscriptions</h3>
+            </div>
+            <p>Build separate broker and dealer subscription support from day one.</p>
+            <p>Keep Stripe price IDs configurable so final prices can be dropped in later without code changes.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>Paid action gates</h3>
+            </div>
+            <p>Approved dealers need an active subscription before publishing live listings.</p>
+            <p>Approved brokers need an active subscription before accessing live listings and placing bids.</p>
+          </div>
+          <div class="decision-row">
+            <div>
+              <span class="tag">Made</span>
+              <h3>CRM separation</h3>
+            </div>
+            <p>Pipedrive is the business CRM for onboarding, sales follow-up, notes, and pipeline activity.</p>
+            <p>Convex remains the product source of truth for listings, bids, billing state, contact unlocks, and permissions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>MVP Flow</h2>
+          <p>The product should stay explainable in one operational path. Anything that does not help this path should wait unless the pilot proves it is necessary.</p>
+        </div>
+        <div class="grid-4">
+          <div class="item">
+            <span class="tag">1</span>
+            <h3>Account ready</h3>
+            <p>Dealer or broker signs in, has a role, is approved, and has active subscription status.</p>
+          </div>
+          <div class="item">
+            <span class="tag">2</span>
+            <h3>Dealer posts</h3>
+            <p>Dealer uses plate lookup, adds manual odometer, buyer bands, notes, location, and bidding deadline.</p>
+          </div>
+          <div class="item">
+            <span class="tag">3</span>
+            <h3>Brokers bid</h3>
+            <p>Brokers see live listings, submit one active bid per listing, and can edit or withdraw while live.</p>
+          </div>
+          <div class="item">
+            <span class="tag">4</span>
+            <h3>Dealer awards</h3>
+            <p>Dealer compares semi-sealed bids, accepts exactly one, closes the listing, and contact details unlock.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Tech Stack</h2>
+          <p>The chosen stack is intentionally practical: fast to build, familiar enough to maintain, and structured enough for payments, live marketplace state, vehicle lookup, and CRM follow-up.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Decision</th>
+                <th>What it owns</th>
+                <th>Notes for build</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Frontend</td>
+                <td>Vite React + TypeScript</td>
+                <td>Dealer and broker dashboards, forms, bid review, billing/account pages.</td>
+                <td>Keep it app-first: dense tables, forms, modals, filters, and clear status states.</td>
+              </tr>
+              <tr>
+                <td>Styling</td>
+                <td>Tailwind CSS + small internal component set</td>
+                <td>Reusable controls for forms, badges, tables, empty states, modals, and shell layout.</td>
+                <td>Avoid building a large design system before the pilot proves the workflows.</td>
+              </tr>
+              <tr>
+                <td>Backend</td>
+                <td>Convex</td>
+                <td>Listings, bids, users, organisations, subscriptions, audit events, contact unlocks, and server actions.</td>
+                <td>Convex is the marketplace source of truth and runs private integrations.</td>
+              </tr>
+              <tr>
+                <td>Auth</td>
+                <td>Clerk</td>
+                <td>Sign-up, sign-in, sessions, user profile, and identity handoff to Convex permissions.</td>
+                <td>Use roles for dealer, broker, and support. Require approval before paid marketplace activity.</td>
+              </tr>
+              <tr>
+                <td>Hosting</td>
+                <td>Vercel</td>
+                <td>Preview deployments, production frontend hosting, and final domain routing.</td>
+                <td>Keep environment values separated for development, preview, and production.</td>
+              </tr>
+              <tr>
+                <td>Payments</td>
+                <td>Stripe Billing</td>
+                <td>Broker/dealer subscriptions, customer records, subscription status, and webhook events.</td>
+                <td>Use configurable price IDs. Do not hard-code subscription amounts in product logic.</td>
+              </tr>
+              <tr>
+                <td>Vehicle lookup</td>
+                <td>CarJam API</td>
+                <td>Server-side number-plate lookup and returned vehicle data storage.</td>
+                <td>API key stays in Convex. Store fields flexibly until response shape is known.</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>Resend</td>
+                <td>Bid received, bid accepted, listing closed, contact unlock, support/admin notifications.</td>
+                <td>Email improves pilot reliability, but in-app status should still work if email is delayed.</td>
+              </tr>
+              <tr>
+                <td>CRM</td>
+                <td>Pipedrive</td>
+                <td>Dealer/broker pipeline, onboarding follow-up, relationship notes, activities, and sales stages.</td>
+                <td>Sync selected lifecycle events from Convex. Do not let CRM overwrite marketplace-critical state.</td>
+              </tr>
+              <tr>
+                <td>Monitoring</td>
+                <td>Vercel analytics + Convex logs + Stripe webhook logs</td>
+                <td>Pilot-level visibility into app usage, backend errors, and billing events.</td>
+                <td>Enough for launch without overbuilding observability.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Build Rules</h2>
+          <p>These rules matter more than specific screens. They are the invariants the app should enforce from the first pilot release.</p>
+        </div>
+        <div class="rule-list">
+          <div class="rule-row">
+            <strong>Only approved users can act</strong>
+            <p>Dealers and brokers can sign in, but approval controls marketplace activity.</p>
+          </div>
+          <div class="rule-row">
+            <strong>Only subscribed users can create value</strong>
+            <p>Dealer posting and broker listing access/bidding are gated by Stripe subscription status once pricing is live.</p>
+          </div>
+          <div class="rule-row">
+            <strong>One active broker bid per listing</strong>
+            <p>A broker can edit the bid they have, not stack several active offers on the same listing.</p>
+          </div>
+          <div class="rule-row">
+            <strong>Competitor rates stay hidden</strong>
+            <p>Brokers do not see other broker rates while a listing is live.</p>
+          </div>
+          <div class="rule-row">
+            <strong>Dealer accepts exactly one bid</strong>
+            <p>Acceptance closes the listing, prevents later bids, and creates a contact unlock record.</p>
+          </div>
+          <div class="rule-row">
+            <strong>Contact unlock follows award</strong>
+            <p>Winning broker and dealer receive each other's contact details only after acceptance.</p>
+          </div>
+          <div class="rule-row">
+            <strong>Support actions are auditable</strong>
+            <p>CarJam overrides, account approval changes, subscription diagnostics, and listing corrections should leave a trail.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="forest">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Not In The MVP</h2>
+          <p>The architecture should not block these later, but they should not slow the first pilot build.</p>
+        </div>
+        <div class="grid-4">
+          <div class="item">
+            <span class="tag rose">Later</span>
+            <h3>Model B matching</h3>
+            <p>No buyer profiles, buyer pre-qualification workflow, inventory matching, or broker-led buyer marketplace in v1.</p>
+          </div>
+          <div class="item">
+            <span class="tag rose">Later</span>
+            <h3>Credit checks</h3>
+            <p>No bureau integration, binding lending decision, or full finance application stored in the MVP.</p>
+          </div>
+          <div class="item">
+            <span class="tag rose">Later</span>
+            <h3>Open auction board</h3>
+            <p>No public leaderboard and no broker visibility into competitor rates.</p>
+          </div>
+          <div class="item">
+            <span class="tag rose">Later</span>
+            <h3>Native mobile app</h3>
+            <p>Responsive web first. Mobile-specific apps wait until the pilot proves repeated usage.</p>
+          </div>
+        </div>
+        <div class="note"><strong>Scope guard:</strong> Model B is a credible strategic lane because brokers may bring buyers, but it changes the product into an inventory and pre-qualified demand marketplace. Keep the schema flexible, but do not build Model B workflows into this MVP.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Launch Roadmap</h2>
+          <p>The implementation plan is phased so Freddie and Mike can see progress at each stage instead of waiting for one large reveal.</p>
+        </div>
+        <div class="timeline">
+          <div class="phase">
+            <h3>Phase 0</h3>
+            <p><strong>Foundation</strong></p>
+            <p>Create the Vite app, Convex project, Clerk setup, Tailwind, routing, environment templates, and Vercel preview deploy.</p>
+          </div>
+          <div class="phase">
+            <h3>Phase 1</h3>
+            <p><strong>Accounts and billing</strong></p>
+            <p>Dealer/broker/support roles, account approval, Stripe customer/subscription sync, route guards, paid action gates, and Pipedrive account links.</p>
+          </div>
+          <div class="phase">
+            <h3>Phase 2</h3>
+            <p><strong>Dealer listing creation</strong></p>
+            <p>CarJam lookup, manual odometer, failed lookup fallback, buyer bands, notes, location, deadline, and publish flow.</p>
+          </div>
+          <div class="phase">
+            <h3>Phase 3</h3>
+            <p><strong>Broker marketplace</strong></p>
+            <p>Live listings, listing detail, structured bid form, one active bid rule, edit/withdraw, and competitor rate hiding.</p>
+          </div>
+          <div class="phase">
+            <h3>Phase 4</h3>
+            <p><strong>Award and contact unlock</strong></p>
+            <p>Dealer bid comparison, accept confirmation, listing closure, winning contact snapshots, and losing broker states.</p>
+          </div>
+          <div class="phase">
+            <h3>Phase 5</h3>
+            <p><strong>Support hardening</strong></p>
+            <p>Account approval view, CarJam corrections, audit trail, subscription diagnostics, CRM links, error states, and demo data.</p>
+          </div>
+          <div class="phase">
+            <h3>Phase 6</h3>
+            <p><strong>Controlled pilot</strong></p>
+            <p>Production services, smoke test with dealer/broker/support accounts, pilot invites, onboarding copy, and support checklist.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Immediate Next Steps</h2>
+          <p>These are the first practical moves to get from planning assets into a real pilot app.</p>
+        </div>
+        <div class="grid-3">
+          <div class="item">
+            <span class="tag">Build</span>
+            <h3>Scaffold the repo</h3>
+            <p>Create `apps/web`, add Vite React, TypeScript, Tailwind, Convex, Clerk, routing, and baseline UI components.</p>
+          </div>
+          <div class="item">
+            <span class="tag blue">Backend</span>
+            <h3>Define the schema</h3>
+            <p>Create Convex tables for users, organisations, subscriptions, listings, CarJam lookups, bids, contact unlocks, CRM links, and audit events.</p>
+          </div>
+          <div class="item">
+            <span class="tag warn">Ops</span>
+            <h3>Set service access</h3>
+            <p>Prepare development values for Clerk, Convex, Stripe test mode, CarJam, Resend, Pipedrive, and Vercel.</p>
+          </div>
+        </div>
+        <div class="note"><strong>Build can start now:</strong> exact subscription prices should not block engineering. Use Stripe product/price IDs from configuration and fill the real amounts once Freddie and Mike choose them.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Needs From Freddie</h2>
+          <p>The product direction is no longer blocked, but these decisions and inputs will make the pilot cleaner.</p>
+        </div>
+        <div class="grid-4">
+          <div class="item">
+            <span class="tag warn">Decision</span>
+            <h3>Subscription prices</h3>
+            <p>Confirm broker and dealer monthly amounts, even if the first pilot uses a controlled introductory price.</p>
+          </div>
+          <div class="item">
+            <span class="tag blue">Access</span>
+            <h3>Service ownership</h3>
+            <p>Confirm who owns Stripe, Clerk, Convex, Vercel, CarJam, Resend, and Pipedrive accounts.</p>
+          </div>
+          <div class="item">
+            <span class="tag">Pilot</span>
+            <h3>First users</h3>
+            <p>Provide a small target list of dealers and brokers so onboarding, approval, and feedback loops can be tested.</p>
+          </div>
+          <div class="item">
+            <span class="tag rose">Review</span>
+            <h3>Legal language</h3>
+            <p>Before public launch, review intro-only positioning, privacy wording, terms, and contact-use expectations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Reference Assets</h2>
+          <p>Freddie's diagrams remain useful as strategy and packaging context. They should guide future positioning without expanding MVP scope by accident.</p>
+        </div>
+        <div class="asset-strip">
+          <article class="source-card">
+            <img src="freddie_marketplace_model_options.png" alt="Freddie's Model A, Model B, and Model C marketplace comparison" />
+            <h3>Marketplace model options</h3>
+            <p>Model A is the first MVP. Model B is a real future lane. Model C is a longer-range combined marketplace vision.</p>
+          </article>
+          <article class="source-card">
+            <img src="freddie_broker_subscription_tiers.png" alt="Freddie's broker subscription tier sketch" />
+            <h3>Subscription tier sketch</h3>
+            <p>The tier story is useful for packaging, but AI pre-qualification, APIs, dashboards, and white-label portals are later features.</p>
+          </article>
+        </div>
+        <div class="links" aria-label="Related project documents">
+          <a href="motofi_mvp_plan_full.html">MVP working plan</a>
+          <a href="motofi_project_update_mike_freddie.html">Project update</a>
+          <a href="../docs/motofi_infrastructure_launch_roadmap.md">Infrastructure roadmap</a>
+          <a href="motofi_freddie_digest.html">Freddie digest</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Next Move</h2>
+          <p>The next step is no longer another strategy pass. It is a build foundation that keeps pricing configurable and keeps Model B available later without pulling it into v1.</p>
+        </div>
+        <p class="final-line">Start the Vite, Convex, and Clerk scaffold; define the marketplace schema; wire Stripe test subscriptions; then build the dealer listing to broker bid to contact unlock path.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

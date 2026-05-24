@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0f0e;
+    --surface: #161714;
+    --surface2: #1e1f1c;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6df;
+    --muted: #7a7870;
+    --accent: #c8f060;
+    --accent-dim: rgba(200,240,96,0.12);
+    --accent-dim2: rgba(200,240,96,0.06);
+    --red: #ff5c5c;
+    --amber: #f0a940;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  body { background: var(--bg); color: var(--text); font-family: var(--font-mono); font-size: 13px; min-height: 100vh; line-height: 1.5; }
+
+  .shell { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 52px 1fr; min-height: 100vh; }
+
+  .topbar { grid-column: 1 / -1; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; justify-content: space-between; }
+  .logo { font-family: var(--font-head); font-weight: 800; font-size: 18px; letter-spacing: -0.5px; color: var(--accent); }
+  .logo span { color: var(--text); }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .sub-badge { font-size: 11px; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(200,240,96,0.2); padding: 3px 10px; border-radius: 20px; }
+  .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); font-family: var(--font-head); font-weight: 600; }
+
+  .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 4px; }
+  .nav-label { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; padding: 0 20px; margin: 12px 0 6px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 20px; color: var(--muted); cursor: pointer; font-size: 13px; transition: all 0.15s; border-left: 2px solid transparent; }
+  .nav-item:hover { color: var(--text); background: var(--accent-dim2); }
+  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim2); }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+  .nav-count { margin-left: auto; font-size: 10px; background: var(--accent-dim); color: var(--accent); padding: 1px 7px; border-radius: 10px; }
+
+  .main { padding: 28px 32px; overflow-y: auto; background: var(--bg); }
+
+  /* Back nav */
+  .back-nav { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; margin-bottom: 20px; cursor: pointer; width: fit-content; }
+  .back-nav:hover { color: var(--text); }
+
+  /* Deal summary banner */
+  .deal-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .deal-banner::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--red);
+  }
+
+  .deal-banner-left { display: flex; flex-direction: column; gap: 10px; }
+
+  .deal-banner-title {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .deal-banner-meta { display: flex; gap: 24px; }
+
+  .bm-item { display: flex; flex-direction: column; gap: 2px; }
+  .bm-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .bm-value { font-size: 13px; color: var(--text); }
+
+  .timer-block { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .timer-large { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: var(--red); letter-spacing: -1px; }
+  .timer-label { font-size: 11px; color: var(--muted); }
+  .timer-dot-inline { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 1s ease-in-out infinite; vertical-align: middle; margin-right: 4px; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .section-title { font-family: var(--font-head); font-size: 15px; font-weight: 700; }
+  .section-sub { font-size: 11px; color: var(--muted); }
+
+  /* Bid cards */
+  .bids-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .bid-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.15s;
+  }
+
+  .bid-card:hover { border-color: var(--border2); }
+
+  .bid-card.winner {
+    border-color: rgba(200,240,96,0.3);
+    background: var(--accent-dim2);
+  }
+
+  .bid-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--border2);
+  }
+
+  .bid-card.winner::before { background: var(--accent); }
+  .bid-card.rank-2::before { background: var(--amber); }
+  .bid-card.rank-3::before { background: var(--muted); }
+
+  .bid-inner {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .rank {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .bid-card.winner .rank { color: var(--accent); }
+  .bid-card.rank-2 .rank { color: var(--amber); }
+
+  .bid-details { display: flex; flex-direction: column; gap: 10px; }
+
+  .broker-row { display: flex; align-items: center; gap: 10px; }
+
+  .broker-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .bid-card.winner .broker-avatar { background: var(--accent-dim); color: var(--accent); border-color: rgba(200,240,96,0.3); }
+
+  .broker-name { font-family: var(--font-head); font-size: 14px; font-weight: 700; }
+  .broker-company { font-size: 11px; color: var(--muted); margin-left: 2px; }
+
+  .bid-figures { display: flex; gap: 20px; }
+
+  .fig-item { display: flex; flex-direction: column; gap: 2px; }
+  .fig-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+  .fig-value { font-size: 14px; font-family: var(--font-mono); color: var(--text); }
+  .fig-value.rate { font-family: var(--font-head); font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .bid-card.winner .fig-value.rate { color: var(--accent); }
+  .bid-card.rank-2 .fig-value.rate { color: var(--amber); }
+
+  .bid-note {
+    font-size: 11px;
+    color: var(--muted);
+    padding: 0 20px 14px 72px;
+    font-style: italic;
+  }
+
+  /* Action area */
+  .bid-action { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+
+  .accept-btn {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 13px;
+    background: var(--accent);
+    color: #0e0f0e;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 18px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+
+  .accept-btn:hover { opacity: 0.85; }
+
+  .accept-btn.ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border2);
+    font-weight: 700;
+  }
+
+  .accept-btn.ghost:hover { color: var(--text); border-color: var(--border2); }
+
+  .monthly-repay { font-size: 11px; color: var(--muted); text-align: right; }
+  .monthly-repay span { color: var(--text); }
+
+  /* Winner modal overlay */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid rgba(200,240,96,0.25);
+    border-radius: 14px;
+    padding: 32px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: slideUp 0.2s ease;
+  }
+
+  @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .modal-icon { font-size: 28px; }
+
+  .modal-title { font-family: var(--font-head); font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .modal-title span { color: var(--accent); }
+
+  .modal-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  .contact-reveal {
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,240,96,0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-row { display: flex; justify-content: space-between; align-items: center; }
+  .contact-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+  .contact-value { font-size: 13px; color: var(--accent); font-family: var(--font-mono); }
+
+  .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .modal-btn {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    transition: opacity 0.15s;
+  }
+
+  .modal-btn.primary { background: var(--accent); color: #0e0f0e; }
+  .modal-btn.secondary { background: var(--surface2); color: var(--muted); border: 1px solid var(--border2); }
+  .modal-btn:hover { opacity: 0.85; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="logo">Moto<span>Fi</span></div>
+    <div class="topbar-right">
+      <div class="sub-badge">Active · $10/mo</div>
+      <div class="avatar">NW</div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="nav-label">Deals</div>
+    <div class="nav-item"><div class="nav-dot"></div> Post a deal</div>
+    <div class="nav-item active"><div class="nav-dot"></div> Active listings <div class="nav-count">3</div></div>
+    <div class="nav-item"><div class="nav-dot"></div> Closed deals</div>
+    <div class="nav-label">Account</div>
+    <div class="nav-item"><div class="nav-dot"></div> Yard profile</div>
+    <div class="nav-item"><div class="nav-dot"></div> Subscription</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <div class="back-nav">← Active listings</div>
+
+    <!-- Deal summary banner -->
+    <div class="deal-banner">
+      <div class="deal-banner-left">
+        <div class="deal-banner-title">2021 Toyota Hilux SR5 &nbsp;<span style="font-size:14px;color:var(--muted);font-family:var(--font-mono);font-weight:400">GHT492</span></div>
+        <div class="deal-banner-meta">
+          <div class="bm-item"><div class="bm-label">Sale price</div><div class="bm-value">$38,500</div></div>
+          <div class="bm-item"><div class="bm-label">Loan amount</div><div class="bm-value">$36,500</div></div>
+          <div class="bm-item"><div class="bm-label">Odometer</div><div class="bm-value">62,400 km</div></div>
+          <div class="bm-item"><div class="bm-label">Income band</div><div class="bm-value">$80k - $100k</div></div>
+          <div class="bm-item"><div class="bm-label">Employment</div><div class="bm-value">Full-time</div></div>
+          <div class="bm-item"><div class="bm-label">Term sought</div><div class="bm-value">60 months</div></div>
+        </div>
+      </div>
+      <div class="timer-block">
+        <div class="timer-large"><span class="timer-dot-inline"></span>1:42:09</div>
+        <div class="timer-label">remaining on this listing</div>
+      </div>
+    </div>
+
+    <!-- Bids -->
+    <div class="section-header">
+      <div class="section-title">4 bids received</div>
+      <div class="section-sub">Ranked by lowest interest rate</div>
+    </div>
+
+    <div class="bids-list">
+
+      <!-- Bid 1 - best -->
+      <div class="bid-card winner">
+        <div class="bid-inner">
+          <div class="rank">#1</div>
+          <div class="bid-details">
+            <div class="broker-row">
+              <div class="broker-avatar">JK</div>
+              <div>
+                <span class="broker-name">James Keane</span>
+                <span class="broker-company">· Pacific Finance Group</span>
+              </div>
+            </div>
+            <div class="bid-figures">
+              <div class="fig-item"><div class="fig-label">Interest rate</div><div class="fig-value rate">6.9%</div></div>
+              <div class="fig-item"><div class="fig-label">Term</div><div class="fig-value">60 months</div></div>
+              <div class="fig-item"><div class="fig-label">Total repayable</div><div class="fig-value">$43,820</div></div>
+            </div>
+          </div>
+          <div class="bid-action">
+            <button class="accept-btn" onclick="openModal('James Keane', 'Pacific Finance Group', '6.9%', 'james.keane@pacificfinance.co.nz', '021 456 789')">Accept bid</button>
+            <div class="monthly-repay">est. <span>$730/mo</span></div>
+          </div>
+        </div>
+        <div class="bid-note">"Happy to proceed, subject to standard credit check. Can settle within 48 hours."</div>
+      </div>
+
+      <!-- Bid 2 -->
+      <div class="bid-card rank-2">
+        <div class="bid-inner">
+          <div class="rank">#2</div>
+          <div class="bid-details">
+            <div class="broker-row">
+              <div class="broker-avatar">SR</div>
+              <div>
+                <span class="broker-name">Sarah Reid</span>
+                <span class="broker-company">· NZ Motor Finance</span>
+              </div>
+            </div>
+            <div class="bid-figures">
+              <div class="fig-item"><div class="fig-label">Interest rate</div><div class="fig-value rate">7.4%</div></div>
+              <div class="fig-item"><div class="fig-label">Term</div><div class="fig-value">60 months</div></div>
+              <div class="fig-item"><div class="fig-label">Total repayable</div><div class="fig-value">$44,990</div></div>
+            </div>
+          </div>
+          <div class="bid-action">
+            <button class="accept-btn ghost" onclick="openModal('Sarah Reid', 'NZ Motor Finance', '7.4%', 'sarah.reid@nzmotorfinance.co.nz', '027 312 004')">Accept bid</button>
+            <div class="monthly-repay">est. <span>$749/mo</span></div>
+          </div>
+        </div>
+        <div class="bid-note">"Conditional on full-time employment verification. Quick turnaround guaranteed."</div>
+      </div>
+
+      <!-- Bid 3 -->
+      <div class="bid-card rank-3">
+        <div class="bid-inner">
+          <div class="rank">#3</div>
+          <div class="bid-details">
+            <div class="broker-row">
+              <div class="broker-avatar">MT</div>
+              <div>
+                <span class="broker-name">Mike Taufa</span>
+                <span class="broker-company">· Prestige Lending</span>
+              </div>
+            </div>
+            <div class="bid-figures">
+              <div class="fig-item"><div class="fig-label">Interest rate</div><div class="fig-value rate">7.9%</div></div>
+              <div class="fig-item"><div class="fig-label">Term</div><div class="fig-value">48 months</div></div>
+              <div class="fig-item"><div class="fig-label">Total repayable</div><div class="fig-value">$43,100</div></div>
+            </div>
+          </div>
+          <div class="bid-action">
+            <button class="accept-btn ghost" onclick="openModal('Mike Taufa', 'Prestige Lending', '7.9%', 'm.taufa@prestigelending.co.nz', '09 888 3210')">Accept bid</button>
+            <div class="monthly-repay">est. <span>$898/mo</span></div>
+          </div>
+        </div>
+        <div class="bid-note">"Can offer shorter term for lower total cost. Flexible on conditions."</div>
+      </div>
+
+      <!-- Bid 4 -->
+      <div class="bid-card">
+        <div class="bid-inner">
+          <div class="rank" style="color:var(--muted)">#4</div>
+          <div class="bid-details">
+            <div class="broker-row">
+              <div class="broker-avatar">AL</div>
+              <div>
+                <span class="broker-name">Amy Liu</span>
+                <span class="broker-company">· Horizon Finance NZ</span>
+              </div>
+            </div>
+            <div class="bid-figures">
+              <div class="fig-item"><div class="fig-label">Interest rate</div><div class="fig-value rate" style="font-size:18px">8.5%</div></div>
+              <div class="fig-item"><div class="fig-label">Term</div><div class="fig-value">60 months</div></div>
+              <div class="fig-item"><div class="fig-label">Total repayable</div><div class="fig-value">$46,200</div></div>
+            </div>
+          </div>
+          <div class="bid-action">
+            <button class="accept-btn ghost" onclick="openModal('Amy Liu', 'Horizon Finance NZ', '8.5%', 'amy.liu@horizonfinance.co.nz', '021 700 541')">Accept bid</button>
+            <div class="monthly-repay">est. <span>$770/mo</span></div>
+          </div>
+        </div>
+        <div class="bid-note">"No conditions attached. Funds available immediately on acceptance."</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Accept modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">🤝</div>
+    <div>
+      <div class="modal-title">Accept <span id="modal-broker">James Keane</span>'s bid?</div>
+    </div>
+    <div class="modal-body">
+      Once you accept, this listing closes and the broker's contact details are released to you. All other bids are automatically declined.
+    </div>
+    <div class="contact-reveal">
+      <div class="contact-row">
+        <div class="contact-label">Broker</div>
+        <div class="contact-value" id="modal-company">Pacific Finance Group</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Rate agreed</div>
+        <div class="contact-value" id="modal-rate">6.9%</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Email</div>
+        <div class="contact-value" id="modal-email">james.keane@pacificfinance.co.nz</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value" id="modal-phone">021 456 789</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal()">Go back</button>
+      <button class="modal-btn primary" onclick="closeModal()">Confirm acceptance</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(broker, company, rate, email, phone) {
+    document.getElementById('modal-broker').textContent = broker;
+    document.getElementById('modal-company').textContent = company;
+    document.getElementById('modal-rate').textContent = rate;
+    document.getElementById('modal-email').textContent = email;
+    document.getElementById('modal-phone').textContent = phone;
+    document.getElementById('modal').classList.add('show');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+
+  // Live countdown
+  let secs = 6129;
+  function tick() {
+    secs--;
+    if (secs < 0) secs = 0;
+    const h = Math.floor(secs / 3600);
+    const m = Math.floor((secs % 3600) / 60);
+    const s = secs % 60;
+    document.querySelector('.timer-large').innerHTML = `<span class="timer-dot-inline"></span>${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>

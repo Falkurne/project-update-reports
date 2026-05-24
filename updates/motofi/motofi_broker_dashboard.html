@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0f0e;
+    --surface: #161714;
+    --surface2: #1e1f1c;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6df;
+    --muted: #7a7870;
+    --accent: #c8f060;
+    --accent-dim: rgba(200,240,96,0.12);
+    --accent-dim2: rgba(200,240,96,0.06);
+    --red: #ff5c5c;
+    --amber: #f0a940;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* Layout */
+  .shell {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 52px 1fr;
+    min-height: 100vh;
+  }
+
+  /* Topbar */
+  .topbar {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+  }
+
+  .logo span { color: var(--text); }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .sub-badge {
+    font-size: 11px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid rgba(200,240,96,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: var(--font-mono);
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--font-head);
+    font-weight: 600;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 20px;
+    margin: 12px 0 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-item:hover { color: var(--text); background: var(--accent-dim2); }
+
+  .nav-item.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--accent-dim2);
+  }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  .nav-count {
+    margin-left: auto;
+    font-size: 10px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    padding: 1px 7px;
+    border-radius: 10px;
+  }
+
+  /* Main */
+  .main {
+    padding: 28px 32px;
+    overflow-y: auto;
+    background: var(--bg);
+  }
+
+  .page-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .page-title {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .page-title span {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--font-mono);
+    margin-left: 10px;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .filter-pill {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    background: var(--surface);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-pill.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+  /* Listings grid */
+  .listings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .listing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .listing-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--border2);
+    transition: background 0.15s;
+  }
+
+  .listing-card:hover { border-color: var(--border2); }
+  .listing-card:hover::before { background: var(--accent); }
+  .listing-card.hot::before { background: var(--amber); }
+  .listing-card.urgent::before { background: var(--red); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .vehicle-name {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .plate-tag {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .status-tag {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .status-live { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(200,240,96,0.2); }
+  .status-hot { background: rgba(240,169,64,0.12); color: var(--amber); border: 1px solid rgba(240,169,64,0.2); }
+  .status-closing { background: rgba(255,92,92,0.1); color: var(--red); border: 1px solid rgba(255,92,92,0.2); }
+
+  .card-meta {
+    display: flex;
+    gap: 24px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .meta-value {
+    font-size: 14px;
+    color: var(--text);
+    font-family: var(--font-mono);
+  }
+
+  .meta-value.big {
+    font-size: 16px;
+    font-family: var(--font-head);
+    font-weight: 700;
+  }
+
+  /* Bid panel */
+  .bid-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    min-width: 180px;
+  }
+
+  .timer {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .timer-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .timer.urgent-time .timer-dot { background: var(--red); }
+  .timer.urgent-time { color: var(--red); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .bids-count {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .bid-btn {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--accent);
+    color: #0e0f0e;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: -0.2px;
+    transition: opacity 0.15s;
+  }
+
+  .bid-btn:hover { opacity: 0.88; }
+
+  .bid-btn.placed {
+    background: var(--surface2);
+    color: var(--accent);
+    border: 1px solid rgba(200,240,96,0.2);
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-family: var(--font-head);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+  }
+
+  .stat-value.accent { color: var(--accent); }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0 12px;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="logo">Moto<span>Fi</span></div>
+    <div class="topbar-right">
+      <div class="sub-badge">Active · $10/mo</div>
+      <div class="avatar">JK</div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="nav-label">Marketplace</div>
+    <div class="nav-item active"><div class="nav-dot"></div> Live listings <div class="nav-count">14</div></div>
+    <div class="nav-item"><div class="nav-dot"></div> My bids <div class="nav-count">3</div></div>
+    <div class="nav-item"><div class="nav-dot"></div> Won deals</div>
+
+    <div class="nav-label">Account</div>
+    <div class="nav-item"><div class="nav-dot"></div> Profile</div>
+    <div class="nav-item"><div class="nav-dot"></div> Subscription</div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+
+    <div class="page-header">
+      <div class="page-title">Live listings <span>14 open deals</span></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Bids placed</div>
+        <div class="stat-value accent">3</div>
+        <div class="stat-sub">this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Deals won</div>
+        <div class="stat-value">7</div>
+        <div class="stat-sub">all time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg loan size</div>
+        <div class="stat-value">$24k</div>
+        <div class="stat-sub">won deals</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Closing soon</div>
+        <div class="stat-value accent">2</div>
+        <div class="stat-sub">under 2 hrs</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-pill active">All</div>
+      <div class="filter-pill">Under $20k</div>
+      <div class="filter-pill">$20k - $40k</div>
+      <div class="filter-pill">$40k+</div>
+      <div class="filter-pill">Closing soon</div>
+      <div class="filter-pill">No bids yet</div>
+    </div>
+
+    <!-- Listings -->
+    <div class="listings">
+
+      <!-- Card 1 - urgent -->
+      <div class="listing-card urgent">
+        <div>
+          <div class="card-top">
+            <div class="vehicle-name">2021 Toyota Hilux SR5</div>
+            <div class="plate-tag">GHT492</div>
+            <div class="status-tag status-closing">Closing in 1h 42m</div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-label">Sale price</div>
+              <div class="meta-value big">$38,500</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Odometer</div>
+              <div class="meta-value">62,400 km</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Income band</div>
+              <div class="meta-value">$80k - $100k</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Loan term</div>
+              <div class="meta-value">60 months</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Yard</div>
+              <div class="meta-value">NorthWest Auto</div>
+            </div>
+          </div>
+        </div>
+        <div class="bid-panel">
+          <div class="timer urgent-time"><div class="timer-dot"></div> 1h 42m left</div>
+          <div class="bids-count">4 bids placed</div>
+          <button class="bid-btn">Place bid</button>
+        </div>
+      </div>
+
+      <!-- Card 2 - bid placed -->
+      <div class="listing-card hot">
+        <div>
+          <div class="card-top">
+            <div class="vehicle-name">2019 Mazda CX-5 GSX</div>
+            <div class="plate-tag">LMK881</div>
+            <div class="status-tag status-hot">Your bid: 7.4%</div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-label">Sale price</div>
+              <div class="meta-value big">$24,900</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Odometer</div>
+              <div class="meta-value">48,100 km</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Income band</div>
+              <div class="meta-value">$60k - $80k</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Loan term</div>
+              <div class="meta-value">48 months</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Yard</div>
+              <div class="meta-value">City Cars Auckland</div>
+            </div>
+          </div>
+        </div>
+        <div class="bid-panel">
+          <div class="timer"><div class="timer-dot"></div> 18h 20m left</div>
+          <div class="bids-count">6 bids placed</div>
+          <button class="bid-btn placed">Edit bid</button>
+        </div>
+      </div>
+
+      <!-- Card 3 - live -->
+      <div class="listing-card">
+        <div>
+          <div class="card-top">
+            <div class="vehicle-name">2022 Ford Ranger XLT</div>
+            <div class="plate-tag">PQR774</div>
+            <div class="status-tag status-live">Live</div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-label">Sale price</div>
+              <div class="meta-value big">$44,200</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Odometer</div>
+              <div class="meta-value">19,800 km</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Income band</div>
+              <div class="meta-value">$100k+</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Loan term</div>
+              <div class="meta-value">60 months</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Yard</div>
+              <div class="meta-value">Peninsula Motors</div>
+            </div>
+          </div>
+        </div>
+        <div class="bid-panel">
+          <div class="timer"><div class="timer-dot"></div> 31h 05m left</div>
+          <div class="bids-count">2 bids placed</div>
+          <button class="bid-btn">Place bid</button>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="listing-card">
+        <div>
+          <div class="card-top">
+            <div class="vehicle-name">2020 Mitsubishi Outlander LS</div>
+            <div class="plate-tag">BVC203</div>
+            <div class="status-tag status-live">Live</div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-item">
+              <div class="meta-label">Sale price</div>
+              <div class="meta-value big">$21,000</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Odometer</div>
+              <div class="meta-value">74,200 km</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Income band</div>
+              <div class="meta-value">$50k - $70k</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Loan term</div>
+              <div class="meta-value">36 months</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Yard</div>
+              <div class="meta-value">Southside Auto</div>
+            </div>
+          </div>
+        </div>
+        <div class="bid-panel">
+          <div class="timer"><div class="timer-dot"></div> 41h 30m left</div>
+          <div class="bids-count">1 bid placed</div>
+          <button class="bid-btn">Place bid</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

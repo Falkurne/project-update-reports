@@ -1,0 +1,47 @@
+{
+  "projects": [
+    {
+      "id": "eloanz",
+      "name": "ELoanz Website",
+      "shortName": "ELoanz",
+      "description": "Static marketing and lead-capture site for a NZ vehicle finance brokerage.",
+      "color": "#08785d",
+      "accent": "#e8f3ef"
+    },
+    {
+      "id": "motofi",
+      "name": "Motofi Marketplace",
+      "shortName": "Motofi",
+      "description": "Dealer-led vehicle finance marketplace MVP planning and build docs.",
+      "color": "#0d7d68",
+      "accent": "#dcefe9"
+    }
+  ],
+  "categories": [
+    {
+      "id": "stakeholder-update",
+      "label": "Stakeholder update",
+      "description": "Progress summaries for clients and stakeholders."
+    },
+    {
+      "id": "progress-report",
+      "label": "Progress report",
+      "description": "Detailed build status and milestone tracking."
+    },
+    {
+      "id": "meeting-prep",
+      "label": "Meeting prep",
+      "description": "Agendas, decision tables, and discussion notes."
+    },
+    {
+      "id": "technical-note",
+      "label": "Technical note",
+      "description": "Implementation details, deploy notes, and references."
+    },
+    {
+      "id": "ui-mockup",
+      "label": "UI mockup",
+      "description": "Screen flows, wireframes, and dashboard concepts."
+    }
+  ]
+}

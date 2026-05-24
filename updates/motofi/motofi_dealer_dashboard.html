@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0f0e;
+    --surface: #161714;
+    --surface2: #1e1f1c;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e6df;
+    --muted: #7a7870;
+    --accent: #c8f060;
+    --accent-dim: rgba(200,240,96,0.12);
+    --accent-dim2: rgba(200,240,96,0.06);
+    --red: #ff5c5c;
+    --amber: #f0a940;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 52px 1fr;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    justify-content: space-between;
+  }
+
+  .logo { font-family: var(--font-head); font-weight: 800; font-size: 18px; letter-spacing: -0.5px; color: var(--accent); }
+  .logo span { color: var(--text); }
+
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+
+  .sub-badge { font-size: 11px; background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(200,240,96,0.2); padding: 3px 10px; border-radius: 20px; }
+
+  .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); font-family: var(--font-head); font-weight: 600; }
+
+  .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 4px; }
+
+  .nav-label { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; padding: 0 20px; margin: 12px 0 6px; }
+
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 20px; color: var(--muted); cursor: pointer; font-size: 13px; transition: all 0.15s; border-left: 2px solid transparent; }
+  .nav-item:hover { color: var(--text); background: var(--accent-dim2); }
+  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim2); }
+
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+  .nav-count { margin-left: auto; font-size: 10px; background: var(--accent-dim); color: var(--accent); padding: 1px 7px; border-radius: 10px; }
+
+  .main { padding: 28px 32px; overflow-y: auto; background: var(--bg); display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; }
+
+  .page-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 20px; }
+  .page-title span { color: var(--muted); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: 10px; }
+
+  /* Post a deal form */
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .form-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-title { font-family: var(--font-head); font-size: 16px; font-weight: 700; }
+  .form-step { font-size: 11px; color: var(--muted); }
+
+  .form-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  input, select {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+
+  input:focus, select:focus { border-color: var(--accent); }
+  input::placeholder { color: var(--muted); }
+
+  select option { background: var(--surface2); }
+
+  /* Plate lookup result */
+  .plate-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end; }
+
+  .lookup-btn {
+    background: var(--accent);
+    color: #0e0f0e;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  .lookup-btn:hover { opacity: 0.85; }
+
+  .vehicle-result {
+    background: var(--accent-dim2);
+    border: 1px solid rgba(200,240,96,0.15);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .result-item { display: flex; flex-direction: column; gap: 2px; }
+  .result-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .result-value { font-size: 13px; color: var(--accent); font-family: var(--font-mono); }
+
+  .carjam-tag { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Deadline toggle */
+  .deadline-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .deadline-opt {
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .deadline-opt:hover { border-color: var(--accent); }
+  .deadline-opt.selected { border-color: var(--accent); background: var(--accent-dim); }
+
+  .deadline-opt .opt-title { font-family: var(--font-head); font-weight: 700; font-size: 14px; }
+  .deadline-opt .opt-sub { font-size: 11px; color: var(--muted); }
+  .deadline-opt.selected .opt-sub { color: var(--accent); opacity: 0.7; }
+
+  .submit-btn {
+    background: var(--accent);
+    color: #0e0f0e;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    letter-spacing: -0.3px;
+    width: 100%;
+    transition: opacity 0.15s;
+    margin-top: 4px;
+  }
+  .submit-btn:hover { opacity: 0.88; }
+
+  /* Active listings panel */
+  .panel-title { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+
+  .deal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .deal-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+  }
+
+  .deal-card.has-bids::before { background: var(--accent); }
+  .deal-card.no-bids::before { background: var(--border2); }
+  .deal-card.closing::before { background: var(--red); }
+
+  .deal-top {
+    padding: 14px 18px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .deal-name { font-family: var(--font-head); font-size: 14px; font-weight: 700; }
+
+  .deal-plate { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .bids-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+  }
+
+  .bids-badge.active { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(200,240,96,0.2); }
+  .bids-badge.none { background: var(--surface2); color: var(--muted); border: 1px solid var(--border2); }
+  .bids-badge.closing { background: rgba(255,92,92,0.1); color: var(--red); border: 1px solid rgba(255,92,92,0.2); }
+
+  .deal-meta {
+    padding: 0 18px 14px;
+    display: flex;
+    gap: 20px;
+  }
+
+  .dm-item { display: flex; flex-direction: column; gap: 1px; }
+  .dm-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .dm-value { font-size: 13px; color: var(--text); }
+
+  .deal-footer {
+    border-top: 1px solid var(--border);
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .timer { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .timer-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulse 1.5s ease-in-out infinite; }
+  .timer.closing-time .timer-dot { background: var(--red); }
+  .timer.closing-time { color: var(--red); }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .view-bids-btn {
+    font-size: 12px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .left-col { display: flex; flex-direction: column; }
+  .right-col { display: flex; flex-direction: column; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .stat-value { font-family: var(--font-head); font-size: 22px; font-weight: 800; letter-spacing: -1px; }
+  .stat-value.accent { color: var(--accent); }
+
+  .section-divider { height: 1px; background: var(--border); margin: 4px 0 20px; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="logo">Moto<span>Fi</span></div>
+    <div class="topbar-right">
+      <div class="sub-badge">Active · $10/mo</div>
+      <div class="avatar">NW</div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="nav-label">Deals</div>
+    <div class="nav-item active"><div class="nav-dot"></div> Post a deal</div>
+    <div class="nav-item"><div class="nav-dot"></div> Active listings <div class="nav-count">3</div></div>
+    <div class="nav-item"><div class="nav-dot"></div> Closed deals</div>
+
+    <div class="nav-label">Account</div>
+    <div class="nav-item"><div class="nav-dot"></div> Yard profile</div>
+    <div class="nav-item"><div class="nav-dot"></div> Subscription</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Left: Post a deal form -->
+    <div class="left-col">
+      <div class="page-title">Post a deal</div>
+
+      <div class="form-card">
+        <div class="form-header">
+          <div class="form-title">New listing</div>
+          <div class="form-step">Step 1 of 1</div>
+        </div>
+        <div class="form-body">
+
+          <!-- Plate lookup -->
+          <div class="field-group">
+            <label>Plate number</label>
+            <div class="plate-row">
+              <input type="text" placeholder="e.g. GHT492" value="LMK881" style="text-transform:uppercase;letter-spacing:0.1em;font-weight:500"/>
+              <button class="lookup-btn">Look up</button>
+            </div>
+          </div>
+
+          <!-- Vehicle result from Carjam -->
+          <div class="vehicle-result">
+            <div class="result-item">
+              <div class="result-label">Make / Model</div>
+              <div class="result-value">Mazda CX-5 GSX</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">Year</div>
+              <div class="result-value">2019</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">Odometer</div>
+              <div class="result-value">48,100 km</div>
+            </div>
+            <div style="grid-column:1/-1">
+              <div class="carjam-tag">via Carjam · NZ registered · WOF current</div>
+            </div>
+          </div>
+
+          <!-- Deal details -->
+          <div class="field-row">
+            <div class="field-group">
+              <label>Sale price</label>
+              <input type="text" placeholder="$0.00" value="$24,900"/>
+            </div>
+            <div class="field-group">
+              <label>Deposit amount</label>
+              <input type="text" placeholder="$0.00" value="$2,000"/>
+            </div>
+          </div>
+
+          <!-- Buyer info -->
+          <div class="field-row">
+            <div class="field-group">
+              <label>Buyer income band</label>
+              <select>
+                <option>$40k - $60k</option>
+                <option selected>$60k - $80k</option>
+                <option>$80k - $100k</option>
+                <option>$100k+</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Employment type</label>
+              <select>
+                <option selected>Full-time employed</option>
+                <option>Self-employed</option>
+                <option>Part-time</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label>Loan term sought</label>
+              <select>
+                <option>24 months</option>
+                <option>36 months</option>
+                <option selected>48 months</option>
+                <option>60 months</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Credit profile</label>
+              <select>
+                <option selected>Good (no known issues)</option>
+                <option>Fair (minor issues)</option>
+                <option>Unknown</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Deadline -->
+          <div class="field-group">
+            <label>Bidding window</label>
+            <div class="deadline-options">
+              <div class="deadline-opt" onclick="selectDeadline(this)">
+                <div class="opt-title">24 hours</div>
+                <div class="opt-sub">Fast turnaround</div>
+              </div>
+              <div class="deadline-opt selected" onclick="selectDeadline(this)">
+                <div class="opt-title">48 hours</div>
+                <div class="opt-sub">More bids, better rate</div>
+              </div>
+            </div>
+          </div>
+
+          <button class="submit-btn">Post to marketplace</button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Active listings -->
+    <div class="right-col">
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Active deals</div>
+          <div class="stat-value accent">3</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total bids</div>
+          <div class="stat-value">11</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Closed</div>
+          <div class="stat-value">24</div>
+        </div>
+      </div>
+
+      <div class="panel-title">Active listings</div>
+
+      <!-- Deal 1 - closing soon, bids -->
+      <div class="deal-card closing">
+        <div class="deal-top">
+          <div>
+            <div class="deal-name">2021 Toyota Hilux SR5</div>
+            <div class="deal-plate">GHT492 · $38,500</div>
+          </div>
+          <div class="bids-badge closing">4 bids · closing soon</div>
+        </div>
+        <div class="deal-meta">
+          <div class="dm-item"><div class="dm-label">Best rate</div><div class="dm-value" style="color:var(--accent)">6.9%</div></div>
+          <div class="dm-item"><div class="dm-label">Loan</div><div class="dm-value">$36,500</div></div>
+          <div class="dm-item"><div class="dm-label">Term</div><div class="dm-value">60 months</div></div>
+        </div>
+        <div class="deal-footer">
+          <div class="timer closing-time"><div class="timer-dot"></div>1h 42m remaining</div>
+          <button class="view-bids-btn">View bids →</button>
+        </div>
+      </div>
+
+      <!-- Deal 2 - bids -->
+      <div class="deal-card has-bids">
+        <div class="deal-top">
+          <div>
+            <div class="deal-name">2019 Mazda CX-5 GSX</div>
+            <div class="deal-plate">LMK881 · $24,900</div>
+          </div>
+          <div class="bids-badge active">6 bids</div>
+        </div>
+        <div class="deal-meta">
+          <div class="dm-item"><div class="dm-label">Best rate</div><div class="dm-value" style="color:var(--accent)">7.1%</div></div>
+          <div class="dm-item"><div class="dm-label">Loan</div><div class="dm-value">$22,900</div></div>
+          <div class="dm-item"><div class="dm-label">Term</div><div class="dm-value">48 months</div></div>
+        </div>
+        <div class="deal-footer">
+          <div class="timer"><div class="timer-dot"></div>18h 20m remaining</div>
+          <button class="view-bids-btn">View bids →</button>
+        </div>
+      </div>
+
+      <!-- Deal 3 - no bids yet -->
+      <div class="deal-card no-bids">
+        <div class="deal-top">
+          <div>
+            <div class="deal-name">2022 Ford Ranger XLT</div>
+            <div class="deal-plate">PQR774 · $44,200</div>
+          </div>
+          <div class="bids-badge none">No bids yet</div>
+        </div>
+        <div class="deal-meta">
+          <div class="dm-item"><div class="dm-label">Best rate</div><div class="dm-value" style="color:var(--muted)">—</div></div>
+          <div class="dm-item"><div class="dm-label">Loan</div><div class="dm-value">$40,200</div></div>
+          <div class="dm-item"><div class="dm-label">Term</div><div class="dm-value">60 months</div></div>
+        </div>
+        <div class="deal-footer">
+          <div class="timer"><div class="timer-dot"></div>31h 05m remaining</div>
+          <button class="view-bids-btn" style="color:var(--muted)">View bids →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function selectDeadline(el) {
+  document.querySelectorAll('.deadline-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
+</body>
+</html>

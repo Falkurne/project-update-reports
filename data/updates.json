@@ -1,0 +1,103 @@
+{
+  "updates": [
+    {
+      "id": "motofi-2026-05-22-decision-brief",
+      "projectId": "motofi",
+      "title": "Motofi decision brief for Freddie",
+      "date": "2026-05-22",
+      "category": "meeting-prep",
+      "summary": "Decision recap for the Motofi MVP stack, operating rules, and build sequence.",
+      "path": "/updates/motofi/motofi_freddie_decision_brief.html",
+      "audience": "Freddie",
+      "tags": ["mvp", "decisions", "stack"]
+    },
+    {
+      "id": "motofi-2026-05-21-project-update",
+      "projectId": "motofi",
+      "title": "Motofi project update for Mike and Freddie",
+      "date": "2026-05-21",
+      "category": "stakeholder-update",
+      "summary": "MVP decisions locked. Ready to scaffold build with subscription pricing still open.",
+      "path": "/updates/motofi/motofi_project_update_mike_freddie.html",
+      "audience": "Mike and Freddie",
+      "tags": ["mvp", "build-setup", "model-a"]
+    },
+    {
+      "id": "eloanz-2026-05-20-stakeholder",
+      "projectId": "eloanz",
+      "title": "ELoanz website progress update",
+      "date": "2026-05-20",
+      "category": "stakeholder-update",
+      "summary": "Four pages built. Lead capture and analytics still blocked before launch.",
+      "path": "/updates/eloanz/2026-05-20-stakeholder-update.html",
+      "audience": "Freddie and stakeholders",
+      "tags": ["launch", "lead-capture", "compliance"]
+    },
+    {
+      "id": "motofi-2026-05-18-mvp-plan",
+      "projectId": "motofi",
+      "title": "Motofi MVP working plan",
+      "date": "2026-05-18",
+      "category": "progress-report",
+      "summary": "Full MVP scope for a dealer-led finance marketplace with plate lookup and payments.",
+      "path": "/updates/motofi/motofi_mvp_plan_full.html",
+      "audience": "Build team and stakeholders",
+      "tags": ["mvp", "scope", "model-a"]
+    },
+    {
+      "id": "motofi-2026-05-18-digest",
+      "projectId": "motofi",
+      "title": "Motofi MVP digest",
+      "date": "2026-05-18",
+      "category": "stakeholder-update",
+      "summary": "Plain-language MVP summary with Model A focus and broker-buyer strategy notes.",
+      "path": "/updates/motofi/motofi_freddie_digest.html",
+      "audience": "Freddie",
+      "tags": ["mvp", "model-a", "model-b"]
+    },
+    {
+      "id": "motofi-2026-05-18-screen-flow",
+      "projectId": "motofi",
+      "title": "Motofi Model A screen flow",
+      "date": "2026-05-18",
+      "category": "ui-mockup",
+      "summary": "Full screen flow from dealer signup through broker winning a deal.",
+      "path": "/updates/motofi/motofi_model_a_screen_flow.html",
+      "audience": "Product and build team",
+      "tags": ["model-a", "screen-flow", "ux"]
+    },
+    {
+      "id": "motofi-2026-05-18-broker-dashboard",
+      "projectId": "motofi",
+      "title": "Motofi broker dashboard mockup",
+      "date": "2026-05-18",
+      "category": "ui-mockup",
+      "summary": "Broker dashboard concept for listings, bids, and active deals.",
+      "path": "/updates/motofi/motofi_broker_dashboard.html",
+      "audience": "Product and build team",
+      "tags": ["broker", "dashboard", "ui"]
+    },
+    {
+      "id": "motofi-2026-05-18-dealer-dashboard",
+      "projectId": "motofi",
+      "title": "Motofi dealer dashboard mockup",
+      "date": "2026-05-18",
+      "category": "ui-mockup",
+      "summary": "Dealer dashboard concept for posting opportunities and reviewing bids.",
+      "path": "/updates/motofi/motofi_dealer_dashboard.html",
+      "audience": "Product and build team",
+      "tags": ["dealer", "dashboard", "ui"]
+    },
+    {
+      "id": "motofi-2026-05-18-view-bids",
+      "projectId": "motofi",
+      "title": "Motofi view bids mockup",
+      "date": "2026-05-18",
+      "category": "ui-mockup",
+      "summary": "Dealer bid comparison screen for reviewing broker offers on a listing.",
+      "path": "/updates/motofi/motofi_view_bids.html",
+      "audience": "Product and build team",
+      "tags": ["dealer", "bids", "ui"]
+    }
+  ]
+}
