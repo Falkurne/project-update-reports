@@ -12,7 +12,7 @@ Linear is the source of truth for active work.
 
 GitHub is the source of truth for code and reviewable change.
 
-`project-update-reports` is the source of truth for client/stakeholder progress reports.
+`client_All_Project-Reports` is the source of truth for client/stakeholder progress reports.
 
 ## Default workflow
 

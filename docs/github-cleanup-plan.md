@@ -16,16 +16,16 @@ Corbyn used readable prefixes with title-style project names:
 
 - `Falkurne/client_All_Project-Reports`
   - Purpose: static reporting hub and automated draft client updates.
-  - Local clone: `/home/falkae/Projects/project-update-reports`
+  - Local clone: `/home/falkae/Projects/client_All_Project-Reports`
   - Local remote: updated.
 - `Falkurne/client_Motofi_Broker-Marketplace`
   - Purpose: Motofi broker marketplace MVP.
-  - Local clone: `/home/falkae/Projects/Motofi`
+  - Local clone: `/home/falkae/Projects/client_Motofi_Broker-Marketplace`
   - Local remote: updated.
   - Reporting source map: updated.
 - `Falkurne/client_Eloanz_Website`
   - Purpose: ELoanz website and enquiry funnel.
-  - Local clone: `/home/falkae/Projects/eastpoint-finance-landing`
+  - Local clone: `/home/falkae/Projects/client_Eloanz_Website`
   - Local remote: updated.
   - Reporting source map: updated.
 
@@ -51,4 +51,4 @@ The older empty/duplicate/archive candidates from the initial plan are no longer
 2. Consider archiving these retained legacy repos if they should be read-only:
    - `Falkurne/Zz_Client_TGS_Website`
    - `Falkurne/Zz_Client_EFF_Mobile-App`
-3. If Corbyn wants local folder names to match GitHub names later, rename the local directories and update any scripts/cron workdirs. Current local names still work.
+3. Local folder names now match the active GitHub repo names, and the draft report cron job workdir has been updated.

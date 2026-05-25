@@ -5,7 +5,7 @@ Static hub for HTML progress updates across client projects. Built for Vercel ho
 ## Location
 
 ```
-c:\Users\Corbyn\A_Repo\project-update-reports
+c:\Users\Corbyn\A_Repo\client_All_Project-Reports
 ```
 
 This folder sits outside the ELoanz workspace so update reports can live in their own repo.
@@ -13,7 +13,7 @@ This folder sits outside the ELoanz workspace so update reports can live in thei
 ## Structure
 
 ```
-project-update-reports/
+client_All_Project-Reports/
   index.html              Homepage with search, filters, and sorting
   data/
     projects.json         Project categories and report types
@@ -33,7 +33,7 @@ project-update-reports/
 ## Generate a draft report from Linear + GitHub
 
 ```bash
-cd /home/falkae/Projects/project-update-reports
+cd /home/falkae/Projects/client_All_Project-Reports
 python3 scripts/generate_update.py --write
 ```
 
@@ -87,7 +87,7 @@ Defined in `data/projects.json`:
 ## Local preview
 
 ```bash
-cd "c:\Users\Corbyn\A_Repo\project-update-reports"
+cd "c:\Users\Corbyn\A_Repo\client_All_Project-Reports"
 npx --yes serve .
 ```
 
@@ -95,14 +95,14 @@ Open `http://localhost:3000`.
 
 ## Deploy to Vercel
 
-1. Create a new GitHub repo (for example `project-update-reports`).
+1. Create a new GitHub repo (for example `client_All_Project-Reports`).
 2. Push this folder:
 
 ```bash
-cd "c:\Users\Corbyn\A_Repo\project-update-reports"
+cd "c:\Users\Corbyn\A_Repo\client_All_Project-Reports"
 git add .
 git commit -m "Initial project update reports hub"
-git remote add origin https://github.com/YOUR_USER/project-update-reports.git
+git remote add origin https://github.com/YOUR_USER/client_All_Project-Reports.git
 git push -u origin main
 ```
 
@@ -115,7 +115,7 @@ Or use the Vercel CLI:
 
 ```bash
 npm i -g vercel
-cd "c:\Users\Corbyn\A_Repo\project-update-reports"
+cd "c:\Users\Corbyn\A_Repo\client_All_Project-Reports"
 vercel
 ```
 

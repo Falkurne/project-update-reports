@@ -8,14 +8,14 @@ This file now reflects the repos currently visible through `gh repo list Falkurn
 
 - [x] `Falkurne/client_All_Project-Reports`
   - Status: active reporting hub and automation.
-  - Local remote updated: `/home/falkae/Projects/project-update-reports`.
+  - Local clone and remote updated: `/home/falkae/Projects/client_All_Project-Reports`.
 - [x] `Falkurne/client_Motofi_Broker-Marketplace`
   - Status: active paid Motofi marketplace MVP.
-  - Local remote updated: `/home/falkae/Projects/Motofi`.
+  - Local clone and remote updated: `/home/falkae/Projects/client_Motofi_Broker-Marketplace`.
   - Reporting source map updated.
 - [x] `Falkurne/client_Eloanz_Website`
   - Status: active paid ELoanz website.
-  - Local remote updated: `/home/falkae/Projects/eastpoint-finance-landing`.
+  - Local clone and remote updated: `/home/falkae/Projects/client_Eloanz_Website`.
   - Reporting source map updated.
 - [x] `Falkurne/client_O2D_Chat-Simulator`
   - Status: retained client repo.
