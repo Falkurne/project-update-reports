@@ -1,118 +1,66 @@
-# GitHub Archive/Delete Review Checklist
+# GitHub Repository Cleanup Status
 
-Generated: 2026-05-25
+Updated: 2026-05-25 after Corbyn's rename/delete pass.
 
-This checklist is intentionally conservative. No repos should be deleted without Corbyn approving them one-by-one.
+This file now reflects the repos currently visible through `gh repo list Falkurne --limit 200`.
 
-## Recommended active/keep
+## Current active/keep repos
 
-- [ ] `Falkurne/project-update-reports`
-  - Action: keep
-  - Reason: active reporting hub and automation.
-- [ ] `Falkurne/Motofi`
-  - Action: keep/rename to `client-motofi-marketplace`
-  - Reason: active paid marketplace MVP.
-- [ ] `Falkurne/eastpoint-finance-landing`
-  - Action: keep/rename to `client-eloanz-landing`
-  - Reason: active paid ELoanz website work.
-- [ ] `Falkurne/gw2-legendary-tracker`
-  - Action: keep/rename if First Legendary remains active.
-- [ ] `Falkurne/Corbyn.net-Website`
-  - Action: keep/rename to `personal-corbyn-net`.
-- [ ] `Falkurne/command-center`
-  - Action: keep/rename to `personal-command-center` if still useful.
+- [x] `Falkurne/client_All_Project-Reports`
+  - Status: active reporting hub and automation.
+  - Local remote updated: `/home/falkae/Projects/project-update-reports`.
+- [x] `Falkurne/client_Motofi_Broker-Marketplace`
+  - Status: active paid Motofi marketplace MVP.
+  - Local remote updated: `/home/falkae/Projects/Motofi`.
+  - Reporting source map updated.
+- [x] `Falkurne/client_Eloanz_Website`
+  - Status: active paid ELoanz website.
+  - Local remote updated: `/home/falkae/Projects/eastpoint-finance-landing`.
+  - Reporting source map updated.
+- [x] `Falkurne/client_O2D_Chat-Simulator`
+  - Status: retained client repo.
+- [x] `Falkurne/personal_GW2_Legendary-Tracker`
+  - Status: retained personal/product repo.
+- [x] `Falkurne/personal_Command-Center`
+  - Status: retained personal system repo.
+- [x] `Falkurne/personal_Corbyn.net_Website`
+  - Status: retained personal website repo.
 
-## Recommended archive first
+## Current archive/legacy repos
 
-Archive means retained but read-only/out of the way.
+- [ ] `Falkurne/Zz_Client_TGS_Website`
+  - Status: retained legacy/TGS client repo.
+  - Suggested next action: archive in GitHub if it should be read-only.
+- [x] `Falkurne/Zz_Archived_personal-openclaw`
+  - Status: already archived in GitHub.
+- [ ] `Falkurne/Zz_Client_EFF_Mobile-App`
+  - Status: retained old client repo.
+  - Suggested next action: archive if not active.
 
-- [ ] `Falkurne/TGS-Website`
-  - Size: ~50 MB
-  - Reason: historical TGS site; keep only as reference unless Corbyn wants deletion.
-- [ ] `Falkurne/openclaw-tgs`
-  - Size: ~99 MB
-  - Reason: TGS-related agent setup; archive preferred before deletion because it is large and likely contains environment/context history.
-- [ ] `Falkurne/openclaw-personal`
-  - Size: tiny
-  - Reason: old agent setup; archive unless superseded and no longer useful.
-- [ ] `Falkurne/eff-mobile-app`
-  - Reason: old EFF app/client project; archive unless client relationship/work is still active.
-- [ ] `Falkurne/Shopify-OnfarmHarvest`
-  - Reason: old OnFarm Harvest/Shopify family; archive unless definitely disposable.
-- [ ] `Falkurne/Shopify-OnFarmHarvest---Dawn-Theme`
-  - Reason: theme repo; archive unless definitely disposable.
-- [ ] `Falkurne/OFH-CONVEX`
-  - Reason: OnFarm Harvest backend/app family; archive unless definitely disposable.
-- [ ] `Falkurne/OFH-ST`
-  - Reason: OnFarm Harvest app/theme family; archive unless definitely disposable.
-- [ ] `Falkurne/5055482-Corbyn-Ridler-BIT706-Assignment1`
-  - Reason: assignment archive/sentimental/reference value only.
-- [ ] `Falkurne/5055482-Corbyn-Ridler-BIT706-Assignment2`
-  - Reason: assignment archive/sentimental/reference value only.
-- [ ] `Falkurne/BIT504_AT2_TaskB`
-  - Reason: assignment archive/sentimental/reference value only.
+## Deleted or no longer visible
 
-## Strong delete candidates after confirmation
+These repos were in the previous checklist but are no longer returned by GitHub, so Corbyn appears to have deleted or otherwise removed them:
 
-These look empty, duplicate, tiny, or generated. Confirm before deleting.
+- `Falkurne/O2D-Chat`
+- `Falkurne/TGS_Brandy-in-Marketing`
+- `Falkurne/TGS`
+- `Falkurne/Fal-Default`
+- `Falkurne/knowledge`
+- `Falkurne/Warp-Oz-Cloud-Agent`
+- `Falkurne/antigravity-trigger-dev-main`
+- `Falkurne/vol`
+- `Falkurne/openclaw-tgs`
+- `Falkurne/Shopify-OnfarmHarvest`
+- `Falkurne/Shopify-OnFarmHarvest---Dawn-Theme`
+- `Falkurne/OFH-CONVEX`
+- `Falkurne/OFH-ST`
+- `Falkurne/5055482-Corbyn-Ridler-BIT706-Assignment1`
+- `Falkurne/5055482-Corbyn-Ridler-BIT706-Assignment2`
+- `Falkurne/BIT504_AT2_TaskB`
 
-- [ ] `Falkurne/O2D-Chat`
-  - Size: 0 KB
-  - Reason: likely empty shell or duplicate of `O2D-Chat-mvp`.
-- [ ] `Falkurne/TGS_Brandy-in-Marketing`
-  - Size: 0 KB
-  - Reason: likely empty/historical TGS repo.
-- [ ] `Falkurne/TGS`
-  - Size: 0 KB
-  - Reason: likely empty/historical TGS repo.
-- [ ] `Falkurne/Fal-Default`
-  - Size: 0 KB
-  - Reason: likely generated/default placeholder.
-- [ ] `Falkurne/knowledge`
-  - Size: 0 KB
-  - Reason: likely empty; keep only if it has non-GitHub-linked value elsewhere.
-- [ ] `Falkurne/Warp-Oz-Cloud-Agent`
-  - Size: ~1 KB
-  - Reason: tiny infrastructure experiment; inspect before deleting.
-- [ ] `Falkurne/antigravity-trigger-dev-main`
-  - Size: ~137 KB
-  - Reason: likely generated experiment/scaffold; inspect before deleting.
-- [ ] `Falkurne/vol`
-  - Size: ~107 KB
-  - Reason: old C++ repo; likely delete unless personally meaningful.
+## Remaining suggested cleanup
 
-## Needs Corbyn decision
-
-- [ ] `Falkurne/O2D-Chat-mvp`
-  - Size: ~5.3 MB
-  - Action: keep/rename to `product-o2d-chat-mvp`, archive, or delete depending whether the idea is still alive.
-- [ ] `Falkurne/Gaming`
-  - Size: ~19 KB
-  - Action: keep if useful for gaming/server notes; otherwise archive/delete.
-
-## Safe execution order
-
-1. Archive confirmed historical repos first.
-2. Rename active keepers after reporting source maps are ready to update.
-3. Re-check local clones under `~/Projects` and update remotes.
-4. Delete only repos Corbyn explicitly marks from the strong delete candidates list.
-
-## Commands after approval
-
-Archive:
-
-```bash
-gh repo archive Falkurne/<repo> --yes
-```
-
-Delete:
-
-```bash
-gh repo delete Falkurne/<repo> --yes
-```
-
-Rename:
-
-```bash
-gh repo rename <new-name> --repo Falkurne/<old-name>
-```
+1. Archive `Zz_Client_TGS_Website` if it is retained only for reference.
+2. Archive `Zz_Client_EFF_Mobile-App` if not active.
+3. Consider whether `client_O2D_Chat-Simulator` should be active, archived, or renamed again later.
+4. Keep `client_All_Project-Reports`, `client_Motofi_Broker-Marketplace`, and `client_Eloanz_Website` wired into reporting automation.

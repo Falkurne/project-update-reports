@@ -5,7 +5,7 @@
       "displayName": "ELoanz website",
       "clientAudience": "Freddie and Mike",
       "linearProject": "Eloanz - Car Fianance Brokeridge Website and landing pages",
-      "githubRepos": ["Falkurne/eastpoint-finance-landing"],
+      "githubRepos": ["Falkurne/client_Eloanz_Website"],
       "defaultTags": ["eloanz", "website", "client-facing"]
     },
     {
@@ -13,7 +13,7 @@
       "displayName": "Motofi marketplace",
       "clientAudience": "Freddie and Mike",
       "linearProject": "Motofi - broker marketplace",
-      "githubRepos": ["Falkurne/Motofi"],
+      "githubRepos": ["Falkurne/client_Motofi_Broker-Marketplace"],
       "defaultTags": ["motofi", "marketplace", "mvp"]
     }
   ],
