@@ -619,8 +619,8 @@
         <div class="hero-grid">
           <div>
             <p class="eyebrow">Motofi decision brief</p>
-            <h1>Everything decided, and what happens next.</h1>
-            <p class="hero-copy">Prepared for Freddie on 22 May 2026. This is the current decision recap for Motofi's MVP, including the stack, operating rules, and build sequence.</p>
+            <h1>What we're building, and what happens next.</h1>
+            <p class="hero-copy">Prepared for Freddie and Mike on 25 May 2026. This is the current build brief for Motofi's MVP, including the marketplace flow, pricing packages, stack, and implementation sequence.</p>
           </div>
           <aside class="hero-meta" aria-label="Brief metadata">
             <div class="meta-row">
@@ -632,8 +632,8 @@
               <strong>MVP direction is settled enough to start implementation.</strong>
             </div>
             <div class="meta-row">
-              <span>Open item</span>
-              <strong>Exact broker and dealer subscription amounts.</strong>
+              <span>Pricing</span>
+              <strong>Broker platform tiers are supplied and ready to map into Stripe.</strong>
             </div>
             <div class="meta-row">
               <span>Next move</span>
@@ -641,7 +641,7 @@
             </div>
           </aside>
         </div>
-        <p class="hero-next">One sentence version: build Model A first - dealer posts, brokers bid, dealer accepts one broker, contacts unlock - with CarJam, Stripe, Clerk, Convex, Vercel, Resend, and Pipedrive in the first launch stack.</p>
+        <p class="hero-next">One sentence version: build the dealer-led finance marketplace first - dealers post opportunities, brokers bid, dealers accept one broker, contacts unlock - with CarJam, Stripe, Clerk, Convex, Vercel, and Resend in the first launch stack.</p>
       </div>
     </section>
 
@@ -649,12 +649,12 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Current Position</h2>
-          <p>Motofi has moved from exploration into build setup. The MVP should prove a clean dealer-to-broker marketplace match, not every future marketplace model at once.</p>
+          <p>Motofi has moved from exploration into build setup. The MVP should prove a clean dealer-to-broker finance marketplace path before expanding into broader buyer matching or inventory workflows.</p>
         </div>
         <div class="grid-4">
           <div class="item">
-            <span class="tag">Model</span>
-            <h3>Model A first</h3>
+            <span class="tag">Product</span>
+            <h3>Dealer-led marketplace</h3>
             <p>Dealers post finance opportunities. Brokers bid. Dealers choose one broker.</p>
           </div>
           <div class="item">
@@ -668,11 +668,61 @@
             <p>The first release must support account setup, listing creation, bidding, award, and contact unlock.</p>
           </div>
           <div class="item">
-            <span class="tag warn">TBD</span>
-            <h3>Pricing amounts</h3>
-            <p>Stripe support is in scope. The exact monthly prices for broker and dealer plans remain open.</p>
+            <span class="tag blue">Supplied</span>
+            <h3>Broker pricing</h3>
+            <p>Starter is $149/month, Professional is $299/month, and Network Partner starts from $499/month.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Pricing Supplied</h2>
+          <p>Use these as the broker/platform subscription packages. Stripe should still use configurable product and price IDs so the amounts and included features can be adjusted without changing marketplace logic.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Segment</th>
+                <th>Monthly fee</th>
+                <th>Basis</th>
+                <th>Includes</th>
+                <th>Build interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Motofi NZ - Starter</td>
+                <td>Hybrid broker platform</td>
+                <td>NZD $149</td>
+                <td>Per broker</td>
+                <td>Platform, lender panel, and compliance templates.</td>
+                <td>Good default pilot broker plan. Keep feature access simple.</td>
+              </tr>
+              <tr>
+                <td>Motofi NZ - Professional</td>
+                <td>Hybrid broker platform</td>
+                <td>NZD $299</td>
+                <td>Per broker</td>
+                <td>Starter plus white-label, pre-qual, and APIs.</td>
+                <td>Treat pre-qual, API, and white-label capability as packaged future scope unless explicitly pulled into the pilot.</td>
+              </tr>
+              <tr>
+                <td>Motofi NZ - Network Partner</td>
+                <td>Hybrid broker platform</td>
+                <td>From NZD $499</td>
+                <td>Multi-seat</td>
+                <td>Professional plus account manager and data dashboards.</td>
+                <td>Use for larger broker groups. Exact seats, limits, and dashboard scope still need packaging detail.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><strong>Pricing handling:</strong> keep these packages as configurable Stripe products and price IDs. Do not hard-code plan amounts or feature gates into marketplace logic.</div>
       </div>
     </section>
 
@@ -686,10 +736,10 @@
           <div class="decision-row">
             <div>
               <span class="tag">Made</span>
-              <h3>Dealer-led MVP</h3>
+              <h3>Dealer-led finance marketplace</h3>
             </div>
-            <p>Start with Model A: dealers publish vehicle finance opportunities and brokers submit structured bids.</p>
-            <p>Model B and Model C stay visible as future strategy, but they do not enter the first build.</p>
+            <p>Start with dealer-posted vehicle finance opportunities and broker-submitted conditional bids.</p>
+            <p>Broker-led buyer matching and combined inventory-demand workflows stay future strategy, not first-build scope.</p>
           </div>
           <div class="decision-row">
             <div>
@@ -744,24 +794,16 @@
               <span class="tag">Made</span>
               <h3>Stripe subscriptions</h3>
             </div>
-            <p>Build separate broker and dealer subscription support from day one.</p>
-            <p>Keep Stripe price IDs configurable so final prices can be dropped in later without code changes.</p>
+            <p>Build broker subscription support around the supplied Starter, Professional, and Network Partner packages.</p>
+            <p>Keep Stripe price IDs configurable so plan names, amounts, and included capabilities can change without code changes.</p>
           </div>
           <div class="decision-row">
             <div>
               <span class="tag">Made</span>
               <h3>Paid action gates</h3>
             </div>
-            <p>Approved dealers need an active subscription before publishing live listings.</p>
             <p>Approved brokers need an active subscription before accessing live listings and placing bids.</p>
-          </div>
-          <div class="decision-row">
-            <div>
-              <span class="tag">Made</span>
-              <h3>CRM separation</h3>
-            </div>
-            <p>Pipedrive is the business CRM for onboarding, sales follow-up, notes, and pipeline activity.</p>
-            <p>Convex remains the product source of truth for listings, bids, billing state, contact unlocks, and permissions.</p>
+            <p>Dealer posting is approval-gated for the pilot so supply quality can be controlled without introducing another pricing decision now.</p>
           </div>
         </div>
       </div>
@@ -802,7 +844,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Tech Stack</h2>
-          <p>The chosen stack is intentionally practical: fast to build, familiar enough to maintain, and structured enough for payments, live marketplace state, vehicle lookup, and CRM follow-up.</p>
+          <p>The chosen stack is intentionally practical: fast to build, familiar enough to maintain, and structured enough for payments, live marketplace state, vehicle lookup, and notifications.</p>
         </div>
         <div class="table-wrap">
           <table>
@@ -864,12 +906,6 @@
                 <td>Email improves pilot reliability, but in-app status should still work if email is delayed.</td>
               </tr>
               <tr>
-                <td>CRM</td>
-                <td>Pipedrive</td>
-                <td>Dealer/broker pipeline, onboarding follow-up, relationship notes, activities, and sales stages.</td>
-                <td>Sync selected lifecycle events from Convex. Do not let CRM overwrite marketplace-critical state.</td>
-              </tr>
-              <tr>
                 <td>Monitoring</td>
                 <td>Vercel analytics + Convex logs + Stripe webhook logs</td>
                 <td>Pilot-level visibility into app usage, backend errors, and billing events.</td>
@@ -884,6 +920,54 @@
     <section class="white">
       <div class="wrap">
         <div class="section-head">
+          <h2>Build Clarifications</h2>
+          <p>These are the Motofi-specific answers that affect the first build. General business questions can stay outside the brief.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>Short answer</th>
+                <th>Build handling</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Is the finance-led stuff possible?</td>
+                <td>Yes, as an introduction and comparison layer. Motofi can capture buyer bands, dealer notes, broker bids, conditions, and contact unlocks. It should not make binding credit decisions or run bureau checks in the MVP.</td>
+                <td>Keep finance application, credit check, affordability assessment, and regulated advice wording out of v1 until legal/compliance review.</td>
+              </tr>
+              <tr>
+                <td>What is CarJam pulling?</td>
+                <td>For MVP, use a server-side basic plate lookup with JSON and translations. Expected vehicle data includes plate/VIN/chassis, make, model, year, body/fuel/registration/WOF/licence fields, and odometer history where returned.</td>
+                <td>Do not pull valuation, owner details, or PPSR by default. Store the raw response and map only trusted display fields.</td>
+              </tr>
+              <tr>
+                <td>CarJam cost for 100 lookups/month?</td>
+                <td>CarJam lists Basic NZ Vehicle Information at NZD $0.21 per request, excluding GST. If a Motor Vehicle Register fetch is needed, CarJam notes an extra NZD $0.16 plus GST per request.</td>
+                <td>Budget about NZD $21 excl. GST for 100 cached/basic lookups, or up to about NZD $37 excl. GST if every lookup also triggers the extra register fetch.</td>
+              </tr>
+              <tr>
+                <td>PIC dealer vs broker onboarding?</td>
+                <td>Assumption: PIC means the primary person in charge or primary contact. Dealers and brokers should both onboard as organisations with a primary contact, but their approval checklists differ.</td>
+                <td>Dealer onboarding: yard/company, location, primary contact, posting approval. Broker onboarding: broker/company, primary contact, seats, subscription tier, bidding approval.</td>
+              </tr>
+              <tr>
+                <td>Future test environment?</td>
+                <td>Yes. Use a preview/demo environment with seeded data, test dealer/broker/support accounts, Stripe test mode, and safe vehicle lookup handling.</td>
+                <td>Keep demo data isolated from production. Use it to show all core flows before inviting real users.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><strong>CarJam source note:</strong> the cost estimate is based on CarJam's published API pricing and vehicle-query documentation checked on 25 May 2026.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
           <h2>Build Rules</h2>
           <p>These rules matter more than specific screens. They are the invariants the app should enforce from the first pilot release.</p>
         </div>
@@ -894,7 +978,7 @@
           </div>
           <div class="rule-row">
             <strong>Only subscribed users can create value</strong>
-            <p>Dealer posting and broker listing access/bidding are gated by Stripe subscription status once pricing is live.</p>
+            <p>Broker listing access and bidding are gated by Stripe subscription status once pricing is live.</p>
           </div>
           <div class="rule-row">
             <strong>One active broker bid per listing</strong>
@@ -929,7 +1013,7 @@
         <div class="grid-4">
           <div class="item">
             <span class="tag rose">Later</span>
-            <h3>Model B matching</h3>
+            <h3>Broker-led buyer matching</h3>
             <p>No buyer profiles, buyer pre-qualification workflow, inventory matching, or broker-led buyer marketplace in v1.</p>
           </div>
           <div class="item">
@@ -948,7 +1032,7 @@
             <p>Responsive web first. Mobile-specific apps wait until the pilot proves repeated usage.</p>
           </div>
         </div>
-        <div class="note"><strong>Scope guard:</strong> Model B is a credible strategic lane because brokers may bring buyers, but it changes the product into an inventory and pre-qualified demand marketplace. Keep the schema flexible, but do not build Model B workflows into this MVP.</div>
+        <div class="note"><strong>Scope guard:</strong> broker-led buyer demand is a credible future lane, but it changes the product into an inventory and pre-qualified demand marketplace. Keep the schema flexible, but do not build that workflow into this MVP.</div>
       </div>
     </section>
 
@@ -967,7 +1051,7 @@
           <div class="phase">
             <h3>Phase 1</h3>
             <p><strong>Accounts and billing</strong></p>
-            <p>Dealer/broker/support roles, account approval, Stripe customer/subscription sync, route guards, paid action gates, and Pipedrive account links.</p>
+            <p>Dealer/broker/support roles, account approval, Stripe customer/subscription sync, route guards, paid action gates, and plan-tier mapping.</p>
           </div>
           <div class="phase">
             <h3>Phase 2</h3>
@@ -987,7 +1071,7 @@
           <div class="phase">
             <h3>Phase 5</h3>
             <p><strong>Support hardening</strong></p>
-            <p>Account approval view, CarJam corrections, audit trail, subscription diagnostics, CRM links, error states, and demo data.</p>
+            <p>Account approval view, CarJam corrections, audit trail, subscription diagnostics, error states, and demo data.</p>
           </div>
           <div class="phase">
             <h3>Phase 6</h3>
@@ -1013,46 +1097,42 @@
           <div class="item">
             <span class="tag blue">Backend</span>
             <h3>Define the schema</h3>
-            <p>Create Convex tables for users, organisations, subscriptions, listings, CarJam lookups, bids, contact unlocks, CRM links, and audit events.</p>
+            <p>Create Convex tables for users, organisations, subscriptions, listings, CarJam lookups, bids, contact unlocks, and audit events.</p>
           </div>
           <div class="item">
             <span class="tag warn">Ops</span>
             <h3>Set service access</h3>
-            <p>Prepare development values for Clerk, Convex, Stripe test mode, CarJam, Resend, Pipedrive, and Vercel.</p>
+            <p>Prepare development values for Clerk, Convex, Stripe test mode, CarJam, Resend, Google/Cloudflare domain setup, and Vercel.</p>
           </div>
         </div>
-        <div class="note"><strong>Build can start now:</strong> exact subscription prices should not block engineering. Use Stripe product/price IDs from configuration and fill the real amounts once Freddie and Mike choose them.</div>
+        <div class="note"><strong>Build can start now:</strong> broker pricing can be represented as configurable Stripe products and price IDs. The app foundation, schema, CarJam lookup, and broker bidding loop do not need another strategy pass.</div>
       </div>
     </section>
 
     <section>
       <div class="wrap">
         <div class="section-head">
-          <h2>Needs From Freddie</h2>
-          <p>The product direction is no longer blocked, but these decisions and inputs will make the pilot cleaner.</p>
+          <h2>Roadblocks</h2>
+          <p>There are no material product roadblocks left for starting the build. The remaining items are operational inputs that can be handled in parallel with implementation.</p>
         </div>
-        <div class="grid-4">
+        <div class="grid-3">
           <div class="item">
-            <span class="tag warn">Decision</span>
-            <h3>Subscription prices</h3>
-            <p>Confirm broker and dealer monthly amounts, even if the first pilot uses a controlled introductory price.</p>
-          </div>
-          <div class="item">
-            <span class="tag blue">Access</span>
+            <span class="tag warn">Input</span>
             <h3>Service ownership</h3>
-            <p>Confirm who owns Stripe, Clerk, Convex, Vercel, CarJam, Resend, and Pipedrive accounts.</p>
+            <p>Confirm who owns Stripe, Clerk, Convex, Vercel, CarJam, Resend, Google Workspace, and Cloudflare/domain access.</p>
           </div>
           <div class="item">
-            <span class="tag">Pilot</span>
+            <span class="tag blue">Input</span>
             <h3>First users</h3>
-            <p>Provide a small target list of dealers and brokers so onboarding, approval, and feedback loops can be tested.</p>
+            <p>Provide the first dealer and broker targets so onboarding, approval, seeded demos, and feedback loops can be planned.</p>
           </div>
           <div class="item">
-            <span class="tag rose">Review</span>
-            <h3>Legal language</h3>
-            <p>Before public launch, review intro-only positioning, privacy wording, terms, and contact-use expectations.</p>
+            <span class="tag">Review</span>
+            <h3>Public launch pass</h3>
+            <p>Before public launch, confirm brand/domain details and review intro-only, privacy, and contact-use wording.</p>
           </div>
         </div>
+        <div class="note"><strong>Not blockers:</strong> these inputs do not block the scaffold, schema, private preview, CarJam lookup, Stripe test products, or the first dealer-to-broker demo flow.</div>
       </div>
     </section>
 
@@ -1064,14 +1144,14 @@
         </div>
         <div class="asset-strip">
           <article class="source-card">
-            <img src="freddie_marketplace_model_options.png" alt="Freddie's Model A, Model B, and Model C marketplace comparison" />
-            <h3>Marketplace model options</h3>
-            <p>Model A is the first MVP. Model B is a real future lane. Model C is a longer-range combined marketplace vision.</p>
+            <img src="freddie_marketplace_model_options.png" alt="Freddie's marketplace strategy sketch" />
+            <h3>Marketplace strategy sketch</h3>
+            <p>The first build is dealer-posted finance opportunities. Broker-qualified buyer demand and combined inventory workflows remain future lanes.</p>
           </article>
           <article class="source-card">
             <img src="freddie_broker_subscription_tiers.png" alt="Freddie's broker subscription tier sketch" />
             <h3>Subscription tier sketch</h3>
-            <p>The tier story is useful for packaging, but AI pre-qualification, APIs, dashboards, and white-label portals are later features.</p>
+            <p>Starter is $149/month, Professional is $299/month, and Network Partner starts from $499/month. Pre-qual, APIs, dashboards, and white-label portals remain feature-gated.</p>
           </article>
         </div>
         <div class="links" aria-label="Related project documents">
@@ -1087,9 +1167,9 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Next Move</h2>
-          <p>The next step is no longer another strategy pass. It is a build foundation that keeps pricing configurable and keeps Model B available later without pulling it into v1.</p>
+          <p>The next step is no longer another strategy pass. It is the build foundation, with pricing configurable and future broker-led buyer workflows kept out of the first release.</p>
         </div>
-        <p class="final-line">Start the Vite, Convex, and Clerk scaffold; define the marketplace schema; wire Stripe test subscriptions; then build the dealer listing to broker bid to contact unlock path.</p>
+        <p class="final-line">Start the Vite, Convex, and Clerk scaffold; map the supplied broker pricing into Stripe test products; then build the dealer listing to broker bid to contact unlock path.</p>
       </div>
     </section>
   </main>

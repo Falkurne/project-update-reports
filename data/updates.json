@@ -1,12 +1,12 @@
 {
   "updates": [
     {
-      "id": "motofi-2026-05-22-decision-brief",
+      "id": "motofi-2026-05-25-decision-brief",
       "projectId": "motofi",
-      "title": "Motofi decision brief for Freddie",
-      "date": "2026-05-22",
+      "title": "Motofi build brief for Freddie",
+      "date": "2026-05-25",
       "category": "meeting-prep",
-      "summary": "Decision recap for the Motofi MVP stack, operating rules, and build sequence.",
+      "summary": "Current MVP build brief covering the marketplace flow, pricing packages, stack, and implementation sequence.",
       "path": "/updates/motofi/motofi_freddie_decision_brief.html",
       "audience": "Freddie",
       "tags": ["mvp", "decisions", "stack"]
