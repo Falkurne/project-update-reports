@@ -2,7 +2,13 @@
 
 Generated: 2026-05-25
 
-This is a safe plan only. Do not rename/archive repos until Corbyn approves the exact map.
+This is a safe plan only. Do not rename, archive, or delete repos until Corbyn approves the exact map.
+
+Corbyn noted that many repositories will likely be archived or deleted, not just renamed. Treat cleanup as a triage process with three possible actions:
+
+- **Keep/rename:** active or valuable repos that should remain visible and well named.
+- **Archive:** historical repos that may still contain useful reference material, but should be read-only/out of the way.
+- **Delete candidate:** disposable experiments, duplicates, generated scaffolds, or repos with no future value. Deletion is irreversible enough that these require a separate explicit approval pass.
 
 ## Naming convention
 
@@ -18,34 +24,43 @@ Areas:
 - `infra-` — reusable infrastructure or tooling
 - `internal-` — Corbyn business/admin/workflow systems
 
-## Approved-to-propose rename map
+## Triage actions by repo
 
-### Active paid/client work
+### Keep/rename first
 
 - `Falkurne/Motofi` → `client-motofi-marketplace`
+  - Action: keep/rename
+  - Reason: active paid MVP planning/build.
   - Current language: Python
-  - Status: active paid MVP planning/build
-  - Risk: update local remote at `/home/falkae/Projects/Motofi`
+  - Risk: update local remote at `/home/falkae/Projects/Motofi` and reporting source map.
 - `Falkurne/eastpoint-finance-landing` → `client-eloanz-landing`
+  - Action: keep/rename
+  - Reason: active client website.
   - Current language: HTML
-  - Status: active client website
-  - Risk: update Linear/GitHub references and local clone if present
-- `Falkurne/project-update-reports` → keep as `project-update-reports` for now, or later `client-project-update-reports`
-  - Public static hub
-  - Keep current name until the automation is stable and deployed
+  - Risk: update Linear/GitHub references, reporting source map, and local clone if present.
+- `Falkurne/project-update-reports` → keep as `project-update-reports` for now
+  - Action: keep
+  - Reason: active reporting automation/hub.
+  - Revisit later: possibly rename to `client-project-update-reports` after automation is stable.
 
-### Personal/product work
+### Keep/rename or archive after quick inspection
 
 - `gw2-legendary-tracker` → `product-first-legendary` or `product-gw2-legendary-tracker`
+  - Likely action: keep/rename
 - `Corbyn.net-Website` → `personal-corbyn-net`
+  - Likely action: keep/rename
 - `command-center` → `personal-command-center`
+  - Likely action: keep/rename
 - `knowledge` → `personal-knowledge`
+  - Likely action: keep/rename or archive depending on contents
 - `Gaming` → `personal-gaming`
-- `Fal-Default` → `personal-fal-default` or archive after inspection
+  - Likely action: archive unless actively used
+- `Fal-Default` → `personal-fal-default`
+  - Likely action: inspect; probably archive/delete candidate if it is generated/default scaffolding
 
-### Archive/TGS cleanup
+### Archive candidates
 
-Corbyn no longer works with TGS and does not want Hermes connected to or relying on TGS infrastructure. These should be archived/renamed for historical reference only:
+Corbyn no longer works with TGS and does not want Hermes connected to or relying on TGS infrastructure. These should be archived unless Corbyn explicitly chooses deletion:
 
 - `TGS-Website` → `archive-tgs-website`
 - `openclaw-tgs` → `archive-openclaw-tgs`
@@ -53,45 +68,52 @@ Corbyn no longer works with TGS and does not want Hermes connected to or relying
 - `TGS_Brandy-in-Marketing` → `archive-tgs-brandy-marketing`
 - `TGS` → `archive-tgs`
 
-### Learning/archive
+### Learning archive or delete candidates
 
 - `5055482-Corbyn-Ridler-BIT706-Assignment1` → `learning-bit706-assignment-1`
+  - Likely action: archive after rename, or delete if no sentimental/reference value.
 - `5055482-Corbyn-Ridler-BIT706-Assignment2` → `learning-bit706-assignment-2`
+  - Likely action: archive after rename, or delete if no sentimental/reference value.
 - `BIT504_AT2_TaskB` → `learning-bit504-task-b`
-- `vol` → `archive-vol` unless still needed
+  - Likely action: archive after rename, or delete if no sentimental/reference value.
+- `vol` → `archive-vol`
+  - Likely action: delete candidate unless contents are useful.
 
-### Needs inspection before naming
+### Needs inspection before deciding keep/archive/delete
 
 - `O2D-Chat` / `O2D-Chat-mvp`
   - If alive: `product-o2d-chat` / `product-o2d-chat-mvp`
-  - If stale: `archive-o2d-chat` / `archive-o2d-chat-mvp`
+  - If stale: archive or delete duplicate/empty repo.
 - `Warp-Oz-Cloud-Agent`
-  - likely `infra-warp-oz-cloud-agent` or archive
+  - likely `infra-warp-oz-cloud-agent`, archive, or delete candidate.
 - `antigravity-trigger-dev-main`
-  - likely archive/experiment
+  - likely archive/delete candidate.
 - `eff-mobile-app`
-  - likely `client-eff-mobile-app` if still client-relevant; otherwise archive
+  - likely `client-eff-mobile-app` if still client-relevant; otherwise archive.
 - `Shopify-OnfarmHarvest`
 - `Shopify-OnFarmHarvest---Dawn-Theme`
 - `OFH-CONVEX`
 - `OFH-ST`
-  - likely OnFarm Harvest client/archive family; inspect before rename
+  - likely OnFarm Harvest client/archive family; inspect before deciding.
 
 ## Execution steps after approval
 
-1. Rename lowest-risk archive repos first using `gh repo rename`.
-2. For any local clones under `~/Projects`, update remotes:
+1. Do an inspection pass for all uncertain repos and mark each as `keep`, `archive`, or `delete candidate`.
+2. Rename lowest-risk keep/archive repos first using `gh repo rename`.
+3. For any local clones under `~/Projects`, update remotes:
 
 ```bash
 git remote set-url origin git@github.com:Falkurne/<new-name>.git
 ```
 
-3. Add topics to active repos:
+4. Add topics to active repos:
 
 - `client-work`
 - `motofi` / `eloanz`
 - `linear-managed`
 - `hermes-managed`
 
-4. Archive repos that are truly historical after confirming no active dependencies.
-5. Re-run this report and update the map with final names.
+5. Archive repos that are confirmed historical but still worth retaining.
+6. Produce a separate delete-candidate checklist for Corbyn to approve one-by-one.
+7. Only after explicit approval, delete selected repos using `gh repo delete OWNER/REPO --yes`.
+8. Re-run this report and update the map with final names/statuses.

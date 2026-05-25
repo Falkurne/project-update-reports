@@ -5,6 +5,10 @@ Default behaviour is safe/draft-only:
 - writes an HTML report under updates/<project>/
 - prepends an entry to data/updates.json
 - does not commit, push, or send to clients
+
+The report intentionally has two layers:
+1. a client-readable summary with cleaned wording;
+2. a technical source appendix for Corbyn's review.
 """
 from __future__ import annotations
 
@@ -14,14 +18,44 @@ import html
 import json
 import os
 import pathlib
+import re
 import subprocess
-import sys
+from collections import Counter
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCES_PATH = ROOT / "data" / "reporting-sources.json"
 UPDATES_PATH = ROOT / "data" / "updates.json"
+
+NOISY_COMMIT_PREFIXES = (
+    "merge pull request",
+    "merge branch",
+    "wip",
+)
+
+TYPO_FIXES = {
+    "gradiant": "gradient",
+    "imrpove": "improve",
+    "shouldnt": "shouldn't",
+    "doesnt": "doesn't",
+    "isnt": "isn't",
+    "whats": "what's",
+    "exmaple": "example",
+    "monochome": "monochrome",
+    "questionaire": "questionnaire",
+    "chnage": "change",
+    "alot": "a lot",
+    "brokeridge": "brokerage",
+    "fianance": "finance",
+}
+
+THEME_KEYWORDS = {
+    "Lead capture and enquiry flow": ["form", "input", "email", "phone", "date of birth", "number plate", "tickbox", "validation", "enquiry"],
+    "Design polish and page layout": ["hero", "gradient", "padding", "photo", "cards", "slider", "navbar", "section", "background", "monochrome", "white box", "orange", "footer", "logo"],
+    "Trust, content, and compliance": ["compliance", "faq", "testimonials", "pros and cons", "banks", "lenders", "eastpoint", "mike", "trading name", "knowledge"],
+    "Marketplace planning and build setup": ["mvp", "brief", "planning", "marketplace", "broker", "dealer", "dashboard", "infrastructure", "convex", "clerk", "vercel"],
+}
 
 
 def run(cmd: list[str], *, cwd: pathlib.Path | None = None) -> str:
@@ -96,43 +130,184 @@ def fetch_commits(repo: str, since: str) -> list[dict]:
         return []
     commits = []
     for line in raw.splitlines():
-        if line.strip():
-            commits.append(json.loads(line))
+        if not line.strip():
+            continue
+        commit = json.loads(line)
+        first = commit["message"].splitlines()[0].strip()
+        if first.lower().startswith(NOISY_COMMIT_PREFIXES):
+            continue
+        commits.append(commit)
     return commits
 
 
-def humanise_issue(issue: dict) -> str:
-    title = issue["title"].strip().rstrip(".")
-    state = issue["state"]["name"]
-    if issue["state"]["type"] == "completed":
-        return f"Completed: {title}."
-    if issue["state"]["type"] == "started":
-        return f"In progress/review: {title}."
-    return f"Queued: {title}."
+def clean_text(value: str) -> str:
+    text = value.strip()
+    text = re.sub(r"\s+", " ", text)
+    for wrong, right in TYPO_FIXES.items():
+        text = re.sub(rf"\b{re.escape(wrong)}\b", right, text, flags=re.IGNORECASE)
+    text = text.strip(" .")
+    if text:
+        text = text[0].upper() + text[1:]
+    return text
 
 
-def humanise_commit(commit: dict) -> str:
-    first = commit["message"].splitlines()[0].strip().rstrip(".")
-    return first[0].upper() + first[1:] + "." if first else "Repository update."
+def phrase_from_issue(issue: dict) -> str:
+    title = clean_text(issue["title"])
+    lower = title.lower()
+
+    patterns = [
+        (r"we will be in touch|center and change to be more friendly", "Improved the confirmation message so it feels more friendly and reassuring"),
+        (r"delete this step", "Removed an unnecessary step from the enquiry flow"),
+        (r"^can you add an option.*number plate input", "Added a conditional number plate field for vehicle enquiry paths that need it"),
+        (r"^enable the style preview modal", "Made the style preview available across the site instead of hiding it behind a special URL"),
+        (r"phone number validation", "Fixed phone number validation in the enquiry flow"),
+        (r"slider", "Improved the repayment/term slider so the range and selection feel clearer"),
+        (r"date of birth", "Changed the relevant form step to collect date of birth details"),
+        (r"promotional communications", "Updated the promotional communications checkbox behaviour"),
+        (r"email to send a summary", "Clarified the email collection step for enquiry summaries"),
+        (r"logo.*navbar|navbar.*logo", "Cleaned up the form navigation and centred the ELoanz logo"),
+        (r"remove this subheader", "Removed an unnecessary subheader from the form experience"),
+        (r"eastpoint|mike", "Removed internal/Eastpoint/Mike references from client-facing copy"),
+        (r"faq", "Reworked the FAQ area into a clean placeholder structure for later content"),
+        (r"testimonials", "Started the testimonials/social proof section"),
+        (r"compliance|knowledge", "Progressed the compliance wording review and site-change checklist"),
+        (r"hero.*gradient|gradient", "Polished the hero background and transition into the page"),
+        (r"collaboration", "Started the collaboration/partner-style content section below the hero"),
+        (r"html brief|brief", "Updated the HTML project brief for stakeholder review"),
+    ]
+    for pattern, replacement in patterns:
+        if re.search(pattern, lower):
+            return replacement
+
+    # Remove request-style phrasing that should not go to clients.
+    title = re.sub(r"^(can you|please|i want to|change|add|remove|delete|fix|move)\s+", "", title, flags=re.IGNORECASE)
+    title = title.strip(" .")
+    if title:
+        return title[0].upper() + title[1:]
+    return "Tracked project update"
+
+
+def phrase_from_commit(commit: dict) -> str:
+    first = clean_text(commit["message"].splitlines()[0])
+    first = re.sub(r"^docs\([^)]*\):\s*", "Documented ", first, flags=re.IGNORECASE)
+    first = re.sub(r"^docs:\s*", "Documented ", first, flags=re.IGNORECASE)
+    first = re.sub(r"^feat\([^)]*\):\s*", "Added ", first, flags=re.IGNORECASE)
+    first = re.sub(r"^feat:\s*", "Added ", first, flags=re.IGNORECASE)
+    first = re.sub(r"^fix\([^)]*\):\s*", "Fixed ", first, flags=re.IGNORECASE)
+    first = re.sub(r"^fix:\s*", "Fixed ", first, flags=re.IGNORECASE)
+    first = re.sub(r"\s*\(FAL-\d+\)", "", first)
+    return first or "Repository update"
+
+
+def sentence(value: str) -> str:
+    value = value.strip()
+    if not value:
+        return value
+    return value if value.endswith(('.', '!', '?')) else value + "."
+
+
+def labels_for(issue: dict) -> set[str]:
+    return {l["name"] for l in issue.get("labels", {}).get("nodes", [])}
+
+
+def issue_theme(issue: dict) -> str:
+    haystack = f"{issue['title']} {' '.join(labels_for(issue))}".lower()
+    for theme, keywords in THEME_KEYWORDS.items():
+        if any(k in haystack for k in keywords):
+            return theme
+    return "General delivery"
+
+
+def group_themes(issues: list[dict], commits: list[dict]) -> list[tuple[str, int]]:
+    counter = Counter(issue_theme(issue) for issue in issues)
+    for commit in commits:
+        msg = commit["message"].lower()
+        matched = False
+        for theme, keywords in THEME_KEYWORDS.items():
+            if any(k in msg for k in keywords):
+                counter[theme] += 1
+                matched = True
+                break
+        if not matched:
+            counter["General delivery"] += 1
+    return counter.most_common()
+
+
+def unique(items: list[str], limit: int | None = None) -> list[str]:
+    seen = set()
+    out = []
+    for item in items:
+        item = sentence(item)
+        key = item.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(item)
+        if limit and len(out) >= limit:
+            break
+    return out
+
+
+def build_sections(project: dict, issues: list[dict], commits_by_repo: dict[str, list[dict]]) -> dict[str, list[str]]:
+    commits = [c for commits in commits_by_repo.values() for c in commits]
+    completed = [i for i in issues if i["state"]["type"] == "completed"]
+    active = [i for i in issues if i["state"]["type"] == "started"]
+    blocked = [i for i in issues if "blocked" in labels_for(i)]
+
+    theme_lines = []
+    for theme, count in group_themes(issues, commits)[:4]:
+        if theme == "General delivery" and count < 2:
+            continue
+        theme_lines.append(f"{theme}: {count} tracked update{'s' if count != 1 else ''}")
+
+    changed = unique([phrase_from_issue(i) for i in completed] + [phrase_from_commit(c) for c in commits], limit=10)
+    progress = unique([phrase_from_issue(i) for i in active], limit=8)
+    blockers = unique([phrase_from_issue(i) for i in blocked], limit=6)
+
+    if not blockers:
+        blockers = ["No blocked items are currently tagged in Linear."]
+
+    if progress:
+        next_steps = [f"Continue review/build on: {p.rstrip('.')}" for p in progress[:4]]
+    elif project["id"] == "motofi":
+        next_steps = ["Move the MVP brief into small build tickets for the first scaffold and workflow screens."]
+    else:
+        next_steps = ["Continue final polish, compliance review, and launch-readiness checks."]
+
+    def plural(count: int, singular: str, plural_word: str | None = None) -> str:
+        return singular if count == 1 else (plural_word or singular + "s")
+
+    summary = []
+    if changed:
+        summary.append(f"{project['displayName']} had {len(changed)} client-relevant tracked {plural(len(changed), 'update')} in this window.")
+    else:
+        summary.append(f"No completed client-facing changes were detected for {project['displayName']} in this window.")
+    summary.extend(theme_lines[:3])
+    if progress:
+        summary.append(f"There {'is' if len(progress) == 1 else 'are'} {len(progress)} active {plural(len(progress), 'item')} still in progress or review.")
+
+    return {
+        "summary": unique(summary, limit=6),
+        "changed": changed or ["No completed changes were detected yet."],
+        "progress": progress or ["Nothing is marked as in progress/review in Linear."],
+        "blockers": blockers,
+        "next_steps": unique(next_steps, limit=5),
+    }
+
+
+def render_list(items: list[str], empty: str) -> str:
+    if not items:
+        return f"<li>{html.escape(empty)}</li>"
+    return "\n".join(f"<li>{html.escape(sentence(x))}</li>" for x in items)
 
 
 def render_report(project: dict, since_local: dt.datetime, now_local: dt.datetime, issues: list[dict], commits_by_repo: dict[str, list[dict]]) -> str:
-    issue_lines = [humanise_issue(i) for i in issues]
-    commit_lines = [humanise_commit(c) for commits in commits_by_repo.values() for c in commits]
-    completed = [i for i in issues if i["state"]["type"] == "completed"]
-    active = [i for i in issues if i["state"]["type"] == "started"]
-    blocked = [i for i in issues if any(l["name"] == "blocked" for l in i.get("labels", {}).get("nodes", []))]
-
-    def li(items: list[str], empty: str) -> str:
-        if not items:
-            return f"<li>{html.escape(empty)}</li>"
-        return "\n".join(f"<li>{html.escape(x)}</li>" for x in items)
-
-    issue_link_items = [f'{i["identifier"]}: {i["title"]} ({i["state"]["name"]})' for i in issues]
+    sections = build_sections(project, issues, commits_by_repo)
+    issue_link_items = [f'{i["identifier"]}: {clean_text(i["title"])} ({i["state"]["name"]})' for i in issues]
     repo_items = []
     for repo, commits in commits_by_repo.items():
         for c in commits:
-            repo_items.append(f'{repo}@{c["sha"][:7]} — {c["message"].splitlines()[0]}')
+            repo_items.append(f'{repo}@{c["sha"][:7]} — {phrase_from_commit(c)}')
 
     title = f"{project['displayName']} update — {now_local:%d %b %Y}"
     return f"""<!DOCTYPE html>
@@ -152,6 +327,8 @@ def render_report(project: dict, since_local: dt.datetime, now_local: dt.datetim
     .meta {{ color: #5a6a64; }}
     li {{ margin: 7px 0; }}
     .draft {{ display: inline-block; margin-top: 10px; padding: 4px 10px; border-radius: 999px; background: #fff3cd; color: #6b4e00; font-weight: 700; }}
+    details {{ margin-top: 18px; }}
+    summary {{ cursor: pointer; font-weight: 800; }}
   </style>
 </head>
 <body>
@@ -165,32 +342,40 @@ def render_report(project: dict, since_local: dt.datetime, now_local: dt.datetim
 
     <section>
       <h2>Plain-language summary</h2>
-      <ul>
-        {li(issue_lines[:8] + commit_lines[:5], 'No tracked activity found in this reporting window.')}
-      </ul>
+      <ul>{render_list(sections['summary'], 'No tracked activity found in this reporting window.')}</ul>
     </section>
 
     <section>
       <h2>What changed</h2>
-      <ul>{li([humanise_issue(i) for i in completed] + commit_lines[:8], 'No completed changes were detected yet.')}</ul>
+      <ul>{render_list(sections['changed'], 'No completed changes were detected yet.')}</ul>
     </section>
 
     <section>
       <h2>Currently in progress</h2>
-      <ul>{li([humanise_issue(i) for i in active], 'Nothing is marked as in progress/review in Linear.')}</ul>
+      <ul>{render_list(sections['progress'], 'Nothing is marked as in progress/review in Linear.')}</ul>
+    </section>
+
+    <section>
+      <h2>Next</h2>
+      <ul>{render_list(sections['next_steps'], 'Confirm priorities for the next work window.')}</ul>
     </section>
 
     <section>
       <h2>Blockers / decisions needed</h2>
-      <ul>{li([i['title'] for i in blocked], 'No blocked items were tagged in Linear.')}</ul>
+      <ul>{render_list(sections['blockers'], 'No blocked items were tagged in Linear.')}</ul>
     </section>
 
     <section>
-      <h2>Source activity</h2>
-      <p class=\"meta\">Linear issues</p>
-      <ul>{li(issue_link_items, 'No Linear issue changes found.')}</ul>
-      <p class=\"meta\">GitHub commits</p>
-      <ul>{li(repo_items, 'No GitHub commits found.')}</ul>
+      <h2>Source activity for Corbyn</h2>
+      <p class=\"meta\">This appendix is for review, not necessarily for clients.</p>
+      <details open>
+        <summary>Linear issues</summary>
+        <ul>{render_list(issue_link_items, 'No Linear issue changes found.')}</ul>
+      </details>
+      <details>
+        <summary>GitHub commits</summary>
+        <ul>{render_list(repo_items, 'No GitHub commits found.')}</ul>
+      </details>
     </section>
   </main>
 </body>
@@ -235,13 +420,14 @@ def main() -> int:
         report_id = f"{project['id']}-{date_slug}-auto-update"
         rel_path = pathlib.Path("updates") / project["id"] / f"{date_slug}-auto-update.html"
         out_path = ROOT / rel_path
+        total_commits = sum(len(v) for v in commits_by_repo.values())
         entry = {
             "id": report_id,
             "projectId": project["id"],
             "title": f"{project['displayName']} auto-generated progress update",
             "date": date_slug,
             "category": sources["reporting"]["category"],
-            "summary": f"Draft update generated from {len(issues)} Linear issue changes and {sum(len(v) for v in commits_by_repo.values())} GitHub commits.",
+            "summary": f"Draft update generated from {len(issues)} Linear issue changes and {total_commits} non-merge GitHub commits.",
             "path": "/" + rel_path.as_posix(),
             "audience": project["clientAudience"],
             "tags": project.get("defaultTags", []) + ["auto-generated", "draft"]
@@ -250,7 +436,7 @@ def main() -> int:
             out_path.parent.mkdir(parents=True, exist_ok=True)
             out_path.write_text(html_doc, encoding="utf-8")
             prepend_update_entry(entry)
-        generated.append({"project": project["id"], "path": str(out_path), "issues": len(issues), "commits": sum(len(v) for v in commits_by_repo.values()), "written": args.write})
+        generated.append({"project": project["id"], "path": str(out_path), "issues": len(issues), "commits": total_commits, "written": args.write})
 
     print(json.dumps({"generated": generated}, indent=2))
     return 0
