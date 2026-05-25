@@ -1,0 +1,26 @@
+{
+  "projects": [
+    {
+      "id": "eloanz",
+      "displayName": "ELoanz website",
+      "clientAudience": "Freddie and Mike",
+      "linearProject": "Eloanz - Car Fianance Brokeridge Website and landing pages",
+      "githubRepos": ["Falkurne/eastpoint-finance-landing"],
+      "defaultTags": ["eloanz", "website", "client-facing"]
+    },
+    {
+      "id": "motofi",
+      "displayName": "Motofi marketplace",
+      "clientAudience": "Freddie and Mike",
+      "linearProject": "Motofi - broker marketplace",
+      "githubRepos": ["Falkurne/Motofi"],
+      "defaultTags": ["motofi", "marketplace", "mvp"]
+    }
+  ],
+  "reporting": {
+    "defaultLookbackDays": 2,
+    "category": "stakeholder-update",
+    "draftOnly": true,
+    "timezone": "Pacific/Auckland"
+  }
+}

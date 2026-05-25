@@ -24,11 +24,30 @@ project-update-reports/
   vercel.json
 ```
 
-## Add a new report
+## Add a new report manually
 
 1. Save the HTML file under `updates/<project-id>/`, using a date prefix in the filename.
 2. Add an entry to `data/updates.json`.
 3. If this is a new project, add it to `data/projects.json`.
+
+## Generate a draft report from Linear + GitHub
+
+```bash
+cd /home/falkae/Projects/project-update-reports
+python3 scripts/generate_update.py --write
+```
+
+Options:
+
+```bash
+python3 scripts/generate_update.py --project eloanz --lookback-days 2 --write
+python3 scripts/generate_update.py --project motofi --lookback-days 7 --write
+```
+
+The generator is draft-only by convention: it writes HTML and updates the catalog, but it does not commit, push, deploy, or send anything to clients.
+
+Source mapping lives in `data/reporting-sources.json`.
+
 
 Example `updates.json` entry:
 

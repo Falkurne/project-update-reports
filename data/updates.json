@@ -1,6 +1,40 @@
 {
   "updates": [
     {
+      "id": "motofi-2026-05-25-auto-update",
+      "projectId": "motofi",
+      "title": "Motofi marketplace auto-generated progress update",
+      "date": "2026-05-25",
+      "category": "stakeholder-update",
+      "summary": "Draft update generated from 1 Linear issue changes and 1 GitHub commits.",
+      "path": "/updates/motofi/2026-05-25-auto-update.html",
+      "audience": "Freddie and Mike",
+      "tags": [
+        "motofi",
+        "marketplace",
+        "mvp",
+        "auto-generated",
+        "draft"
+      ]
+    },
+    {
+      "id": "eloanz-2026-05-25-auto-update",
+      "projectId": "eloanz",
+      "title": "ELoanz website auto-generated progress update",
+      "date": "2026-05-25",
+      "category": "stakeholder-update",
+      "summary": "Draft update generated from 27 Linear issue changes and 30 GitHub commits.",
+      "path": "/updates/eloanz/2026-05-25-auto-update.html",
+      "audience": "Freddie and Mike",
+      "tags": [
+        "eloanz",
+        "website",
+        "client-facing",
+        "auto-generated",
+        "draft"
+      ]
+    },
+    {
       "id": "motofi-2026-05-25-decision-brief",
       "projectId": "motofi",
       "title": "Motofi build brief for Freddie",
@@ -9,7 +43,11 @@
       "summary": "Current MVP build brief covering the marketplace flow, pricing packages, stack, and implementation sequence.",
       "path": "/updates/motofi/motofi_freddie_decision_brief.html",
       "audience": "Freddie",
-      "tags": ["mvp", "decisions", "stack"]
+      "tags": [
+        "mvp",
+        "decisions",
+        "stack"
+      ]
     },
     {
       "id": "motofi-2026-05-20-infrastructure-roadmap",
@@ -20,7 +58,13 @@
       "summary": "Vite React, Convex, Clerk, and Vercel stack with build phases, env vars, and launch checklist.",
       "path": "/updates/motofi/motofi_infrastructure_launch_roadmap.html",
       "audience": "Build team and stakeholders",
-      "tags": ["infrastructure", "convex", "clerk", "vercel", "launch"]
+      "tags": [
+        "infrastructure",
+        "convex",
+        "clerk",
+        "vercel",
+        "launch"
+      ]
     },
     {
       "id": "motofi-2026-05-21-project-update",
@@ -31,7 +75,11 @@
       "summary": "MVP decisions locked. Ready to scaffold build with subscription pricing still open.",
       "path": "/updates/motofi/motofi_project_update_mike_freddie.html",
       "audience": "Mike and Freddie",
-      "tags": ["mvp", "build-setup", "model-a"]
+      "tags": [
+        "mvp",
+        "build-setup",
+        "model-a"
+      ]
     },
     {
       "id": "eloanz-2026-05-20-stakeholder",
@@ -42,7 +90,11 @@
       "summary": "Four pages built. Lead capture and analytics still blocked before launch.",
       "path": "/updates/eloanz/2026-05-20-stakeholder-update.html",
       "audience": "Freddie and stakeholders",
-      "tags": ["launch", "lead-capture", "compliance"]
+      "tags": [
+        "launch",
+        "lead-capture",
+        "compliance"
+      ]
     },
     {
       "id": "motofi-2026-05-18-mvp-plan",
@@ -53,7 +105,11 @@
       "summary": "Full MVP scope for a dealer-led finance marketplace with plate lookup and payments.",
       "path": "/updates/motofi/motofi_mvp_plan_full.html",
       "audience": "Build team and stakeholders",
-      "tags": ["mvp", "scope", "model-a"]
+      "tags": [
+        "mvp",
+        "scope",
+        "model-a"
+      ]
     },
     {
       "id": "motofi-2026-05-18-digest",
@@ -64,7 +120,11 @@
       "summary": "Plain-language MVP summary with Model A focus and broker-buyer strategy notes.",
       "path": "/updates/motofi/motofi_freddie_digest.html",
       "audience": "Freddie",
-      "tags": ["mvp", "model-a", "model-b"]
+      "tags": [
+        "mvp",
+        "model-a",
+        "model-b"
+      ]
     },
     {
       "id": "motofi-2026-05-18-screen-flow",
@@ -75,7 +135,11 @@
       "summary": "Full screen flow from dealer signup through broker winning a deal.",
       "path": "/updates/motofi/motofi_model_a_screen_flow.html",
       "audience": "Product and build team",
-      "tags": ["model-a", "screen-flow", "ux"]
+      "tags": [
+        "model-a",
+        "screen-flow",
+        "ux"
+      ]
     },
     {
       "id": "motofi-2026-05-18-broker-dashboard",
@@ -86,7 +150,11 @@
       "summary": "Broker dashboard concept for listings, bids, and active deals.",
       "path": "/updates/motofi/motofi_broker_dashboard.html",
       "audience": "Product and build team",
-      "tags": ["broker", "dashboard", "ui"]
+      "tags": [
+        "broker",
+        "dashboard",
+        "ui"
+      ]
     },
     {
       "id": "motofi-2026-05-18-dealer-dashboard",
@@ -97,7 +165,11 @@
       "summary": "Dealer dashboard concept for posting opportunities and reviewing bids.",
       "path": "/updates/motofi/motofi_dealer_dashboard.html",
       "audience": "Product and build team",
-      "tags": ["dealer", "dashboard", "ui"]
+      "tags": [
+        "dealer",
+        "dashboard",
+        "ui"
+      ]
     },
     {
       "id": "motofi-2026-05-18-view-bids",
@@ -108,7 +180,11 @@
       "summary": "Dealer bid comparison screen for reviewing broker offers on a listing.",
       "path": "/updates/motofi/motofi_view_bids.html",
       "audience": "Product and build team",
-      "tags": ["dealer", "bids", "ui"]
+      "tags": [
+        "dealer",
+        "bids",
+        "ui"
+      ]
     }
   ]
 }
