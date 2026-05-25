@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motofi infrastructure and launch roadmap</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #5f6872;
+      --paper: #f7f5ef;
+      --white: #ffffff;
+      --navy: #10283b;
+      --teal: #0d7d68;
+      --teal-soft: #dcefe9;
+      --line: #d9dee3;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem 0 0;
+    }
+
+    .toolbar button {
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .toolbar button.primary {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #fff;
+    }
+
+    .hero {
+      margin: 1rem 0 2rem;
+      padding: 2rem 1.75rem;
+      color: #fff;
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(16,40,59,.99), rgba(16,40,59,.91)),
+        radial-gradient(circle at 88% 14%, rgba(13,125,104,.28), transparent 34%);
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: #91ddce;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      line-height: 1.15;
+    }
+
+    .hero-meta {
+      margin: 0;
+      color: rgba(255,255,255,.82);
+      font-size: 0.95rem;
+    }
+
+    .doc-content {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.75rem 1.85rem 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 8px 28px rgba(7, 20, 28, 0.04);
+    }
+
+    .doc-content h2 {
+      margin: 2rem 0 0.85rem;
+      font-size: 1.25rem;
+      color: var(--navy);
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--teal-soft);
+    }
+
+    .doc-content h2:first-child { margin-top: 0; }
+
+    .doc-content h3 {
+      margin: 1.35rem 0 0.65rem;
+      font-size: 1rem;
+      color: var(--teal);
+    }
+
+    .doc-content p,
+    .doc-content li {
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+
+    .doc-content p { margin: 0 0 0.85rem; }
+
+    .doc-content ul,
+    .doc-content ol {
+      margin: 0 0 0.85rem;
+      padding-left: 1.25rem;
+    }
+
+    .doc-content li { margin-bottom: 0.35rem; }
+
+    .doc-content code {
+      font-size: 0.86em;
+      background: var(--teal-soft);
+      color: var(--teal);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+    }
+
+    .doc-content pre {
+      margin: 0.75rem 0 1rem;
+      padding: 1rem;
+      background: #0f1a24;
+      color: #e8edf2;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .doc-content pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 0.75rem 0 1rem;
+    }
+
+    .doc-content th,
+    .doc-content td {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .doc-content th {
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .mermaid-wrap {
+      margin: 1rem 0 1.25rem;
+      padding: 1rem;
+      background: #f8fafb;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .related {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .related a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--teal);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+    }
+
+    .related a:hover { border-color: var(--teal); }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    @media print {
+      .toolbar, .related { display: none; }
+      .doc-content { box-shadow: none; border: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toolbar">
+      <button type="button" class="primary" onclick="window.print()">Print / Save as PDF</button>
+      <button type="button" onclick="location.href='/'">Back to all reports</button>
+    </div>
+
+    <header class="hero">
+      <p class="eyebrow">Technical roadmap</p>
+      <h1>Motofi infrastructure and launch roadmap</h1>
+      <p class="hero-meta">Last updated: 20 May 2026. Stack, architecture, build phases, and launch checklist for the MVP.</p>
+    </header>
+
+    <nav class="related" aria-label="Related Motofi documents">
+      <a href="motofi_freddie_decision_brief.html">Decision brief</a>
+      <a href="motofi_project_update_mike_freddie.html">Project update</a>
+      <a href="motofi_mvp_plan_full.html">MVP working plan</a>
+    </nav>
+
+    <article class="doc-content">
+<h2>Stack Decision</h2>
+<p>Use <strong>Vite React + Convex + Clerk + Vercel</strong> for the MVP.</p>
+<p>This stack keeps the build close to tools already familiar to the team while giving Motofi a real backend for marketplace state, subscriptions, server-side CarJam calls, Stripe webhooks, and live dashboard updates.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Choice</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Frontend</td>
+<td>Vite React + TypeScript</td>
+<td>Dealer and broker dashboards, forms, bid review, account pages.</td>
+</tr>
+<tr>
+<td>UI styling</td>
+<td>Tailwind CSS + small internal component set</td>
+<td>Fast app UI with consistent forms, tables, badges, modals, and empty states.</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>Clerk</td>
+<td>Sign up, sign in, user sessions, user profile, role metadata.</td>
+</tr>
+<tr>
+<td>Backend/database</td>
+<td>Convex</td>
+<td>Listings, bids, users, subscription status, audit events, contact unlocks, server actions.</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>Vercel</td>
+<td>Static frontend hosting, preview deployments, production domain.</td>
+</tr>
+<tr>
+<td>Payments</td>
+<td>Stripe Billing</td>
+<td>Separate broker and dealer monthly subscriptions; exact amounts TBD.</td>
+</tr>
+<tr>
+<td>Vehicle lookup</td>
+<td>CarJam API</td>
+<td>Server-side number plate lookup. Store all returned vehicle fields except valuation; odometer remains manual entry only.</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>Resend</td>
+<td>Launch emails for bid accepted, listing closed, and account/support notifications.</td>
+</tr>
+<tr>
+<td>CRM</td>
+<td>Pipedrive</td>
+<td>Business CRM for dealer/broker sales pipeline, onboarding follow-up, and customer relationship notes.</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Vercel analytics + Convex logs + Stripe webhook logs</td>
+<td>Enough visibility for pilot launch without overbuilding observability.</td>
+</tr>
+</tbody></table>
+<h2>System Architecture</h2>
+<div class="mermaid-wrap"><div class="mermaid">flowchart LR
+  user[Dealer / Broker Browser]
+  web[Vite React App on Vercel]
+  clerk[Clerk Auth]
+  convex[Convex Backend]
+  stripe[Stripe Billing]
+  carjam[CarJam API]
+  resend[Resend Email]
+  pipedrive[Pipedrive CRM]
+
+  user --> web
+  web --> clerk
+  web --> convex
+  convex --> clerk
+  convex --> stripe
+  stripe --> convex
+  convex --> carjam
+  convex --> resend
+  convex --> pipedrive
+  pipedrive --> convex</div></div>
+<p>Ownership rule: React renders the product, Clerk proves identity, Convex owns marketplace state and business rules, Stripe owns billing state, CarJam owns vehicle lookup, Resend owns outbound email delivery, and Pipedrive owns business CRM pipeline/follow-up context.</p>
+<h2>Repository Shape</h2>
+<p>Target structure:</p>
+<pre><code class="language-text">Motofi/
+  apps/
+    web/                    # Vite React app
+      src/
+        app/                # app shell, providers, route definitions
+        components/         # reusable UI components
+        features/           # dealer, broker, billing, listings, bids
+        lib/                # shared client helpers
+        styles/
+  convex/                   # Convex schema, queries, mutations, actions, http actions
+  docs/
+    product/                # MVP decisions and business logic
+    technical/              # infrastructure, launch roadmap, API notes
+    references/             # old Freddie/speculation assets kept as references
+  scripts/                  # local helper scripts only
+</code></pre>
+<p>Current static HTML/spec files should be treated as references, not production code. Move them under <code>docs/references/</code> once the app scaffold exists, then keep the current Freddie-facing plan as a product source file under <code>docs/product/</code>.</p>
+<h2>Core Infrastructure</h2>
+<h3>Frontend App</h3>
+<ul>
+<li>Create a Vite React TypeScript app in <code>apps/web</code>.</li>
+<li>Use Clerk React for auth and wrap the app with Clerk + Convex providers.</li>
+<li>Use route-level separation for unauthenticated pages, dealer workspace, broker workspace, billing, and support/admin screens.</li>
+<li>Keep the UI app-first and operational: dashboards, tables, forms, modals, filters, and status badges.</li>
+</ul>
+<h3>Convex Backend</h3>
+<p>Core tables:</p>
+<ul>
+<li><code>users</code>: Clerk user ID, role, company, contact details, approval status.</li>
+<li><code>organisations</code>: dealer yards and broker companies.</li>
+<li><code>subscriptions</code>: role, Stripe customer ID, subscription ID, status, current period, price ID.</li>
+<li><code>listings</code>: dealer/org, vehicle fields, buyer finance context, deadline, status.</li>
+<li><code>carjamLookups</code>: lookup payload, plate, response status, manual/support override flags.</li>
+<li><code>bids</code>: listing, broker/org, rate, term, conditions, status, submitted/updated timestamps.</li>
+<li><code>contactUnlocks</code>: listing, winning bid, dealer/broker contact snapshot, unlocked timestamp.</li>
+<li><code>crmLinks</code>: Convex record references mapped to Pipedrive organization/person/deal IDs.</li>
+<li><code>auditEvents</code>: support overrides, listing publish, bid accepted, Stripe status changes.</li>
+</ul>
+<p>Critical Convex rules:</p>
+<ul>
+<li>Only approved dealers can publish listings.</li>
+<li>Only subscribed/active dealers can post paid listings once pricing is live.</li>
+<li>Only approved/subscribed brokers can view live listings and bid.</li>
+<li>One active bid per broker per listing.</li>
+<li>Bids are semi-sealed: dealers see bids; brokers do not see competitor rates.</li>
+<li>Dealer can accept exactly one bid; acceptance closes the listing and unlocks contact.</li>
+<li>Contact details unlock only after accept.</li>
+<li>CarJam lookup can be manually overridden by dealer or support; odometer is manual only.</li>
+</ul>
+<h3>Clerk Auth</h3>
+<ul>
+<li>Store the app role in Clerk public metadata or sync it into Convex after sign-up.</li>
+<li>MVP roles: <code>dealer</code>, <code>broker</code>, <code>support</code>.</li>
+<li>Require support/manual approval before a new account can create paid marketplace activity.</li>
+<li>Use Convex as the source of truth for app permissions after Clerk identity is verified.</li>
+</ul>
+<h3>Stripe Billing</h3>
+<ul>
+<li>Create separate broker and dealer subscription products.</li>
+<li>Exact monthly prices are not ready yet, so use configurable Stripe Price IDs in environment variables.</li>
+<li>Stripe webhooks should update Convex subscription records.</li>
+<li>Paid action gates:<ul>
+<li>Dealer needs active subscription before posting live listings.</li>
+<li>Broker needs active subscription before accessing live listings and placing bids.</li>
+</ul>
+</li>
+<li>Do not hard-code pricing in app logic; show plan labels and status from config/data.</li>
+</ul>
+<h3>CarJam Integration</h3>
+<ul>
+<li>Run plate lookup through a Convex action so the API key never reaches the browser.</li>
+<li>Store all returned vehicle fields except valuation.</li>
+<li>Do not trust or auto-fill odometer from lookup; ask dealer to enter odometer manually.</li>
+<li>If lookup fails, allow dealer manual override.</li>
+<li>Add support-only override path for corrections.</li>
+</ul>
+<h3>Email</h3>
+<p>Use Resend for simple transactional email:</p>
+<ul>
+<li>Dealer: new bid received.</li>
+<li>Broker: bid accepted / listing closed.</li>
+<li>Dealer and broker: contact unlock confirmation.</li>
+<li>Support/admin: account approval or override notifications if needed.</li>
+</ul>
+<p>Email is useful for pilot reliability, but the MVP should still work through in-app status if email is delayed.</p>
+<h3>Pipedrive CRM</h3>
+<p>Use Pipedrive as the business CRM, not the product database.</p>
+<p>Pipedrive should track:</p>
+<ul>
+<li>Dealer and broker prospects before signup.</li>
+<li>Dealer yard and broker company customer records after signup.</li>
+<li>Onboarding/sales stages for accounts, subscriptions, and pilot follow-up.</li>
+<li>Activities for support calls, account approval follow-up, failed onboarding, and subscription renewal conversations.</li>
+<li>Notes for relationship context that does not belong in the marketplace product UI.</li>
+</ul>
+<p>Recommended object mapping:</p>
+<ul>
+<li>Pipedrive <code>Organization</code>: dealer yard or broker company.</li>
+<li>Pipedrive <code>Person</code>: primary contact at that company.</li>
+<li>Pipedrive <code>Deal</code>: account onboarding/subscription opportunity, not individual Motofi listings or bids.</li>
+<li>Pipedrive <code>Activity</code>: follow-up task for approval, payment setup, pilot check-in, support issue, or churn risk.</li>
+<li>Pipedrive <code>Note</code>: human CRM notes and high-level product milestones.</li>
+</ul>
+<p>Integration direction:</p>
+<ul>
+<li>Convex remains the source of truth for listings, bids, subscriptions, contact unlocks, and marketplace permissions.</li>
+<li>Pipedrive receives selected lifecycle events from Convex: account created, account approved, subscription active/inactive, first listing posted, first bid placed, first deal awarded.</li>
+<li>Pipedrive IDs are stored in <code>crmLinks</code> so support/admin screens can link to the relevant CRM record.</li>
+<li>For MVP, use a private Pipedrive API integration stored in Convex environment variables. Use OAuth only if Motofi later needs a multi-tenant public Pipedrive app.</li>
+<li>If Pipedrive webhooks are enabled later, use them only to sync CRM fields back into Convex that the product explicitly needs, such as account owner or CRM stage. Do not let Pipedrive overwrite marketplace-critical state.</li>
+</ul>
+<h2>Environment And Secrets</h2>
+<p>Keep secrets out of the frontend bundle. Frontend-safe values use Vite&#39;s <code>VITE_</code> prefix; all private keys belong in Convex environment variables or Vercel deployment settings that are never exposed to browser code.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Variable</th>
+<th>Where</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clerk</td>
+<td><code>VITE_CLERK_PUBLISHABLE_KEY</code></td>
+<td>Vercel / <code>apps/web</code></td>
+<td>Browser-safe Clerk key.</td>
+</tr>
+<tr>
+<td>Clerk</td>
+<td><code>CLERK_SECRET_KEY</code></td>
+<td>Convex / server-only</td>
+<td>Used only by backend/server flows if required.</td>
+</tr>
+<tr>
+<td>Convex</td>
+<td><code>VITE_CONVEX_URL</code></td>
+<td>Vercel / <code>apps/web</code></td>
+<td>Browser-safe Convex deployment URL.</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td><code>STRIPE_SECRET_KEY</code></td>
+<td>Convex</td>
+<td>Server-side Stripe API calls.</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td><code>STRIPE_WEBHOOK_SECRET</code></td>
+<td>Convex</td>
+<td>Verify webhook signatures.</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td><code>STRIPE_BROKER_PRICE_ID</code></td>
+<td>Convex</td>
+<td>Configurable; exact amount TBD.</td>
+</tr>
+<tr>
+<td>Stripe</td>
+<td><code>STRIPE_DEALER_PRICE_ID</code></td>
+<td>Convex</td>
+<td>Configurable; exact amount TBD.</td>
+</tr>
+<tr>
+<td>CarJam</td>
+<td><code>CARJAM_API_KEY</code></td>
+<td>Convex</td>
+<td>Never exposed to browser.</td>
+</tr>
+<tr>
+<td>Resend</td>
+<td><code>RESEND_API_KEY</code></td>
+<td>Convex</td>
+<td>Server-side transactional email.</td>
+</tr>
+<tr>
+<td>Pipedrive</td>
+<td><code>PIPEDRIVE_API_TOKEN</code></td>
+<td>Convex</td>
+<td>Private CRM API token for internal integration.</td>
+</tr>
+<tr>
+<td>Pipedrive</td>
+<td><code>PIPEDRIVE_COMPANY_DOMAIN</code></td>
+<td>Convex</td>
+<td>Used to build CRM links and API URLs.</td>
+</tr>
+<tr>
+<td>Pipedrive</td>
+<td><code>PIPEDRIVE_WEBHOOK_SECRET</code></td>
+<td>Convex</td>
+<td>Only needed if Pipedrive webhooks are enabled.</td>
+</tr>
+<tr>
+<td>App</td>
+<td><code>SUPPORT_EMAIL</code></td>
+<td>Convex / app config</td>
+<td>Used in support and notification flows.</td>
+</tr>
+</tbody></table>
+<p>Use separate development, preview, and production values for Clerk, Convex, Stripe, CarJam, Resend, and Pipedrive.</p>
+<h2>Build Roadmap</h2>
+<h3>Phase 0: Repo And Environment Setup</h3>
+<p>Goal: create the app foundation without implementing marketplace features.</p>
+<ul>
+<li>Create monorepo structure and Vite app.</li>
+<li>Add Convex, Clerk, Tailwind, routing, and environment variable templates.</li>
+<li>Add Vercel project setup and preview deployment.</li>
+<li>Move planning artifacts into <code>docs/product</code>, <code>docs/technical</code>, and <code>docs/references</code>.</li>
+<li>Add README with local setup and required environment variables.</li>
+</ul>
+<p>Acceptance:</p>
+<ul>
+<li>App boots locally.</li>
+<li>Convex dev server runs.</li>
+<li>Clerk sign-in/sign-out works.</li>
+<li>Vercel preview deploy succeeds.</li>
+</ul>
+<h3>Phase 1: Accounts, Roles, And Subscriptions</h3>
+<p>Goal: users can enter the product with the correct role and billing state.</p>
+<ul>
+<li>Implement Clerk sign-up/sign-in.</li>
+<li>Create Convex user/org profile on first login.</li>
+<li>Add role selection or support-assigned role flow.</li>
+<li>Add account approval status.</li>
+<li>Add Stripe customer/subscription sync through webhooks.</li>
+<li>Add CRM sync for new dealer/broker organizations and primary contacts.</li>
+<li>Add role-based route guards and paid action guards.</li>
+</ul>
+<p>Acceptance:</p>
+<ul>
+<li>Dealer, broker, and support users land in the correct area.</li>
+<li>Unapproved users cannot access marketplace actions.</li>
+<li>Missing/inactive subscription blocks paid actions.</li>
+<li>Stripe test webhook updates Convex subscription state.</li>
+<li>New approved accounts can be linked to Pipedrive organizations/persons.</li>
+</ul>
+<h3>Phase 2: Dealer Listing Creation</h3>
+<p>Goal: dealers can create a live listing with CarJam lookup and buyer context.</p>
+<ul>
+<li>Build dealer create-listing form.</li>
+<li>Add plate lookup with CarJam action.</li>
+<li>Store all CarJam fields except valuation.</li>
+<li>Require manual odometer.</li>
+<li>Include buyer income band, credit band, optional notes, location, and deadline.</li>
+<li>Allow dealer manual override and support-only correction.</li>
+<li>Publish listing to <code>live</code>.</li>
+</ul>
+<p>Acceptance:</p>
+<ul>
+<li>Dealer can create and publish a listing.</li>
+<li>Failed CarJam lookup does not block posting.</li>
+<li>Listing has enough buyer/vehicle context for broker bidding.</li>
+<li>Only subscribed/approved dealers can publish.</li>
+</ul>
+<h3>Phase 3: Broker Marketplace And Bidding</h3>
+<p>Goal: brokers can browse live listings and submit structured bids.</p>
+<ul>
+<li>Build broker live listings view.</li>
+<li>Add listing detail view.</li>
+<li>Add bid form with rate, term, and conditions.</li>
+<li>Enforce one active bid per broker per listing.</li>
+<li>Allow bid edit/withdraw while listing is live.</li>
+<li>Hide competitor rates from brokers.</li>
+</ul>
+<p>Acceptance:</p>
+<ul>
+<li>Broker can browse live listings only when approved/subscribed.</li>
+<li>Broker can submit, edit, and withdraw one active bid.</li>
+<li>Broker cannot see competitor rates.</li>
+<li>Dealer sees submitted bids in comparison view.</li>
+</ul>
+<h3>Phase 4: Award, Contact Unlock, And Closure</h3>
+<p>Goal: dealer accepts one broker and both sides can complete off-platform.</p>
+<ul>
+<li>Build dealer bid comparison view.</li>
+<li>Show broker/company identity before accept.</li>
+<li>Accept bid with confirmation.</li>
+<li>Mark listing awarded and close further bidding.</li>
+<li>Create contact unlock record.</li>
+<li>Show dealer/broker contact snapshots to the winning parties.</li>
+<li>Notify losing brokers that listing closed.</li>
+</ul>
+<p>Acceptance:</p>
+<ul>
+<li>Only one bid can win.</li>
+<li>Listing closes after award.</li>
+<li>Contact unlock only happens after accept.</li>
+<li>Losing brokers do not receive contact details.</li>
+</ul>
+<h3>Phase 5: Support/Admin And Pilot Hardening</h3>
+<p>Goal: make the pilot operable without developer intervention.</p>
+<ul>
+<li>Add support view for account approvals.</li>
+<li>Add support override for CarJam/listing corrections.</li>
+<li>Add basic audit trail view.</li>
+<li>Add CRM link/status panel for support users.</li>
+<li>Add subscription status diagnostics.</li>
+<li>Add operational empty/error states.</li>
+<li>Add seed/demo data for Freddie/Mike walkthroughs.</li>
+</ul>
+<p>Acceptance:</p>
+<ul>
+<li>Support can approve accounts and inspect core records.</li>
+<li>Support can open the linked Pipedrive organization/person/deal from the admin view.</li>
+<li>Overrides are audited.</li>
+<li>Pilot users can recover from failed lookup, inactive subscription, or withdrawn bid without confusion.</li>
+</ul>
+<h3>Phase 6: Launch Readiness</h3>
+<p>Goal: ship a controlled pilot.</p>
+<ul>
+<li>Configure production Clerk, Convex, Stripe, CarJam, Resend, Pipedrive, and Vercel environments.</li>
+<li>Add backup/export plan for Convex data.</li>
+<li>Run end-to-end smoke tests with test dealer and broker accounts.</li>
+<li>Confirm Stripe product price IDs after Freddie/Mike choose amounts.</li>
+<li>Prepare pilot onboarding copy and support checklist.</li>
+<li>Launch to a small controlled group of dealers and brokers.</li>
+</ul>
+<p>Acceptance:</p>
+<ul>
+<li>Production app is reachable on the final domain.</li>
+<li>Dealer can post a listing with a real CarJam lookup.</li>
+<li>Broker can bid.</li>
+<li>Dealer can accept.</li>
+<li>Contact unlock works.</li>
+<li>Stripe subscription gates work in live mode.</li>
+<li>Support can inspect and correct pilot issues.</li>
+<li>Pipedrive receives account/subscription lifecycle events for pilot follow-up.</li>
+</ul>
+<h2>Launch Checklist</h2>
+<ul>
+<li>Clerk production instance configured.</li>
+<li>Convex production deployment configured.</li>
+<li>Vercel production project and domain configured.</li>
+<li>Stripe products created for broker and dealer subscriptions.</li>
+<li>Stripe Price IDs added to environment variables.</li>
+<li>Stripe webhook endpoint configured and verified.</li>
+<li>CarJam API credentials added to Convex environment.</li>
+<li>Resend sender/domain configured.</li>
+<li>Pipedrive API token/company domain configured.</li>
+<li>Pipedrive pipeline and stages created for dealer/broker onboarding.</li>
+<li>Support users created and tested.</li>
+<li>Dealer and broker pilot accounts invited.</li>
+<li>End-to-end smoke test completed.</li>
+<li>Freddie/Mike approve subscription amounts and pilot copy.</li>
+</ul>
+<h2>Test Plan</h2>
+<ul>
+<li>Unit-test Convex business rules for publishing, bidding, withdrawing, accepting, contact unlock, and subscription gates.</li>
+<li>Integration-test Stripe webhook handling with Stripe CLI in test mode.</li>
+<li>Integration-test CarJam lookup success, failed lookup, dealer manual override, and support override.</li>
+<li>Integration-test Pipedrive sync for account created, account approved, subscription active, and first listing posted.</li>
+<li>Browser-test the critical happy path: dealer signs in, posts listing, broker bids, dealer accepts, contact unlock appears.</li>
+<li>Browser-test role and subscription blocks: unapproved account, inactive subscription, broker trying to see competitor rates, losing broker trying to see contact details.</li>
+<li>Smoke-test production with one dealer, one broker, and one support user before inviting pilot users.</li>
+</ul>
+<h2>Key Risks</h2>
+<ul>
+<li><strong>Stripe pricing not ready:</strong> keep price IDs configurable and do not block app build on exact amounts.</li>
+<li><strong>CarJam response shape unknown:</strong> build the lookup payload storage flexibly, then map only trusted fields into listing display.</li>
+<li><strong>Broker bidding confidence:</strong> buyer income/credit band is included, but pilot feedback should decide whether more buyer fields are needed.</li>
+<li><strong>Support workload:</strong> manual/support overrides are intentional, so launch needs a simple support screen early.</li>
+<li><strong>CRM drift:</strong> Pipedrive should support sales and follow-up, but Convex must remain the product source of truth for marketplace state.</li>
+<li><strong>Scope creep into Model B:</strong> architecture should not block Model B later, but MVP remains Model A only.</li>
+</ul>
+<h2>Immediate Next Steps</h2>
+<ol>
+<li>Create the Vite React app scaffold under <code>apps/web</code>.</li>
+<li>Add Convex, Clerk, Tailwind, and routing.</li>
+<li>Create the initial Convex schema for users, organisations, subscriptions, listings, bids, contact unlocks, CRM links, and audit events.</li>
+<li>Set up development environment variables for Clerk, Convex, Stripe test mode, CarJam, Resend, and Pipedrive.</li>
+<li>Move existing planning artifacts into <code>docs/product</code> and <code>docs/references</code> once the app scaffold is committed.</li>
+</ol>
+
+    </article>
+
+    <p class="footer-note">Technical planning document. Not legal or financial advice.</p>
+  </div>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "neutral" });
+  </script>
+</body>
+</html>

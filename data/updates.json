@@ -12,6 +12,17 @@
       "tags": ["mvp", "decisions", "stack"]
     },
     {
+      "id": "motofi-2026-05-20-infrastructure-roadmap",
+      "projectId": "motofi",
+      "title": "Motofi infrastructure and launch roadmap",
+      "date": "2026-05-20",
+      "category": "technical-note",
+      "summary": "Vite React, Convex, Clerk, and Vercel stack with build phases, env vars, and launch checklist.",
+      "path": "/updates/motofi/motofi_infrastructure_launch_roadmap.html",
+      "audience": "Build team and stakeholders",
+      "tags": ["infrastructure", "convex", "clerk", "vercel", "launch"]
+    },
+    {
       "id": "motofi-2026-05-21-project-update",
       "projectId": "motofi",
       "title": "Motofi project update for Mike and Freddie",
