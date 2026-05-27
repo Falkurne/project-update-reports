@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motofi marketplace update - 27 May 2026</title>
+  <style>
+    body { margin: 0; font-family: Inter, Segoe UI, system-ui, sans-serif; color: #14201c; background: #f2f5f4; line-height: 1.6; }
+    .page { max-width: 920px; margin: 0 auto; padding: 32px 20px 56px; }
+    .hero { background: linear-gradient(145deg, #07141c, #0f2a36 60%, #08785d 130%); color: white; border-radius: 16px; padding: 32px; box-shadow: 0 16px 40px rgba(7,20,28,.1); }
+    .label { text-transform: uppercase; letter-spacing: .12em; opacity: .72; font-weight: 800; font-size: 12px; }
+    h1 { margin: 8px 0 8px; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; }
+    h2 { margin-top: 28px; }
+    section { background: white; margin-top: 18px; padding: 22px; border: 1px solid #d8e3de; border-radius: 14px; }
+    .meta { color: #5a6a64; }
+    li { margin: 7px 0; }
+    .draft { display: inline-block; margin-top: 10px; padding: 4px 10px; border-radius: 999px; background: #fff3cd; color: #6b4e00; font-weight: 700; }
+    details { margin-top: 18px; }
+    summary { cursor: pointer; font-weight: 800; }
+    code { background: #edf4f1; border-radius: 6px; padding: 2px 5px; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="label">Draft stakeholder update</div>
+      <h1>Motofi marketplace update - 27 May 2026</h1>
+      <p>Audience: Corbyn review first, then Freddie and Mike if approved. Source window: Linear and git activity from 25 May 2026 through 27 May 2026 UTC.</p>
+      <span class="draft">Draft for Corbyn review - not client-sent</span>
+    </header>
+
+    <section>
+      <h2>Plain-language summary</h2>
+      <ul>
+        <li>Motofi moved from planning documents into a real scaffolded app foundation: Vite React, pnpm workspace setup, Convex backend files, and Clerk/Convex auth preparation are now in the repo.</li>
+        <li>Phase 0 planning/scaffold tickets are marked done in Linear, and Phase 1 auth/onboarding has started moving from parent tickets into smaller implementation chunks.</li>
+        <li>Dealer listing lifecycle work has been broken down into Phase 2 tickets, with Phase 3 broker browsing/bidding breakdown prepared as follow-on work.</li>
+        <li>The biggest current implementation risk is finishing profile backend/UI and route guards cleanly before Phase 2 listing work starts.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What changed</h2>
+      <ul>
+        <li>Added Motofi planning docs, MVP brief material, infrastructure roadmap, generated stakeholder HTML assets, and repository setup files.</li>
+        <li>Scaffolded the web app under <code>apps/web</code> with Vite, React, TypeScript, app shell files, styling, assets, and local app docs.</li>
+        <li>Added Convex backend foundations: schema, auth config, generated API/data model files, a users module, Convex guidance files, and environment templates.</li>
+        <li>Added root workspace files: <code>package.json</code>, <code>pnpm-workspace.yaml</code>, <code>pnpm-lock.yaml</code>, and setup documentation.</li>
+        <li>Created the Phase 1 auth/onboarding breakdown and updated the Motofi Linear build plan/docs to reflect the new implementation sequence.</li>
+        <li>Completed research/decision tracking around Clerk Billing as a later alternative to direct Stripe subscriptions.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Linear delivery state</h2>
+      <ul>
+        <li>Done Phase 0: FAL-42 technical baseline, FAL-43 app scaffold, FAL-44 Convex backend skeleton/schema draft, FAL-45 env/setup docs, FAL-46 role-aware shell/placeholders, FAL-47 Phase 1 issue breakdown.</li>
+        <li>Done Phase 1 pieces: FAL-51 Clerk provider/auth shell, FAL-52 Convex user sync/role model, FAL-53 role selection onboarding.</li>
+        <li>In progress Phase 1: FAL-54 dealer profile form, FAL-55 broker profile form, FAL-56 route guards/navigation states.</li>
+        <li>New implementation chunks: FAL-79 profile backend finalization, FAL-80 dealer profile UI, FAL-81 broker profile UI, FAL-82 route guards/nav filtering.</li>
+        <li>New Phase 2 backlog: FAL-71 dealer listing lifecycle and FAL-72 through FAL-78 covering listing backend, create form, dashboard, publish/cancel UX, deadlines, detail page, and Phase 3 issue prep.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Open / needs review</h2>
+      <ul>
+        <li>Confirm whether Phase 1 parent issues should remain in progress while the smaller FAL-79 to FAL-82 cloud chunks are executed.</li>
+        <li>Review the current repo scaffold before layering listing lifecycle work on top of auth/profile flows.</li>
+        <li>Decide how soon to revisit the Clerk Billing research result; it is marked done but likely should stay as "watch later" until subscription work is actually in scope.</li>
+        <li>FAL-59 remains open for watching <code>motofi.co.nz</code> domain availability/ownership.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Related Linear workspace activity</h2>
+      <ul>
+        <li>Mike business setup work progressed outside the two code repos: Google Workspace, domain/DNS, and hosting path issues were completed.</li>
+        <li>The Motofi/Mike overlap mapping issue was canceled, and a separate email-forwarding task remains in backlog.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Recommended next actions</h2>
+      <ul>
+        <li>Review FAL-79 first so the profile backend contract is stable before dealer/broker profile UI work continues.</li>
+        <li>Keep FAL-80, FAL-81, and FAL-82 small and mergeable to avoid mixing profile UI, route guards, and dashboard behavior.</li>
+        <li>Hold Phase 2 listing implementation until the active-user/profile state can be trusted by both frontend and Convex functions.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source activity for Corbyn</h2>
+      <p class="meta">This appendix is for review, not necessarily for clients.</p>
+      <details open>
+        <summary>Linear issues observed</summary>
+        <ul>
+          <li>Done: FAL-42, FAL-43, FAL-44, FAL-45, FAL-46, FAL-47, FAL-51, FAL-52, FAL-53, FAL-68.</li>
+          <li>In progress: FAL-54, FAL-55, FAL-56.</li>
+          <li>Backlog/new: FAL-59, FAL-71 through FAL-82.</li>
+          <li>Canceled: FAL-69 PR workflow smoke test.</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Git commits reviewed</summary>
+        <ul>
+          <li><code>45ee19b</code> Initial Motofi planning docs.</li>
+          <li><code>045940e</code> Add Motofi Linear build plan.</li>
+          <li><code>509ee7f</code> Scaffold Motofi auth foundation and Convex/web workspace files.</li>
+          <li>Repo checked: <code>client_Motofi_Broker-Marketplace</code> on branch <code>cursor/project-updates-report-4004</code>.</li>
+        </ul>
+      </details>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELoanz website update - 27 May 2026</title>
+  <style>
+    body { margin: 0; font-family: Inter, Segoe UI, system-ui, sans-serif; color: #14201c; background: #f2f5f4; line-height: 1.6; }
+    .page { max-width: 920px; margin: 0 auto; padding: 32px 20px 56px; }
+    .hero { background: linear-gradient(145deg, #07141c, #0f2a36 60%, #08785d 130%); color: white; border-radius: 16px; padding: 32px; box-shadow: 0 16px 40px rgba(7,20,28,.1); }
+    .label { text-transform: uppercase; letter-spacing: .12em; opacity: .72; font-weight: 800; font-size: 12px; }
+    h1 { margin: 8px 0 8px; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; }
+    h2 { margin-top: 28px; }
+    section { background: white; margin-top: 18px; padding: 22px; border: 1px solid #d8e3de; border-radius: 14px; }
+    .meta { color: #5a6a64; }
+    li { margin: 7px 0; }
+    .draft { display: inline-block; margin-top: 10px; padding: 4px 10px; border-radius: 999px; background: #fff3cd; color: #6b4e00; font-weight: 700; }
+    details { margin-top: 18px; }
+    summary { cursor: pointer; font-weight: 800; }
+    code { background: #edf4f1; border-radius: 6px; padding: 2px 5px; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="label">Draft stakeholder update</div>
+      <h1>ELoanz website update - 27 May 2026</h1>
+      <p>Audience: Corbyn review first, then Freddie and Mike if approved. Source window: Linear and git activity from 25 May 2026 through 27 May 2026 UTC.</p>
+      <span class="draft">Draft for Corbyn review - not client-sent</span>
+    </header>
+
+    <section>
+      <h2>Plain-language summary</h2>
+      <ul>
+        <li>The ELoanz site moved through a focused polish pass covering launch visuals, form details, footer navigation, and compliance support material.</li>
+        <li>Several small tickets were completed and merged: favicon work, footer link cleanup, input backgrounds, comparison icon alignment, and selected form/check-box improvements.</li>
+        <li>The Coral and Slate theme direction now has an off-white canvas with cards adjusted to stand out where useful and drop borders where they were adding clutter.</li>
+        <li>One active review item remains around temporarily hiding the homepage "How it works" section.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What changed</h2>
+      <ul>
+        <li>Added the Eastpoint introducer compliance source into the repo and reconciled the compliance guide/audit notes against it.</li>
+        <li>Improved the hero-to-content transition with a wave divider and later page rhythm work to make the homepage feel more like a single sales journey.</li>
+        <li>Updated homepage and style preview assets/copy structure, including FAQ/content reshaping and new privacy/terms pages.</li>
+        <li>Refined the enquiry flow: conditional number plate input, styled email consent cards, and consistent white text input backgrounds across themes.</li>
+        <li>Removed or reduced visual clutter: homepage feature chip banner, footer "How it works" and FAQ links, and mismatched compare-card icon alignment.</li>
+        <li>Created and iterated favicon assets from the logo arrow mark, ending on the brand-orange transparent mark.</li>
+        <li>Applied the off-white site background treatment for the Coral and Slate theme work.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Open / needs review</h2>
+      <ul>
+        <li><strong>FAL-61</strong> is in progress with a draft PR to hide the homepage "How it works" section.</li>
+        <li><strong>FAL-65</strong> remains marked in progress in Linear even though the newer off-white background PR was merged; confirm whether the Linear status should be closed.</li>
+        <li><strong>FAL-9</strong> remains in progress and blocked for the collaboration/partner-style section below the hero.</li>
+        <li><strong>FAL-63</strong> is still todo for reverting placeholder FAQ/question-and-answer content for Mike to fill out.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Pull request / review status</h2>
+      <ul>
+        <li>Merged: <code>#48</code> off-white Coral/Slate canvas, <code>#47</code> footer nav cleanup, <code>#45</code> favicon, <code>#44</code> compare icon alignment, and <code>#39</code> white text inputs.</li>
+        <li>Draft: <code>#49</code> hide homepage "How it works" section.</li>
+        <li>Closed/not carried forward: <code>#38</code> homepage journey rhythm and <code>#46</code> workflow smoke test.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Recommended next actions</h2>
+      <ul>
+        <li>Review the draft hide-section PR and decide whether it should merge as a temporary content simplification.</li>
+        <li>Close or update Linear statuses for finished visual polish tickets that have already merged.</li>
+        <li>Continue compliance-safe copy review before treating any marketing page copy as final launch copy.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source activity for Corbyn</h2>
+      <p class="meta">This appendix is for review, not necessarily for clients.</p>
+      <details open>
+        <summary>Linear issues observed</summary>
+        <ul>
+          <li>Done: FAL-57, FAL-58, FAL-60, FAL-62, FAL-64, FAL-66, FAL-50, FAL-30, FAL-34.</li>
+          <li>In progress: FAL-61, FAL-65, FAL-9.</li>
+          <li>Todo/backlog/canceled: FAL-63 todo, FAL-49 canceled.</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Git commits reviewed</summary>
+        <ul>
+          <li>Recent commit range included compliance docs, hero transition, website update restructuring, lead form tweaks, favicon iterations, footer cleanup, compare icon alignment, and off-white theme polish.</li>
+          <li>Repo checked: <code>client_Eloanz_Website</code> on branch <code>cursor/project-updates-report-4004</code>.</li>
+        </ul>
+      </details>
+    </section>
+  </main>
+</body>
+</html>

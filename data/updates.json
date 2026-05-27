@@ -1,6 +1,42 @@
 {
   "updates": [
     {
+      "id": "motofi-2026-05-27-linear-git-update",
+      "projectId": "motofi",
+      "title": "Motofi marketplace Linear and git progress update",
+      "date": "2026-05-27",
+      "category": "stakeholder-update",
+      "summary": "Draft review update covering Motofi scaffold, Convex/auth foundations, Phase 1 onboarding, and Phase 2 listing breakdown.",
+      "path": "/updates/motofi/2026-05-27-linear-git-update.html",
+      "audience": "Corbyn, then Freddie and Mike if approved",
+      "tags": [
+        "motofi",
+        "marketplace",
+        "mvp",
+        "linear",
+        "git",
+        "draft"
+      ]
+    },
+    {
+      "id": "eloanz-2026-05-27-linear-git-update",
+      "projectId": "eloanz",
+      "title": "ELoanz website Linear and git progress update",
+      "date": "2026-05-27",
+      "category": "stakeholder-update",
+      "summary": "Draft review update covering ELoanz visual polish, enquiry form refinements, favicon work, and open review items.",
+      "path": "/updates/eloanz/2026-05-27-linear-git-update.html",
+      "audience": "Corbyn, then Freddie and Mike if approved",
+      "tags": [
+        "eloanz",
+        "website",
+        "client-facing",
+        "linear",
+        "git",
+        "draft"
+      ]
+    },
+    {
       "id": "motofi-2026-05-25-auto-update",
       "projectId": "motofi",
       "title": "Motofi marketplace auto-generated progress update",
