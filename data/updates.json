@@ -1,6 +1,40 @@
 {
   "updates": [
     {
+      "id": "motofi-2026-05-28-auto-update",
+      "projectId": "motofi",
+      "title": "Motofi marketplace auto-generated progress update",
+      "date": "2026-05-28",
+      "category": "stakeholder-update",
+      "summary": "Draft update generated from 27 Linear issue changes and 3 non-merge GitHub commits.",
+      "path": "/updates/motofi/2026-05-28-auto-update.html",
+      "audience": "Freddie and Mike",
+      "tags": [
+        "motofi",
+        "marketplace",
+        "mvp",
+        "auto-generated",
+        "draft"
+      ]
+    },
+    {
+      "id": "eloanz-2026-05-28-auto-update",
+      "projectId": "eloanz",
+      "title": "ELoanz website auto-generated progress update",
+      "date": "2026-05-28",
+      "category": "stakeholder-update",
+      "summary": "Draft update generated from 11 Linear issue changes and 16 non-merge GitHub commits.",
+      "path": "/updates/eloanz/2026-05-28-auto-update.html",
+      "audience": "Freddie and Mike",
+      "tags": [
+        "eloanz",
+        "website",
+        "client-facing",
+        "auto-generated",
+        "draft"
+      ]
+    },
+    {
       "id": "motofi-2026-05-25-auto-update",
       "projectId": "motofi",
       "title": "Motofi marketplace auto-generated progress update",
