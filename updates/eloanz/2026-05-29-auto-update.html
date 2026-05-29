@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELoanz website update - 29 May 2026</title>
+  <style>
+    body { margin: 0; font-family: Inter, Segoe UI, system-ui, sans-serif; color: #14201c; background: #f2f5f4; line-height: 1.6; }
+    .page { max-width: 900px; margin: 0 auto; padding: 32px 20px 56px; }
+    .hero { background: linear-gradient(145deg, #07141c, #0f2a36 60%, #08785d 130%); color: white; border-radius: 16px; padding: 32px; box-shadow: 0 16px 40px rgba(7,20,28,.1); }
+    .label { text-transform: uppercase; letter-spacing: .12em; opacity: .72; font-weight: 800; font-size: 12px; }
+    h1 { margin: 8px 0 8px; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; }
+    h2 { margin-top: 28px; }
+    section { background: white; margin-top: 18px; padding: 22px; border: 1px solid #d8e3de; border-radius: 14px; }
+    .meta { color: #5a6a64; }
+    li { margin: 7px 0; }
+    .draft { display: inline-block; margin-top: 10px; padding: 4px 10px; border-radius: 999px; background: #fff3cd; color: #6b4e00; font-weight: 700; }
+    details { margin-top: 18px; }
+    summary { cursor: pointer; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="label">Draft stakeholder update</div>
+      <h1>ELoanz website update - 29 May 2026</h1>
+      <p>Audience: Freddie and Mike. Generated from Linear and GitHub activity reviewed on 29 May 2026.</p>
+      <span class="draft">Draft for Corbyn review - not client-sent</span>
+    </header>
+
+    <section>
+      <h2>Plain-language summary</h2>
+      <ul>
+        <li>Mike's latest feedback has been turned into a clear ELoanz backlog: selected style direction, a reverse budget calculator, services content, lifestyle imagery, a Get Started intro step, and final FAQ content.</li>
+        <li>The website polish work from the last report continued to land: FAQ placeholders, hidden How it works content, simplified footer links, favicon updates, and off-white/coral-slate surface styling are now represented in merged work.</li>
+        <li>The main review focus is choosing the implementation order for Mike's new feedback while keeping public finance copy compliance-safe.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What changed</h2>
+      <ul>
+        <li>Created new Linear follow-up tasks from Mike's 29 May feedback: FAL-108 through FAL-114.</li>
+        <li>Captured Mike's selected style-preview direction: "modern digital broker", "navy &amp; teal", and "prepared negotiator" (FAL-114).</li>
+        <li>Captured calculator and form-flow changes: weekly prepared-negotiator figure, reverse budget calculator, and a basic-info step before the full Get Started flow (FAL-108, FAL-109, FAL-110).</li>
+        <li>Captured content/design additions: lifestyle imagery, a services section, and Mike's supplied FAQ content (FAL-111, FAL-112, FAL-113).</li>
+        <li>Merged the FAQ placeholder update for Mike to fill in: client_Eloanz_Website PR #50 / commit 6172afc.</li>
+        <li>Recent polish already merged includes the hidden How it works section, off-white card surfaces, simplified footer navigation, favicon work, aligned comparison icons, and always-white text inputs.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Currently in progress</h2>
+      <ul>
+        <li>FAL-108: show the prepared-negotiator figure as a weekly amount.</li>
+        <li>FAL-109: replace the guide CTA element with a reverse budget calculator.</li>
+        <li>FAL-110: add a basic-info intro step when Get Started is clicked.</li>
+        <li>FAL-111: explore lifestyle imagery in the page background.</li>
+        <li>FAL-112: add service cards for vehicle, motorcycle, boat, jetski, caravan, and insurance.</li>
+        <li>FAL-113: populate the FAQ with Mike's supplied questions and answers.</li>
+        <li>FAL-114: apply Mike's selected style-preview options as the site direction.</li>
+        <li>FAL-9 remains in progress/blocked around the under-hero collaboration/partner-style section.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Next</h2>
+      <ul>
+        <li>Apply the selected style direction first so later copy and layout work builds on the final visual baseline.</li>
+        <li>Confirm compliance-safe wording before replacing production FAQ or calculator copy.</li>
+        <li>Decide whether the reverse budget calculator should be implemented before or after the Get Started intro-step work.</li>
+        <li>Review whether FAL-65 can be moved to Done now that the off-white/coral-slate treatment has merged.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Blockers / decisions needed</h2>
+      <ul>
+        <li>Final FAQ and calculator wording needs review before it becomes public-facing finance copy.</li>
+        <li>The reverse budget calculator depends on confirming the exact calculation assumptions and how much of the Avanti reference should be mirrored.</li>
+        <li>FAL-9 still needs a decision on whether to keep, re-scope, or drop the placeholder collaboration section.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source activity for Corbyn</h2>
+      <p class="meta">This appendix is for review, not necessarily for clients.</p>
+      <details open>
+        <summary>Linear issues</summary>
+        <ul>
+          <li>FAL-108: "Prepared negotiator" copy: show the figure as a weekly amount (Backlog).</li>
+          <li>FAL-109: Replace "Get my guide before I negotiate" with a reverse budget calculator (Backlog).</li>
+          <li>FAL-110: Add a basic-info step when "Get Started" is clicked (Backlog).</li>
+          <li>FAL-111: Add lifestyle imagery to the page background (Backlog).</li>
+          <li>FAL-112: Add a Services section (Backlog).</li>
+          <li>FAL-113: Populate FAQ with Mike's supplied questions and answers (Backlog).</li>
+          <li>FAL-114: Apply Mike's selected style-preview options (Backlog).</li>
+          <li>FAL-63: Revert FAQ to placeholder Q&amp;A for Mike (Done).</li>
+          <li>FAL-65: Off-white coral/slate treatment (Done in merged PR; Linear status still worth confirming).</li>
+        </ul>
+      </details>
+      <details>
+        <summary>GitHub / repo highlights</summary>
+        <ul>
+          <li>client_Eloanz_Website#50 merged: FAQ placeholder Q&amp;A for Mike.</li>
+          <li>client_Eloanz_Website#49 merged: hide homepage How it works section.</li>
+          <li>client_Eloanz_Website#48 merged: off-white canvas and lively card surfaces.</li>
+          <li>client_Eloanz_Website#47 merged: remove How it works and FAQ from footer nav.</li>
+          <li>client_Eloanz_Website#45 merged: favicon from logo arrow mark.</li>
+        </ul>
+      </details>
+    </section>
+  </main>
+</body>
+</html>

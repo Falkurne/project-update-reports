@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motofi marketplace update - 29 May 2026</title>
+  <style>
+    body { margin: 0; font-family: Inter, Segoe UI, system-ui, sans-serif; color: #14201c; background: #f2f5f4; line-height: 1.6; }
+    .page { max-width: 900px; margin: 0 auto; padding: 32px 20px 56px; }
+    .hero { background: linear-gradient(145deg, #07141c, #0f2a36 60%, #08785d 130%); color: white; border-radius: 16px; padding: 32px; box-shadow: 0 16px 40px rgba(7,20,28,.1); }
+    .label { text-transform: uppercase; letter-spacing: .12em; opacity: .72; font-weight: 800; font-size: 12px; }
+    h1 { margin: 8px 0 8px; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; }
+    h2 { margin-top: 28px; }
+    section { background: white; margin-top: 18px; padding: 22px; border: 1px solid #d8e3de; border-radius: 14px; }
+    .meta { color: #5a6a64; }
+    li { margin: 7px 0; }
+    .draft { display: inline-block; margin-top: 10px; padding: 4px 10px; border-radius: 999px; background: #fff3cd; color: #6b4e00; font-weight: 700; }
+    details { margin-top: 18px; }
+    summary { cursor: pointer; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="label">Draft stakeholder update</div>
+      <h1>Motofi marketplace update - 29 May 2026</h1>
+      <p>Audience: Freddie and Mike. Generated from Linear and GitHub activity reviewed on 29 May 2026.</p>
+      <span class="draft">Draft for Corbyn review - not client-sent</span>
+    </header>
+
+    <section>
+      <h2>Plain-language summary</h2>
+      <ul>
+        <li>Motofi has moved further from scaffold into practical authenticated operations: role/profile foundations are in review, and admin user role management has merged.</li>
+        <li>The next build pressure is Phase 2 dealer listings: reconcile the draft listing detail work with the newer profile/settings work, then finish the listing backend/dashboard path in the right order.</li>
+        <li>Linear now also captures later marketplace phases for broker browsing, bidding, award/contact unlock, Stripe, CarJam, Resend emails, and Model B guardrails.</li>
+        <li>A new cross-project idea was logged to evaluate whether the ELoanz reverse budget calculator should also be reused for MotoFi.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What changed</h2>
+      <ul>
+        <li>client_Motofi_Broker-Marketplace PR #2 merged: admin/support users can manage marketplace user roles from inside the site (FAL-86).</li>
+        <li>Recent commits restored role-testing controls for signed-in users and added the admin user role management flow.</li>
+        <li>Corbyn updated the Motofi README after the May 28 report window.</li>
+        <li>Profile/settings work continued with account settings consolidation, profile implementation, and test-auth commits.</li>
+        <li>Phase 2 dealer listing detail remains present as draft PR #1, with Linear explicitly tracking the need to reconcile it with current main (FAL-91).</li>
+        <li>Linear added or updated Phase 3-7 backlog issues for broker marketplace browse/bid flows, dealer bid review and award, Stripe subscription architecture, CarJam lookup, and transactional emails.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Currently in progress</h2>
+      <ul>
+        <li>FAL-84, FAL-85, FAL-87, FAL-54, FAL-56, and FAL-80 remain in review around role switching, settings, profile forms, and route guards.</li>
+        <li>FAL-72 remains in progress for dealer listing backend queries and mutations.</li>
+        <li>FAL-77 / GitHub PR #1 remains a draft dealer listing detail page and Convex listing API branch.</li>
+        <li>FAL-91 is the key reconciliation task before more Phase 2 listing UI builds on top.</li>
+        <li>FAL-115 is a new backlog item to evaluate reusing the ELoanz reverse budget calculator for MotoFi after the ELoanz version is built.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Next</h2>
+      <ul>
+        <li>Decide whether Phase 2 should first reconcile PR #1 (FAL-91) or finish the listing backend contract (FAL-72).</li>
+        <li>Close or update Linear statuses for already-merged Phase 1 work, especially FAL-86 and related admin/settings items.</li>
+        <li>Keep broker browsing/bidding work queued behind dealer listings so the marketplace contract stays stable.</li>
+        <li>Review the README changes and confirm they match the current dev, test, and deployment expectations.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Blockers / decisions needed</h2>
+      <ul>
+        <li>Phase 2 implementation order needs a decision so parallel branches do not conflict again.</li>
+        <li>Draft PR #1 should be reconciled with newer profile/settings work before more listing UI depends on it.</li>
+        <li>Future service integrations still require real server-side secrets and should stay out of cloud-agent scope until human-provided credentials and issue scope are explicit.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source activity for Corbyn</h2>
+      <p class="meta">This appendix is for review, not necessarily for clients.</p>
+      <details open>
+        <summary>Linear issues</summary>
+        <ul>
+          <li>FAL-86: Phase 1 admin user role management from the site (Done).</li>
+          <li>FAL-87: Unifying profile/settings management (In Review).</li>
+          <li>FAL-85: Dealer and broker profile editing after onboarding (In Review).</li>
+          <li>FAL-84: Admin/testing role switcher and dashboard button consistency (In Review).</li>
+          <li>FAL-80 / FAL-54: Dealer profile form work (In Review).</li>
+          <li>FAL-56: Role-aware route guards and navigation states (In Review).</li>
+          <li>FAL-72: Listing backend queries and mutations (In Progress).</li>
+          <li>FAL-77: Dealer listing detail page (In Progress / draft PR).</li>
+          <li>FAL-91: Reconcile listing backend PR with current main (Backlog).</li>
+          <li>FAL-115: Evaluate reusing ELoanz reverse budget calculator for MotoFi (Backlog).</li>
+        </ul>
+      </details>
+      <details>
+        <summary>GitHub / repo highlights</summary>
+        <ul>
+          <li>client_Motofi_Broker-Marketplace#2 merged: Phase 1 follow-up admin user role management.</li>
+          <li>4b0175c: restored role testing controls for all signed-in users.</li>
+          <li>e2d2a68: added admin user role management from the site.</li>
+          <li>4de564e: README updated after the previous report window.</li>
+          <li>fef656c: draft dealer listing detail page and Convex listings API work for FAL-77.</li>
+          <li>db02ed7 and 5774f9c: profile/settings consolidation and implementation foundations.</li>
+        </ul>
+      </details>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,6 +1,40 @@
 {
   "updates": [
     {
+      "id": "motofi-2026-05-29-auto-update",
+      "projectId": "motofi",
+      "title": "Motofi marketplace auto-generated progress update",
+      "date": "2026-05-29",
+      "category": "stakeholder-update",
+      "summary": "Draft update covering admin role management, profile/settings review work, Phase 2 listing decisions, and new marketplace backlog items.",
+      "path": "/updates/motofi/2026-05-29-auto-update.html",
+      "audience": "Freddie and Mike",
+      "tags": [
+        "motofi",
+        "marketplace",
+        "mvp",
+        "auto-generated",
+        "draft"
+      ]
+    },
+    {
+      "id": "eloanz-2026-05-29-auto-update",
+      "projectId": "eloanz",
+      "title": "ELoanz website auto-generated progress update",
+      "date": "2026-05-29",
+      "category": "stakeholder-update",
+      "summary": "Draft update covering Mike's new feedback backlog, selected style direction, calculator/form follow-ups, and merged website polish.",
+      "path": "/updates/eloanz/2026-05-29-auto-update.html",
+      "audience": "Freddie and Mike",
+      "tags": [
+        "eloanz",
+        "website",
+        "client-facing",
+        "auto-generated",
+        "draft"
+      ]
+    },
+    {
       "id": "motofi-2026-05-28-auto-update",
       "projectId": "motofi",
       "title": "Motofi marketplace auto-generated progress update",
